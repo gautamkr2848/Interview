@@ -664,4 +664,176 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     SpringApplication.run(): SpringBootApplication.run() is a method used to launch a Spring Boot application. The method
     is typically called within the main method of a Spring Boot application class, which is annotated with @SpringBootApplication
 
+85. Best Coding Practice
+    a. Use Early Returns in case of if-else
+    b. Avoid Double negations
+    c. Use Default Params to Avoid Unnecessary Else Statements
+    d. Have Modular Loop Logic
+    e. Avoid Booleans in Function Signatures
+    f. Function name should be a/c to their working
+
+86. CompletableFuture - It uses ForkJoinPool to create and use threads if we do not provide executors explicitly.
+    a. runAsync() - without any arguments or return values. It takes Runnable as an argument.
+    b. supplyAsync() - We use supplyAsync when we expect a return value from the tasks. It takes a Supplier as an argument.
+    c. thenAcceptAsync() - Suppose we want to do some processing over the previous future value taking it as an argument, but we do not want to return anything, in such cases we can use thenAcceptAsync(). It takes an object of the Consumer Class and returns nothing.
+    d. thenRunAsync() - We use this method to execute some task which does not require any argument over the value of the previous future. This method also returns nothing. It takes a Runnable object as an argument.
+    e. thenApplyAsync() - This is used when we need to apply a transformation on a value returned from the previous future. This method takes a function as an argument. It will then return a CompletableFuture of transformed type.
+    f. thenCombineAsync() - This method is used to combine two independent futures. It takes a BiFunction as an argument. This will finally return a CompletableFuture object that can be used further.
+    g. thenComposeAsync() - We use this method to combine or chain two dependent futures. If we have a use case, where we need sequential execution of some of our futures, we can use thenComposeAsync(). It takes Function as an argument and then it returns a CompletableFuture object which can be used further.
+
+87. Ingress Vs Egress - https://www.imperva.com/learn/data-security/data-egress-vs-ingress/
+
+88. The Problem with @Autowired
+    Hidden Dependencies: When using @Autowired on fields, dependencies are injected behind the scenes, which can lead to hidden dependencies. This practice makes it difficult to know what a class needs to function correctly, complicating testing and debugging.
+    Immutability Issues: Field injection allows dependencies to be mutable, making it easier for a class to change them later. This reduces the immutability of your components, which can lead to bugs that are hard to track down.
+    Testing Difficulties: Testing components that rely on field injection can be tricky. Since dependencies are not passed through constructors, you need to mock or inject these fields manually in your test setup, which can add unnecessary boilerplate code.
+    Constructor-Based Injection is Cleaner: With constructor-based injection, dependencies are explicitly declared in the constructor, making it clear which components are needed for the class to work. This approach makes the class more readable, easier to test, and improves overall maintainability.
+
+89. group by vs partioned by
+
+    1. GROUP BY
+    Purpose: Used to aggregate data into groups based on one or more columns.
+    Behavior: Collapses rows into groups and returns one row per group in the result set.
+
+    sql : SELECT department, AVG(salary) AS avg_salary FROM employees GROUP BY department;
+
+    This query groups employees by their department and calculates the average salary for each department.
+    The result will have one row per department.
+
+    2. PARTITION BY
+    Purpose: Used with window functions to perform calculations across a subset of rows (a "partition") without collapsing the rows.
+    Behavior: Keeps all original rows in the result set but allows calculations (like ranking, running totals, etc.) to be performed within each partition.
+
+    sql : SELECT employee_id, department, salary, AVG(salary) OVER (PARTITION BY department) AS avg_salary FROM employees;
+
+    This query calculates the average salary for each department but retains all rows in the result set.
+    Each row will include the employee's details along with the department's average salary.
+
+    Summary
+    Use GROUP BY when you want to collapse rows into groups and calculate aggregated values for each group.
+    Use PARTITION BY when you want to retain all rows but perform calculations within partitions (subsets of data).
+
+90. Ditch String Concatenation — Embrace StringBuilder
+    Strings in Java are immutable, meaning every + operation creates a new object. Multiply that by 10,000 iterations, and you’ve got a memory nightmare.
+
+    StringBuilder builder = new StringBuilder();
+    builder.append("Java").append(" ").append("Performance");
+    System.out.println(builder.toString());
+    Why It’s a Game-Changer:
+
+    Slashes memory overhead by 80% in heavy loops.
+    Avoids cluttering the heap with redundant objects.
+    Pro Tip: If thread safety is a concern, use StringBuffer. But 99% of the time, StringBuilder is your hero.
+
+91. Loops: The Silent Performance Killer (For Certain Collections)
+    Not all loops are created equal! While list.size() is a constant-time operation (O(1)) for an ArrayList, it's an O(n) operation for LinkedList, as it requires traversing the list each time it's called.
+
+    🚨 The Problem (For LinkedList & Certain Collections):
+
+    for (int i = 0; i < list.size(); i++) {  // Potential performance hit for LinkedList
+        // Processing elements
+    }
+    Since LinkedList.size() isn’t cached, it gets recalculated in every iteration, leading to performance degradation in large lists.
+
+    ✅ The Fix (Better for LinkedList & General Best Practice):
+
+    int size = list.size();
+    for (int i = 0; i < size; i++) {
+        // Process elements efficiently
+    }
+    Or even better:
+
+    for (String item : list) {
+        // Cleaner and optimized iteration
+    }
+
+92. Memory Leaks: The Silent App Murderer
+    Java’s garbage collector isn’t psychic. Unclosed resources, static collections, and rogue listeners can turn your app into a zombie.
+
+    The Usual Suspects:
+
+    static HashMap that never clears entries.
+    Unclosed InputStream or Connection objects.
+    The Fix:
+
+    try (FileInputStream fis = new FileInputStream("file.txt")) { ... }  // Auto-closed!
+
+93. Garbage Collection Tuning: Calm the Storm
+    GC pauses can freeze your app for seconds. Modern apps swear by G1GC, but tweaking is key.
+
+    Pro Moves:
+
+    Use -XX:+UseG1GC to enable the G1 garbage collector.
+    Monitor with JVisualVM — aim for sub-200ms GC pauses.
+
+94. Object Pooling: Stop Creating, Start Reusing
+    Frequent object creation can lead to high memory usage and GC overhead. Reuse objects where possible, especially for frequently used data.
+
+    The Crime:
+
+    for (int i = 0; i < 1000; i++) {
+        MyObject obj = new MyObject();  // 1,000 objects? Yikes.
+    }
+    The Fix:
+
+    MyObject obj = new MyObject();
+    for (int i = 0; i < 1000; i++) {
+        obj.reset();  // Re-initialize and reuse
+    }
+
+95. Data Structures: Choose Wisely
+    Using LinkedList for random access? That’s like using a spoon to chop veggies.
+
+    Cheat Sheet:
+
+    ArrayList: Blazing-fast reads by index.
+    HashMap: O(1) lookups (but sync with ConcurrentHashMap for threads).
+    LinkedList: Frequent inserts/deletes? Go for it.
+
+96. Synchronization: The Art of Minimalism
+    Synchronized blocks are necessary evils. Overuse them, and your app crawls.
+
+    Developers often use synchronized to prevent race conditions. However, using synchronized excessively blocks all threads and reduces parallel performance.
+
+    Pro Tips:
+
+    Replace synchronized with ReadWriteLock for read-heavy workloads.
+    Use ConcurrentHashMap—it’s thread-safe and fast.
+    Code Win:
+
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
+
+    public void writeData(String data) {
+        lock.writeLock().lock();
+        try {
+            // Write operation
+        } finally {
+            lock.writeLock().unlock();
+        }
+    }
+    Ultimate Performance Hack: Use ConcurrentHashMap
+    Instead of manually handling locks, use ConcurrentHashMap—it’s already optimized for multi-threading!
+
+    public class DataStore {
+        private final ConcurrentHashMap<String, String> data = new ConcurrentHashMap<>();
+        public String getData(String key) {
+            return data.get(key);  // Thread-safe read 🚀
+        }
+        public void updateData(String key, String value) {
+            data.put(key, value);  // Thread-safe write 🔥
+        }
+    }
+    ✅ Why is ConcurrentHashMap the best?
+
+    Reads and writes don’t block each other (internally optimized).
+    Faster than explicit locking mechanisms.
+    Best for high-concurrency environments (like web applications, caching, and microservices).
+
+ 97. Database Access: Your Biggest Bottleneck
+
+     Fix It Like a Pro:
+
+     Batch inserts: Group 1,000 rows into one INSERT statement.
+     Lazy loading: Fetch relationships only when needed (Hibernate’s FetchType.LAZY).
+     Indexes: If your WHERE clause is slow, you’re missing an index.
 

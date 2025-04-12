@@ -50,7 +50,7 @@ Papaya Global - 2
 4. Spring @Transaction Internal Working
 5. Use of Runnable
 
-Rakuten - 4
+Rakuten - 5
 1. Design Controller class
 2. Design Stock broker
 3. Stream API java 8
@@ -59,6 +59,8 @@ Rakuten - 4
 6. Java oops
 7. Synchronized vs concurrent hashmap
 8. Transaction tracing system
+9. Behavioural Discussion
+10. Offered
 
 Acesoftlabs - 2
 1. Search in rotated array
@@ -68,7 +70,7 @@ Acesoftlabs - 2
 5. Kafka exception handling
 6. Delete leaf nodes from bottom to top in tree
 
-Synechron - 5
+Synechron - 7
 1. Java 8
 2. @Component - It's an annotation used to tell spring that it's a Spring-managed component, component annotation is used for automatic bean discovery and configuration
 3. @Contitional - @ConditionalOnClass, @ConditionalOnMissingBean, @ConditionalOnProperty, @ConditionalOnBean,
@@ -87,6 +89,10 @@ Synechron - 5
 16. Microservices Communication
 17. Subset max and min sum of length k
 18. Project Discussion
+19. HR Discussion
+20. API Gateway
+21. CQRS pattern
+22. Offered
 
 Super.money - 3
 1. kth smallest differences
@@ -161,15 +167,25 @@ Park Plus - 1
 2. Indexing & Clustering Indexing
 3. Not proceeding due to Gurugram location
 
-Oracle - 4
+Oracle - 5
 1. WildCardPattern matching
 2. Project Deep dive
 3. Binary Search
 4. Second max from array
 5. Behavioural Discussion
 6. Max sum sub matrix
+7. System design
 
 Razorpay - 2
 1. Design Cab Booking System
 2. Design Notification System
 3. Database sharding
+
+Tesco - 2
+1. Merge intervals
+2. SOLID principle
+3. Coupon management system
+
+300 leetcode - https://algomaster.io/practice/dsa-patterns
+
+CAP - https://designsystemsweekly.substack.com/p/a-plain-english-introduction-to-cap
