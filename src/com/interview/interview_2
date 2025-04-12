@@ -60,6 +60,7 @@ Rakuten - 5
 7. Synchronized vs concurrent hashmap
 8. Transaction tracing system
 9. Behavioural Discussion
+10. Offered
 
 Acesoftlabs - 2
 1. Search in rotated array
@@ -91,6 +92,7 @@ Synechron - 7
 19. HR Discussion
 20. API Gateway
 21. CQRS pattern
+22. Offered
 
 Super.money - 3
 1. kth smallest differences
@@ -179,7 +181,11 @@ Razorpay - 2
 2. Design Notification System
 3. Database sharding
 
-Tesco - 1
+Tesco - 2
 1. Merge intervals
 2. SOLID principle
 3. Coupon management system
+
+300 leetcode - https://algomaster.io/practice/dsa-patterns
+
+CAP - https://designsystemsweekly.substack.com/p/a-plain-english-introduction-to-cap

@@ -9,26 +9,30 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println();
-    }
-
-    static List<List<Integer>> res = new ArrayList<>();
-    static List<Integer> curr = new ArrayList<>();
-    private static void path(Node node) {
-
-        if(node == null)
-            return;
-
-        curr.add(node.key);
-
-        if(node.left == null && node.right == null){
-            res.add(curr);
-            return;
+        System.out.println("11111111");
+        try {
+            System.out.println("2222222");
+            int i = 10/0;
+            System.out.println("3333333");
+        } catch (Exception e) {
+            System.out.println("4444444");
+            throw e;
+        } finally {
+            System.out.println("5555555");
         }
 
-        path(node.left);
-        path(node.right);
+    }
 
-        curr.remove(curr.size()-1);
+    public static boolean isPalindrome(int x) {
+        String s = String.valueOf(x);
+        int left = 0;
+        int right = s.length()-1;
+
+        while(left < right) {
+            if(s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
