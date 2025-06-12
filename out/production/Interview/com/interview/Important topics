@@ -141,7 +141,7 @@
     I   =>  Interface Segregation   =>  Single Responsibility Interface
     D   =>  Dependency Inversion    =>  High-level modules should not depend upon low-level modules. They should depend on abstractions rather than concrete implementations
 
-20. CAP Theorem
+20. CAP Theorem - https://designsystemsweekly.substack.com/p/a-plain-english-introduction-to-cap
 
     A partition is a communications break within a distributed system — a lost or temporarily delayed connection between
     two nodes. Partition tolerance means that the cluster must continue to work despite any number of communication
@@ -837,3 +837,71 @@ By modifying pom.xml, we can change web container from tomcat to jetty
      Lazy loading: Fetch relationships only when needed (Hibernate’s FetchType.LAZY).
      Indexes: If your WHERE clause is slow, you’re missing an index.
 
+98. What is ShedLock in Spring Boot?
+    ShedLock is a distributed lock mechanism designed to ensure that scheduled tasks in a Spring Boot application run only once across multiple instances of the application. It is particularly useful in a clustered or distributed environment where multiple instances of the same application are running simultaneously.
+
+    In a distributed environment, if you have multiple instances of a Spring Boot application running the same scheduled task, you might encounter issues where the task is executed multiple times (once by each instance). This can lead to data inconsistencies, redundant processing, or other unintended side effects.
+
+    ShedLock ensures that only one instance of the application executes the scheduled task at a time, while the other instances skip the execution. It achieves this by using a shared database or another persistent storage mechanism to coordinate the lock.
+
+    ShedLock provides a distributed locking mechanism that ensures only one instance of the application executes a scheduled task at a time. Here’s how it works in depth:
+
+    3.1. Shared Database as the Coordination Mechanism
+    ShedLock uses a shared database (or another persistent storage like Redis) to coordinate task execution. It creates a table (e.g., shedlock) in the database to store lock information. The table typically has the following structure:
+
+    name: Represents the unique name of the scheduled task, such as dailyReportTask.
+    locked_at: Holds the timestamp indicating when the lock was acquired by the instance.
+    locked_by: Stores the identifier of the instance (like the hostname) that acquired the lock, ensuring that only one instance executes the task at a time in distributed environments.
+
+    3.2. Lock Acquisition Process
+    When a scheduled task is triggered, ShedLock performs the following steps:
+
+    Check for an Existing Lock:
+    The task checks the shedlock table to see if there is an active lock for the task (i.e., lock_until is in the future).
+    If a lock exists, the task skips execution because another instance is already running it.
+    2. Acquire the Lock:
+
+    If no lock exists or the lock has expired (lock_until is in the past), the task attempts to acquire the lock by inserting or updating a record in the shedlock table.
+    The lock_until field is set to a future timestamp (e.g., current time + lockAtMostFor duration).
+    3. Execute the Task:
+
+    If the lock is successfully acquired, the task proceeds with its execution.
+    If the lock acquisition fails (e.g., due to a race condition), the task skips execution.
+    4. Release the Lock:
+
+    After the task completes, the lock is released by updating the lock_until field to the current time or deleting the record.
+
+    3.3. Atomicity and Race Condition Prevention
+    ShedLock ensures atomicity by using database transactions or atomic operations (e.g., INSERT ... ON CONFLICT in PostgreSQL or MERGE in SQL Server). This prevents race conditions where multiple instances might try to acquire the lock simultaneously.
+
+    For example:
+
+    If two instances try to acquire the lock at the same time, only one will succeed in inserting/updating the record in the shedlock table.
+    The other instance will fail to acquire the lock and skip the task execution.
+
+    3.4. Fault Tolerance
+    ShedLock handles failures gracefully:
+
+    If an instance crashes while holding the lock, the lock will automatically expire after the lockAtMostFor duration.
+    This ensures that the task can eventually be executed by another instance, even if the original instance fails.
+
+99. How to Use Modern Java Like a Pro
+
+    1. Use var => Cleaner local variable
+    2. Use Records => Instant immutable data classes
+    3. Use Optional => Avoid null checks
+    4. Use Streams => Functional-style operations
+    5. Use Sealed Classes for Better Control Over Inheritance
+    6. Use Pattern Matching for Instanceof
+    7. Use Text Blocks for Multi-line Strings
+    8. Use Switch Expressions for Cleaner Code
+    9. Use Optional to Avoid Null Checks
+    10. Use CompletableFuture for Asynchronous Programming
+
+100. Docker File
+
+    a. FROM eclipse-temurin:17-jdk-alpine       # Use a minimal JDK base image
+    b. WORKDIR /app                             # Set the working directory
+    c. COPY target/my-spring-app.jar app.jar    # Copy the JAR file (make sure it's named correctly)
+    d. EXPOSE 8080                              # Expose the default port (usually 8080)
+    e. ENTRYPOINT ["java", "-jar", "app.jar"]   # Run the JAR file

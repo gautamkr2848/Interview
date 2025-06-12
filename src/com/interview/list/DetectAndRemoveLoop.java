@@ -39,10 +39,10 @@ DetectAndRemoveLoop {
         prev.next = null;
     }
 
-    static int countNodesInLoop(Node n) {
+    static int countNodesInLoop(Node node) {
         int res = 1;
-        Node temp = n;
-        while (temp.next != n) {
+        Node temp = node;
+        while (temp.next != node) {
             res++;
             temp = temp.next;
         }

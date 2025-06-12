@@ -1,5 +1,7 @@
 package com.interview.matrix;
 
+// A square having maximum area
+
 // Explanation:
 //Initialization: Create a DP table with the same dimensions as the input matrix. Initialize a variable to track the maximum side length found.
 //DP Transition: For each cell containing '1', update the DP table based on the values of its top, left, and top-left diagonal neighbors.

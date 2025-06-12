@@ -47,4 +47,14 @@ public class GoldMine {
         else
             return (x < z) ? z : x;
     }
+
+    public static void main(String[] args) {
+        GoldMine g = new GoldMine();
+        int gold[][] = { {1, 3, 3},
+                         {2, 1, 4},
+                         {0, 6, 4},
+                         {7, 5, 5},
+                         {3, 0, 6} };
+        g.maxGold(5, 3, gold);
+    }
 }

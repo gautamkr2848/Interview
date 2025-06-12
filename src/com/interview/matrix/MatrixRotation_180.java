@@ -2,7 +2,7 @@ package com.interview.matrix;
 
 public class MatrixRotation_180 {
 
-    public void matrixRotation(){
+    public static void main(String[] args){
         int mat[][] =   { { 10, 20, 30},
                         { 15, 25, 35 },
                         { 27, 29, 37}};
