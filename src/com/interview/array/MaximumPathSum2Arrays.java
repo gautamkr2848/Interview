@@ -14,6 +14,11 @@ Explanation: 35 is sum of 1 + 5 + 7 + 10 + 12
 
 public class MaximumPathSum2Arrays {
 
+    public static void main(String[] args) {
+        MaximumPathSum2Arrays mps = new MaximumPathSum2Arrays();
+        mps.maxPathSum();
+    }
+
     public void maxPathSum(){
         int a[] = {2, 3, 7, 10, 12};
         int b[] = {1, 5, 7, 8};

@@ -1,0 +1,125 @@
+1. ArrayList Vs LinkedList
+
+Feature	                            ArrayList	                            LinkedList
+📦 Internal Data Structure	        Dynamic array (resizable array)	        Doubly linked list
+⚡ Access (get/set)	                ✅ Fast (O(1))	                        ❌ Slow (O(n)) — must traverse nodes
+➕ Insert at end	                ✅ Fast (amortized O(1))	            ✅ Fast (O(1))
+➕ Insert at middle/start	        ❌ Slower (O(n)) — shift elements	    ✅ Faster (O(1) if pointer known)
+❌ Remove from middle/start	        ❌ Slower (O(n)) — shift elements	    ✅ Fast (O(1) if pointer known)
+📊 Memory use	                    Less (only data)	                    More (stores data + 2 pointers)
+🔄 Iteration	                    ✅ Fast — array indexed	                ⚠️ Slightly slower
+🔍 Search by index	                ✅ O(1)	                                ❌ O(n)
+
+ArrayList
+    a. Uses a dynamic array
+    b. When full, it creates a new array with 50% more size, and copies elements over
+
+LinkedList
+    a. Since LinkedList.size() isn’t cached, it gets recalculated in every iteration
+
+🚫 Common Misunderstanding
+“LinkedList is O(1) for insert at any position”
+
+❌ Only true if you already have the node reference
+✅ Not true for index-based operations (which require traversal)
+
+2. Symmetric Encryption vs Asymmetric Encryption
+
+Feature	                            Symmetric Encryption	                            Asymmetric Encryption
+🔑 Keys	                    Same key for encryption and decryption	                Key pair: Public key + Private key
+📦 Speed	                Faster, lightweight	                                    Slower, computationally heavy
+📬 Key Sharing	            Requires secure key exchange	                        Public key can be shared openly
+🔒 Security Risk	        Key compromise affects both encryption/decryption	    Private key must be protected
+💡 Typical Usage	        Encrypting large data files or secure channels	        Initial handshakes, certificates, email encryption
+
+3. RestTemplate vs WebClient vs HttpClient
+
+       Feature / API	                RestTemplate	                WebClient (Spring WebFlux)	                        HttpClient (Java 11+)
+       Package	                        org.springframework.web.client	org.springframework.web.reactive.function.client	java.net.http.HttpClient
+       Style	                        Synchronous (blocking)	        Asynchronous / Reactive	                            Both Sync and Async
+       Java Version	                Java 8+	                        Java 8+ (but reactive support shines in 9+)	        Java 11+
+       Spring Support	                ✅ Full	                        ✅ Full (part of Spring WebFlux)	                ❌ Not Spring-specific
+       Reactive Streams	            ❌ Not supported	            ✅ Yes (Mono / Flux)	                            ❌ No native reactive streams
+       Thread Efficiency	            ❌ Blocking (1 req = 1 thread)	✅ Non-blocking (event-loop)	                    ✅ Non-blocking via CompletableFuture
+       Future Proof	                ❌ Deprecated (soft)	        ✅ Recommended by Spring	                        ✅ Official in Java standard library
+
+4. Spring @Transaction Internal Working
+
+       When you annotate a method with @Transactional, Spring doesn’t change your method itself. Instead, it creates a proxy object that wraps your original bean.
+       When you call transactional method from outside the class, Spring routes the call through a proxy, which:
+           Starts a transaction
+           Invokes the original method
+           Commits or rolls back
+       Key Components Involved
+           @Transactional	Declarative marker
+           TransactionInterceptor	Core AOP logic
+           PlatformTransactionManager	Starts, commits, rolls back transactions
+           DataSourceTransactionManager	JDBC transactions (for RDBMS)
+           JpaTransactionManager	JPA/Hibernate transactions
+
+       [Client Code]
+            ↓
+        [Spring Proxy] ← @Transactional logic (starts tx)
+            ↓
+       [Target Method] ← Your actual logic
+            ↓
+        [Spring Proxy] ← commits or rolls back
+
+5. IPV4 vs IPV6
+
+Feature	                            IPv4	                    IPv6
+Address Size	                    32-bit	                    128-bit
+Address Format	            Decimal (e.g., 192.168.0.1)	        Hexadecimal (e.g., 2001:0db8:85a3::8a2e:0370:7334)
+Address Space	            ~4.3 billion addresses	            ~340 undecillion (3.4×10³⁸) addresses
+Header Size	                20 bytes	                        40 bytes (more efficient design)
+Security	                Optional (IPSec optional)	        Built-in (IPSec is mandatory)
+Checksum	                Yes	                                No (removed to improve speed)
+Adoption	                Widely used	                        Growing, still not universally adopted
+
+6. Database sharding - Splitting one big database into smaller, faster, more manageable pieces (shards), each handling part of the data.
+   Each shard contains a subset of the data, and all shards together make up the complete dataset.
+
+   Types of Sharding
+   Horizontal Sharding	=> Split rows by a key (user ID, region, etc.) ->	Users with ID 1–1000 → Shard 1
+   Vertical Sharding	=> Split tables or columns ->	User data in DB1, Orders in DB2
+   Directory-Based	=> Uses a lookup table to find the right shard	-> Central metadata maps keys to shards
+
+7. Atomic vs Volatile vs Synchronized
+   Feature	            Atomic	            volatile	            synchronized
+   Thread-safe	        ✅ Yes	        ❌ No (visibility only)      	✅ Yes
+   Performance	    ✅ Fast (lock-free)	    ✅ Fast	                ❌ Slower (locking)
+   Compound ops	        ❌ No	            ❌ No	                    ✅ Yes
+
+8. @Component & @Bean
+    Both are used to register beans in the Spring container, but they are used in different ways and contexts.
+
+    @Component
+        - Used for class-level annotations.
+        - Automatically detects and registers classes annotated with @Component during component scanning.
+        - Ideal for classes that are part of your application logic (e.g., services, repositories).
+
+    @Bean
+        - Used for method-level annotations.
+        - Explicitly defines a bean in a configuration class.
+        - Ideal for third-party libraries or when you need to customize bean creation.
+
+9. Spring Boot vs Micronaut
+   Feature	                                    Spring Boot	                                                Micronaut
+   🏁 Startup Time	                Slower (due to runtime reflection)	                Very fast (no reflection, compile-time DI)
+   🔧 Dependency Injection	        Runtime via reflection (@Autowired)	                Compile-time using annotation processors
+   🪞 Reflection Usage	            Heavy (Spring uses reflection a lot)	            Avoids reflection entirely
+   🧠 Memory Usage	                Higher (due to reflection, proxies)	                Lower footprint
+   ☁️ Cloud & Microservices	    Mature, wide support (Spring Cloud, Netflix OSS)	    Built for microservices from scratch
+   🔌 Plugins & Extensions	    Huge ecosystem (Spring Security, Data, etc.)	        Growing ecosystem
+   🧰 Tooling & Community	        Very large community, excellent tooling	            Smaller but active community
+   🧪 Learning Curve	            Easier if you know Spring ecosystem	                Simpler for new projects, less boilerplate
+
+   🔥 Performance Comparison
+   Startup Time	                                    1–3 seconds	                                        ~100–300 ms
+   Memory Usage	                                    Higher (100MB+)	                                    Lower (30–50MB)
+
+   ☁️ Ideal Use Cases
+   Large enterprise app (banking, healthcare)   =>	Spring Boot
+   Serverless, microservices, low-latency apps	=>  Micronaut
+   Rapid development with tons of integrations	=>  Spring Boot
+   Lightweight APIs or native images	        =>  Micronaut

@@ -54,7 +54,7 @@
     component acts as a registry in which the addresses of all instances are tracked.
 
 6. Database Sharding
-    Example of horizontal scaling
+    Example of horizontal Sharding
         User table - Storing all the users
         After Sharding -
             Stores  A-I in user1 table
@@ -479,11 +479,6 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     5. Security
     6. Scalability
 
-56. LinkedList vs ArrayList
-    Insertions at the end (O(1))
-    Insertions at the middle (O(n))
-    Insertions at the begnining (O(1)) for linkedlist and (O(n)) for Arraylist
-
 58. Redis Master vs Sentinals
     Operation: The Redis Master is the primary node handling data operations, while Redis Sentinel is a monitoring and management system ensuring high availability.
     Role in Failover: Sentinel is responsible for detecting Master failures and promoting a Replica to Master, whereas the Master simply serves data and replicates it to Replicas.
@@ -593,7 +588,7 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     is passed as a parameter to a method that expects an object of the corresponding wrapper class. Assigned to a variable
     of the corresponding wrapper class.
 
-74. Unboxing on the other hand refers to converting an object of a wrapper type to its corresponding primitive value. For
+    Unboxing on the other hand refers to converting an object of a wrapper type to its corresponding primitive value. For
     example conversion of Integer to int. The Java compiler applies to unbox when an object of a wrapper class is passed
     as a parameter to a method that expects a value of the corresponding primitive type. Assigned to a variable of the
     corresponding primitive type.
@@ -658,19 +653,8 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     d. Thread.stop()
     e. Future.cancel();
 
-84. @SpringBootApplication: This annotation marks the main class of the Spring Boot application. It encapsulates @Configuration,
-    @EnableAutoConfiguration, and @ComponentScan annotations with their default attributes.
-
-    SpringApplication.run(): SpringBootApplication.run() is a method used to launch a Spring Boot application. The method
+84. SpringApplication.run(): SpringBootApplication.run() is a method used to launch a Spring Boot application. The method
     is typically called within the main method of a Spring Boot application class, which is annotated with @SpringBootApplication
-
-85. Best Coding Practice
-    a. Use Early Returns in case of if-else
-    b. Avoid Double negations
-    c. Use Default Params to Avoid Unnecessary Else Statements
-    d. Have Modular Loop Logic
-    e. Avoid Booleans in Function Signatures
-    f. Function name should be a/c to their working
 
 86. CompletableFuture - It uses ForkJoinPool to create and use threads if we do not provide executors explicitly.
     a. runAsync() - without any arguments or return values. It takes Runnable as an argument.

@@ -1,5 +1,8 @@
 package com.interview.systemDesign.DesignPattern.creational;
 
+// The Builder Pattern is a creational design pattern that lets you construct complex objects step by step, especially
+// when an object has many optional parameters or when you want to avoid constructor overloading.
+
 // First of all you need to create a static nested class and then copy all the arguments from the outer class to the
 // Builder class. We should follow the naming convention and if the class name is Computer then builder class should be
 // named as ComputerBuilder.
@@ -12,87 +15,59 @@ package com.interview.systemDesign.DesignPattern.creational;
 // The final step is to provide a build() method in the builder class that will return the Object needed by client
 // program. For this we need to have a private constructor in the Class with Builder class as argument.
 
-//package com.journaldev.design.builder;
-//
-class Computer {
+class User {
+	private final String name;
+	private final int age;
+	private final String email;
 
-	//required parameters
-	private String HDD;
-	private String RAM;
-
-	//optional parameters
-	private boolean isGraphicsCardEnabled;
-	private boolean isBluetoothEnabled;
-
-	public String getHDD() {
-		return HDD;
+	// Private constructor: only Builder can access it
+    User(Builder builder) {
+		this.name = builder.name;
+		this.age = builder.age;
+		this.email = builder.email;
 	}
 
-	public String getRAM() {
-		return RAM;
-	}
+	// Static nested Builder class
+	public static class Builder {
+		private String name;
+		private int age;
+		private String email;
 
-	public boolean isGraphicsCardEnabled() {
-		return isGraphicsCardEnabled;
-	}
-
-	public boolean isBluetoothEnabled() {
-		return isBluetoothEnabled;
-	}
-
-	private Computer(ComputerBuilder builder) {
-		this.HDD=builder.HDD;
-		this.RAM=builder.RAM;
-		this.isGraphicsCardEnabled=builder.isGraphicsCardEnabled;
-		this.isBluetoothEnabled=builder.isBluetoothEnabled;
-	}
-
-	//Builder Class
-	public static class ComputerBuilder{
-
-		// required parameters
-		private String HDD;
-		private String RAM;
-
-		// optional parameters
-		private boolean isGraphicsCardEnabled;
-		private boolean isBluetoothEnabled;
-
-		public ComputerBuilder(String hdd, String ram){
-			this.HDD=hdd;
-			this.RAM=ram;
-		}
-
-		public ComputerBuilder setGraphicsCardEnabled(boolean isGraphicsCardEnabled) {
-			this.isGraphicsCardEnabled = isGraphicsCardEnabled;
+		public Builder setName(String name) {
+			this.name = name;
 			return this;
 		}
 
-		public ComputerBuilder setBluetoothEnabled(boolean isBluetoothEnabled) {
-			this.isBluetoothEnabled = isBluetoothEnabled;
+		public Builder setAge(int age) {
+			this.age = age;
 			return this;
 		}
 
-		public Computer build(){
-			return new Computer(this);
+		public Builder setEmail(String email) {
+			this.email = email;
+			return this;
 		}
 
+		public User build() {
+			return new User(this);
+		}
 	}
 
+	// Just for display
+	@Override
+	public String toString() {
+		return "User{name='" + name + "', age=" + age + ", email='" + email + "'}";
+	}
 }
-// Notice that Computer class has only getter methods and no public constructor. So the only way to get a Computer object
-// is through the ComputerBuilder class. Here is a builder pattern example test program showing how to use Builder
-// class to get the object.
-
 
 public class BuilderPattern {
-
 	public static void main(String[] args) {
-		//Using builder to get the object in a single line of code and
-                //without any inconsistent state or arguments management issues
-		Computer comp = new Computer.ComputerBuilder(
-				"500 GB", "2 GB").setBluetoothEnabled(true)
-				.setGraphicsCardEnabled(true).build();
-	}
+		User user = new User.Builder()
+				.setName("Alice")
+				.setAge(30)
+				.setEmail("alice@example.com")
+				.build();
 
+		System.out.println(user);
+	}
 }

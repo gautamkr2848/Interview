@@ -1,5 +1,10 @@
 package com.interview.array.priorityQueue_heap;
 
+// Priority Queue
+// Add and Remove - O(log n)
+// Peek - O(1)
+// Poll - O(log n)
+
 import java.util.PriorityQueue;
 
 public class c_KLargestElement {
@@ -23,3 +28,6 @@ public class c_KLargestElement {
             System.out.print(q.poll() + " ");
     }
 }
+
+// Time Complexity: O(n * log k), this solution can work in O(k + (n-k) Log K) as build heap take linear time.
+// Auxiliary Space: O(k)

@@ -1,0 +1,51 @@
+Handling Transactions in Distributed Systems
+
+    In a distributed system, transactions may involve multiple databases, complicating the management of ACID properties.
+    For example, when purchasing an item from an e-commerce platform, both the order database and the inventory database
+    are affected. Here, a transaction is local to a single database, making it challenging to maintain consistency across
+    multiple databases.
+
+    Challenges of Distributed Transactions
+
+        Failure of the transaction coordinator: The coordinator is responsible for managing the transaction across different databases.
+        Participant failure: If one of the databases fails during the transaction, it can lead to inconsistencies.
+        Message loss: Messages between the coordinator and participants may be lost, leading to uncertainty about the transaction's state.
+
+
+To address these challenges, several protocols have been developed:
+
+Two-Phase Commit (2PC)
+    The Two-Phase Commit protocol consists of two phases:
+
+    * Prepare Phase: The transaction coordinator sends a prepare message to all participants, asking if they are ready to
+    commit. Each participant responds with either a yes (prepared) or no (not prepared).
+    * Commit Phase: If all participants respond positively, the coordinator sends a commit message. If any participant
+    responds negatively, the coordinator sends an abort message to all participants, rolling back any changes.
+
+    Issues with 2PC
+
+        * If the coordinator fails after sending the prepare message but before sending the commit or abort message,
+        participants may be left in a waiting state.
+        * If a participant fails after preparing but before committing, it may not know whether to commit or abort when
+        it comes back online.
+
+Three-Phase Commit (3PC)
+    The Three-Phase Commit protocol improves upon 2PC by adding an additional phase:
+
+    * Prepare Phase: Similar to 2PC, the coordinator asks participants if they are prepared to commit.
+    * Pre-Commit Phase: The coordinator informs participants of its decision to commit or abort, allowing them to take
+    action based on this information.
+    * Commit Phase: The actual commit occurs, and participants finalize the transaction.
+
+    Advantages of 3PC
+    3PC is designed to be non-blocking, meaning that participants can make decisions based on the pre-commit message,
+    reducing the risk of being stuck waiting for the coordinator.
+
+SAGA Pattern
+    The SAGA pattern is an alternative to 2PC and 3PC, particularly suited for long-running transactions. Unlike the
+    previous protocols, SAGA is asynchronous and allows for a series of smaller transactions that can be rolled back
+    individually if one fails.
+
+    In a SAGA, each participant performs its operation and then publishes an event indicating success or failure. If a
+    failure occurs, the system can trigger compensating transactions to roll back previous operations, ensuring overall
+    consistency without locking resources for extended periods.

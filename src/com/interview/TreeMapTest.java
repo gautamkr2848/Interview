@@ -44,10 +44,10 @@ class Test1 {
         return id == test.id && Objects.equals(name, test.name);
     }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name);
-//    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 
 //    @Override
 //    public int compareTo(Test1 o) {

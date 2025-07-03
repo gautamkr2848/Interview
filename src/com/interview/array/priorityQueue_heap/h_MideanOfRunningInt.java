@@ -3,6 +3,8 @@ package com.interview.array.priorityQueue_heap;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
+// Time Complexity - O(nlogn)
+
 public class h_MideanOfRunningInt {
 
 // we can use a max heap on the left side to represent elements that are less than effective median, and a min-heap on

@@ -88,9 +88,14 @@ public class Stream {
         Collections.sort(list, (o1, o2) -> o1.getValue().compareTo(o2.getValue()));
 
         // second option
-        return hm.entrySet().stream()
+        return hm.entrySet()
+                .stream()
                 .sorted((i1, i2) -> i1.getValue().compareTo(i2.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new));
 
         // Will return department with max entry
         // list.stream().collect(Collectors.groupingBy(x->x.dept, Collectors.counting())).entrySet().stream().max(Map.Entry.comparingByValue()).get();

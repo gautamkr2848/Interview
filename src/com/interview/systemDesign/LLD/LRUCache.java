@@ -59,7 +59,6 @@ public class LRUCache {
         } else {
             end = node.prev;
         }
-
     }
 
     /*This method will make passed node as head*/

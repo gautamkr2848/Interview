@@ -94,7 +94,7 @@ Bandhoo - 2
 
 UpGrad - 2
 1. OOPS vs procedureal language
-2. Java Stream Sorted() => Tim Sort
+2. Java Stream Sorted() => Tim Sort combines of merge sort and insertion sort. It is a stable, adaptive, and iterative sorting algorithm that is used in Java's Stream API.
 3. Design Exam Portal Website
 
 UpLoan - 3

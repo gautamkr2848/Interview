@@ -1,5 +1,6 @@
 package com.interview;
 
+import com.interview.greedy.NumberOfPlatforms;
 import com.interview.tree.Node;
 
 import java.util.*;
@@ -9,17 +10,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("11111111");
-        try {
-            System.out.println("2222222");
-            int i = 10/0;
-            System.out.println("3333333");
-        } catch (Exception e) {
-            System.out.println("4444444");
-            throw e;
-        } finally {
-            System.out.println("5555555");
+        int[] arr = {7, 8, 9, 1, 2, 3, 4, 5, 6};
+        int key = 3;
+        int low = 0;
+        int high = arr.length - 1;
+
+        while (low <=high) {
+            int mid = low + (high - low) / 2;
         }
+
 
     }
 

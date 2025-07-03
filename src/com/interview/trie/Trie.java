@@ -150,7 +150,7 @@ public class Trie {
         return count + 1;
     }
 
-    public String commonPrefix(){
+    public static String commonPrefix(){
         Node curr = root;
         StringBuilder sb = new StringBuilder();
         int index = -1;
@@ -175,11 +175,11 @@ public class Trie {
     }
 
     public static void main(String[] args) {
-        List<String> words = Arrays.asList("hello", "dog", "hell", "cat", "a", "hel","help","helps","helping");
-        Trie trie = new Trie(words);
+//        List<String> words = Arrays.asList("hello", "dog", "hell", "cat", "a", "hel","help","helps","helping");
+//        Trie trie = new Trie(words);
 
-        System.out.println(suggest("he"));
-//        System.out.println(countUniqueSubstrings("apple"));
+        //System.out.println(suggest("he"));
+        //System.out.println(countUniqueSubstrings("apple"));
 //        System.out.println(wordStartsWith("co"));
 //        longestWordWithAllPrefix(root, new StringBuilder(""));
 //        System.out.println(ans);

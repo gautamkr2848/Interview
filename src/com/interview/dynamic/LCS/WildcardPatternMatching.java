@@ -1,15 +1,11 @@
 package com.interview.dynamic.LCS;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 // All possible ways => recurssion
 
 // s = abdefcd
 // p = ab*cd
 
-// For '*'
+// For '*', i stands for p, and j stands for s
 // a. * matches 0 characters, don't increase i, only increase j
 // b. * matches 1+ character, increase i, don't increase j
 
