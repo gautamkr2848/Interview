@@ -1,6 +1,6 @@
 package com.interview.list;
 
-public class DeleteWithoutHead {
+public class DeleteNodeWithoutHead {
 
     public static void deleteWithoutHead(){
 

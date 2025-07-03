@@ -6,7 +6,7 @@ import java.util.List;
 public class GenerateBinaryString {
 
     public static void main(String[] args) {
-        int length = 2;
+        int length = 3;
         List<String> result = new ArrayList<>();
         generateStrings("", length, result);
         result.forEach(System.out::println);

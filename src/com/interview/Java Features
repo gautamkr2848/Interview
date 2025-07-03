@@ -1,3 +1,21 @@
+🆕 Major Feature Comparison
+
+Feature/Area	                    Java 8	                    Java 17	                        Java 21
+
+🔁 Default Methods in Interfaces	✅ Introduced	            ✅ Enhanced	                        ✅
+🔁 Lambdas & Streams	            ✅ Introduced	            ✅ Enhanced	                        ✅
+🎯 Functional Interfaces	        ✅	                        ✅	                                ✅
+🧵 Virtual Threads (Project Loom)	❌	                        ❌	                                ✅ (Preview)
+🧩 Modules (JPMS)	                ❌	                        ✅ Java 9+	                        ✅
+🗃️ Records	                        ❌	                        ✅ (Java 16)	                    ✅
+🔒 Sealed Classes	                ❌	                        ✅ (Preview in 17)	                ✅ Finalized
+🔤 Switch Expressions	            ❌	                        ✅ (Preview in Java 12–14)	        ✅ Finalized
+🔁 Pattern Matching	                ❌	                        ✅ (instanceof pattern matching)	✅ for switch, record
+💡 String Features	                Basic only	                Text blocks (Java 13–15)	        Pattern matching & more
+📦 ZGC & G1 GC Improvements	        ❌	                        ✅	                                ✅ Improved
+🚀 Performance	                    Baseline	                Much better than Java 8	            Even better than Java 17
+
+
 Java 8
     1. Functional Interface and lambda expression
             Functional interfaces are interfaces which represent some functionality.

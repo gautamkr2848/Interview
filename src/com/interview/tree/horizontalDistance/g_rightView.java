@@ -29,3 +29,6 @@ public class g_rightView {
         }
     }
 }
+
+// Time Complexity: O(n), where n is the number of nodes in the binary tree.
+// Auxiliary Space: O(n)

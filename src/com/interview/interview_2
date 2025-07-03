@@ -47,8 +47,8 @@ Papaya Global - 2
 1. Binary search
 2. Factory Pattern
 3. Project Discussion
-4. Spring @Transaction Internal Working
-5. Use of Runnable
+4. Use of Runnable
+5. Spring @Transaction Internal Working
 
 Rakuten - 5
 1. Design Controller class
@@ -73,17 +73,23 @@ Acesoftlabs - 2
 Synechron - 7
 1. Java 8
 2. @Component - It's an annotation used to tell spring that it's a Spring-managed component, component annotation is used for automatic bean discovery and configuration
-3. @Contitional - @ConditionalOnClass, @ConditionalOnMissingBean, @ConditionalOnProperty, @ConditionalOnBean,
+3. @Contitional - @ConditionalOnClass, @ConditionalOnMissingBean, @ConditionalOnProperty, @ConditionalOnBean (“Only register this bean if a certain condition is true.”)
 4. SOLID
 5. Cyclic dependency - Constructor / Setter Injection, Lazy Injection
 6. Spring Features
 7. Fail safe vs Fail fast
-8. Spring Actuator
+8. Spring Actuator - Spring Boot Actuator is a sub-project of Spring Boot that provides production-ready features to help you monitor and manage your application
+    🔍 Monitoring ->	Health, metrics, logging levels, memory, threads
+    ⚙️ Management ->	Environment properties, beans, caches, shutdown
+    🔐 Security ->	Integration with Spring Security
+    📈 Metrics ->	Ready for Prometheus, Micrometer, Grafana, etc.
 9. Primary key vs unique key
 10. save vs saveAll
 11. Docker file
 12. kafka message order
-13. LocalDateTime vs DateTime
+    You produce all messages to the same partition (e.g., using same key).
+    You consume using one consumer per partition.
+13. LocalDateTime vs DateTime vs JavaTime
 14. Executor Framework
 15. RestTemplate vs WebClient vs HttpClient
 16. Microservices Communication
@@ -138,7 +144,7 @@ IBS Software - 4
 6. How to make http request to https in Springboot
 7. Jenkins Job vs pipeline - Jenkins Job and Jenkins Pipeline are basically the same. In a pipeline you define the steps of your job.
 8. Second max from array
-9. @Qualifier
+9. @Qualifier - It is used to resolve ambiguity when multiple beans of the same type exist. It tells Spring which exact bean to inject.
 10. Singleton
 11. Immutable
 12. String Immutability
@@ -158,7 +164,7 @@ Syndigo - 5
 5. String Anagram
 6. Singleton
 7. Immutable
-8. Reentrant Lock
+8. Reentrant Lock - Reentrant Lock is a type of lock in Java that allows the same thread to acquire the lock multiple times without getting blocked.
 9. Project Discussions
 10. Offer Discussion - Got the offer
 
@@ -184,6 +190,6 @@ Razorpay - 2
 Tesco - 2
 1. Merge intervals
 2. SOLID principle
-3. Coupon management system
+3. Coupon management system, where store can goes offline
 
 300 leetcode - https://algomaster.io/practice/dsa-patterns

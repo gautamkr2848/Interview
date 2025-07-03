@@ -5,6 +5,9 @@ import java.util.Arrays;
 /*
 Algorithm:-
 
+Given a map of the city and the network range, the task is to determine the minimum number of the tower so that every
+house is within range of at least one tower. Each tower must be installed on top of an existing house.
+
 1. First, sort all the elements.
 2. Count only once and then traverse till its middle house.
 3. After this again traverse till tower range.
