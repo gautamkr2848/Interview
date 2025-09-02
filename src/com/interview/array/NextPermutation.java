@@ -72,9 +72,8 @@ public class NextPermutation {
         }
 
         public static void main(String[] args) {
-            int[] nums = {1, 1, 4, 5, 6, 3, 0};
+            int[] nums = {1, 2, 3, 6, 5, 4};
             nextPermutation(nums);
             System.out.println(Arrays.stream(nums).toArray());
         }
-
 }

@@ -1,0 +1,53 @@
+🔢 General Math
+
+    1 KB = 10³ bytes (~1000)
+    1 MB = 10⁶ bytes (~10⁶)
+    1 GB = 10⁹ bytes (~10⁹)
+    1 TB = 10¹² bytes (~10¹²)
+    1 PB = 10¹⁵ bytes
+    1 million (M) = 10⁶
+    1 billion (B) = 10⁹
+
+⚡ Latency Reference (approx)
+
+    L1 cache access → ~0.5 ns
+    L2 cache access → ~7 ns
+    RAM access → ~100 ns
+    SSD read → ~100 μs (0.1 ms)
+    Disk read → ~10 ms
+    Network (LAN) → ~0.1 ms
+    Network (Cross DC) → ~100 ms
+
+    👉 Rule: RAM ≈ 100x faster than disk, disk ≈ 100x faster than network
+
+📦 Storage & Content Sizes
+
+    1 page of text ≈ 2 KB
+    1 email ≈ 75 KB
+    1 image (compressed) ≈ 500 KB
+    1 song (MP3) ≈ 5 MB
+    1 HD movie (2 hrs, compressed) ≈ 3 GB
+    1 4K movie ≈ 20 GB
+    1 profile (user + metadata) ≈ 1 KB – 10 KB
+
+    👉 Rule of thumb: 1 TB disk ≈ 200k HD movies OR 300M images
+
+📈 Throughput & QPS
+
+    QPS (Queries per second) = RPS × Users
+    1M DAU → ~10 QPS (low activity app)
+    10M DAU → ~100 QPS (social app)
+    100M DAU → ~1K–10K QPS (FB/Twitter scale)
+
+    👉 Estimation: Peak QPS ≈ 5× Average QPS
+
+💾 Database Storage
+
+Row in DB → 100 bytes – 1 KB
+1M rows ≈ 1 GB (if row = 1 KB)
+1B rows ≈ 1 TB
+
+Write throughput:
+
+    MySQL single node → ~10k writes/sec
+    Cassandra / DynamoDB → 100k+ writes/sec

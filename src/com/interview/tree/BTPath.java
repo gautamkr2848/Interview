@@ -52,4 +52,28 @@ public class BTPath {
         return new ArrayList<>();
     }
 
+    public List<Integer> nodeToLeafPath(Node node) {
+        if (node == null)
+            return new ArrayList<>();
+
+        if (node.left == null && node.right == null) {
+            List<Integer> list = new ArrayList<>();
+            list.add(node.key);
+            return list;
+        }
+
+        List<Integer> llist = nodeToLeafPath(node.left);
+        if (llist.size() > 0) {
+            llist.add(node.key);
+            return llist;
+        }
+
+        List<Integer> rlist = nodeToLeafPath(node.right);
+        if (rlist.size() > 0) {
+            rlist.add(node.key);
+            return rlist;
+        }
+        return new ArrayList<>();
+    }
+
 }

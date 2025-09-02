@@ -3,6 +3,10 @@ package com.interview.dynamic.LCS;
 //For “ABDEFGABEF”, the longest substring are “BDEFGA” and “DEFGAB”, with length 6.
 //For “BBBB” the longest substring is “B”, with length 1.
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class k_LongestSubStringWithNonRepeatedChar {
 
     public int k_LongestSubStringWithNonRepeatedChar(){
@@ -26,5 +30,29 @@ public class k_LongestSubStringWithNonRepeatedChar {
         }
 
         return maxLength;
+    }
+
+    public int k_LongestSubStringWithNonRepeatedChar_2(){
+        String str = "geeksforgeeks";
+        int maxLength = -1;
+        Set<Character> charSet = new HashSet<>();
+
+        for(Character c : str.toCharArray()) {
+            if (charSet.contains(c)) {
+                charSet.clear();
+            }
+            charSet.add(c);
+            maxLength = Math.max(charSet.size(), maxLength);
+        }
+
+        return maxLength;
+    }
+
+    // O(n) time complexity and O(256) i.e O(1) space complexity
+
+    public static void main(String[] args) {
+        k_LongestSubStringWithNonRepeatedChar obj = new k_LongestSubStringWithNonRepeatedChar();
+        System.out.println("Longest Substring with Non-Repeated Characters: " + obj.k_LongestSubStringWithNonRepeatedChar());
+        System.out.println("Longest Substring with Non-Repeated Characters (Method 2): " + obj.k_LongestSubStringWithNonRepeatedChar_2());
     }
 }

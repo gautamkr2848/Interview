@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Interview.iml" filepath="$PROJECT_DIR$/Interview.iml" />
       <module fileurl="file://$PROJECT_DIR$/../projects/java-solutions/src/main/Java Solutions.iml" filepath="$PROJECT_DIR$/../projects/java-solutions/src/main/Java Solutions.iml" />
       <module fileurl="file://$PROJECT_DIR$/../interviewcodingpractise/interviewcodingpractise.iml" filepath="$PROJECT_DIR$/../interviewcodingpractise/interviewcodingpractise.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../java-solutions/src/main/main.iml" filepath="$PROJECT_DIR$/../java-solutions/src/main/main.iml" />
     </modules>
   </component>
 </project>

@@ -16,17 +16,54 @@ public class MaximalSquare {
         int row = m.length;
         int col = m[0].length;
 
-        int[][] dp = new int[row+1][col+1];
+        int[][] dp = new int[row][col];
         int max = 0;
 
-        for(int i=1; i<=row; i++){
-            for(int j=1; j<=col; j++) {
-                if(m[i-1][j-1] == 1) {
-                    dp[i][j] = Math.min(Math.min(dp[i-1][j], dp[i][j-1]), dp[i-1][j-1]) + 1;
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++) {
+                if(m[i][j] == 1) {
+                    if(i == 0 || j == 0) {
+                        dp[i][j] = 1; // First row or first column
+                    } else {
+                        dp[i][j] = Math.min(dp[i][j-1], Math.min(dp[i-1][j], dp[i-1][j-1])) + 1;
+                    }
                     max = Math.max(max, dp[i][j]);
                 }
             }
         }
         return max * max;
+    }
+
+    // Time Complexity: O(n * m)
+
+    // Maximum Rectangle Matrix with All 1s
+
+    public int maximalRectangle(int[][] m) {
+        if (m == null || m.length == 0) return 0;
+        int maxArea = 0;
+        int[] heights = new int[m[0].length];
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[0].length; j++) {
+                heights[j] = m[i][j] == 0 ? 0 : heights[j] + 1;
+            }
+            maxArea = Math.max(maxArea, largestRectangleArea(heights));
+        }
+        return maxArea;
+    }
+
+    // Helper function to calculate largest rectangle in histogram
+    private int largestRectangleArea(int[] heights) {
+        int max = 0;
+        java.util.Stack<Integer> stack = new java.util.Stack<>();
+        int[] h = java.util.Arrays.copyOf(heights, heights.length + 1);
+        for (int i = 0; i < h.length; i++) {
+            while (!stack.isEmpty() && h[i] < h[stack.peek()]) {
+                int height = h[stack.pop()];
+                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
+                max = Math.max(max, height * width);
+            }
+            stack.push(i);
+        }
+        return max;
     }
 }

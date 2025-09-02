@@ -24,5 +24,31 @@ public class a_BubbleSort {
                     q.swap(arr, j, j+1);
             }
         }
+
+        for(int i=0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+
+    public void bubbleSort2(){
+        int arr[] = {10, 7, 8, 9, 1, 5};
+        int n = arr.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n-1; j++) {
+                if (arr[j] > arr[j + 1])
+                    q.swap(arr, j, j+1);
+            }
+        }
+        System.out.println();
+        for(int i=0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        a_BubbleSort b = new a_BubbleSort();
+        b.bubbleSort();
+        b.bubbleSort2();
     }
 }

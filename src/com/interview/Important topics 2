@@ -9,6 +9,7 @@ Feature	                            ArrayList	                            Linked
 📊 Memory use	                    Less (only data)	                    More (stores data + 2 pointers)
 🔄 Iteration	                    ✅ Fast — array indexed	                ⚠️ Slightly slower
 🔍 Search by index	                ✅ O(1)	                                ❌ O(n)
+Loop Performance                    ✅ For loop                             ✅ For each
 
 ArrayList
     a. Uses a dynamic array
@@ -44,8 +45,9 @@ Feature	                            Symmetric Encryption	                       
        Future Proof	                ❌ Deprecated (soft)	        ✅ Recommended by Spring	                        ✅ Official in Java standard library
 
 4. Spring @Transaction Internal Working
+       When you annotate a method with @Transactional, Spring doesn’t change your method itself. Instead, it creates a
+       proxy object that wraps your original bean.
 
-       When you annotate a method with @Transactional, Spring doesn’t change your method itself. Instead, it creates a proxy object that wraps your original bean.
        When you call transactional method from outside the class, Spring routes the call through a proxy, which:
            Starts a transaction
            Invokes the original method
@@ -57,13 +59,13 @@ Feature	                            Symmetric Encryption	                       
            DataSourceTransactionManager	JDBC transactions (for RDBMS)
            JpaTransactionManager	JPA/Hibernate transactions
 
-       [Client Code]
+      [Client Code]
             ↓
-        [Spring Proxy] ← @Transactional logic (starts tx)
+      [Spring Proxy] ← @Transactional logic (starts tx)
             ↓
-       [Target Method] ← Your actual logic
+      [Target Method] ← Your actual logic
             ↓
-        [Spring Proxy] ← commits or rolls back
+      [Spring Proxy] ← commits or rolls back
 
 5. IPV4 vs IPV6
 
@@ -88,7 +90,6 @@ Adoption	                Widely used	                        Growing, still not 
    Feature	            Atomic	            volatile	            synchronized
    Thread-safe	        ✅ Yes	        ❌ No (visibility only)      	✅ Yes
    Performance	    ✅ Fast (lock-free)	    ✅ Fast	                ❌ Slower (locking)
-   Compound ops	        ❌ No	            ❌ No	                    ✅ Yes
 
 8. @Component & @Bean
     Both are used to register beans in the Spring container, but they are used in different ways and contexts.
@@ -123,3 +124,290 @@ Adoption	                Widely used	                        Growing, still not 
    Serverless, microservices, low-latency apps	=>  Micronaut
    Rapid development with tons of integrations	=>  Spring Boot
    Lightweight APIs or native images	        =>  Micronaut
+
+10. Stop Using UUIDs in MySql Database
+    * Insert Performance - When a new record is inserted into a table, the index associated with the primary key must be
+    updated to maintain optimal query performance. Indexes are constructed using the B+ Tree data structure. For
+    every record insertion, the underlying B+ Tree must be rebalanced to optimize query performance. The rebalancing process
+    becomes highly inefficient for UUID. This is because of the inherent randomness of UUIDs, making it harder to keep
+    the tree in balance. As you scale, you will have millions of nodes to rebalance, which dramatically decreases the
+    insert performance when using UUID keys.
+
+    * Higher Storage - By comparison, auto-incrementing integers consume 32bits per value, while UUIDs consume 128bits
+    per value. Additionally, most people store UUIDs in human-readable form, which means a UUID could consume up to
+    688bits per value
+
+11. In concurrent hash map, What happens if two threads try to update the same key?
+    - ConcurrentHashMap allows multiple threads to read and write concurrently without locking the entire map.
+    - If two threads try to update the same key, one thread will succeed while the other will fail to update.
+    - The failed thread will have to retry the operation, ensuring that the map remains consistent.
+    - This is achieved through a technique called lock striping, where the map is divided into segments,
+    allowing for finer-grained locking.
+    - The failed thread will not get any exception or error.
+
+12. System Design - While choosing a database
+    - What kind of data are we storing? Is the data structured, semi-structured, or unstructured?
+    - What kind of queries are most common?
+    - Do we care more about consistency or availability?
+    - Are we reading more or writing more?
+    - Do we need real-time performance?
+
+13. Server-Sent Events (SSE) vs WebSockets vs Long Polling
+Feature	            Server-Sent Events (SSE)	                        WebSockets	                            Long Polling
+Communication	    One-way (server → client)	                    Two-way (client ⇄ server)	                Client-initiated but server can delay
+Protocol	        HTTP (uses text/event-stream)	            Separate protocol over HTTP (full duplex)	    HTTP (repeated GET requests)
+Browser Support	    Good (except IE & older Edge)	            Broad (modern browsers, mobile, etc.)	        Works everywhere
+Use Case	        Live feeds, notifications, updates	        Chat, gaming, collaborative apps	            Legacy fallback for real-time communication
+Complexity	        Simple	                                    Moderate to complex	                            Simple but inefficient
+Latency	            Low (real-time)	                            Very low (true real-time)	                    Medium to high
+Scalability	        Good (HTTP/2 improves)	                    Needs WS-aware infra	                        Poor (many open connections)
+Server Push	        ✅ Yes	                                    ✅ Yes	                                        ⚠️ Simulated via polling
+Reconnection	    ✅ Built-in retry	                        ❌ Manual (unless library used)	                ✅ Automatically retried
+Headers/Cookies	    Uses standard HTTP	                        Needs initial HTTP handshake	                Uses HTTP
+
+14. Spring Depricated Items
+    - Thread.stop() - This method is deprecated because it can lead to inconsistent state and resource leaks.
+        * Use interrupt() mechanism and flag-based cancellation.
+    - Thread.suspend() and Thread.resume() - These methods are deprecated because they can lead to deadlocks and inconsistent state.
+        * Use wait/notify or higher-level concurrency utilities like Lock, Semaphore
+    - SecurityManager - Deprecated in Java 17, as it is considered too complex and error-prone.
+    - Applet API - Deprecated in Java 9, as applets are no longer widely used and pose security risks.
+    - finalize() - Deprecated in Java 9, as it can lead to unpredictable behavior and resource leaks.
+        * Replaced by AutoCloseable/try-with-resources.
+    - Vector, Hashtable, and Enumeration - Deprecated in favor of more modern collections like ArrayList, HashMap, and Stream API.
+        * Use ArrayList, HashMap, Iterator, or ConcurrentHashMap.
+    - Date and Calendar - Deprecated in favor of the java.time package introduced in Java 8, which provides a more
+    comprehensive and user-friendly date and time API.
+        * java.time.* API (Java 8+)
+
+15. What’s the difference between OAuth and JWT?
+    - OAuth is an authorization framework that allows third-party applications to access user data without sharing credentials.
+    - JWT (JSON Web Token) is a token format used to securely transmit information between parties.
+    - OAuth can use JWT as a token format, but they serve different purposes.
+    - OAuth is about granting access, while JWT is about securely transmitting information.
+
+16. How does token expiration work?
+    - Tokens have an expiration time (exp claim) to limit their validity.
+    - After expiration, the token is no longer accepted for authentication.
+    - Clients must refresh tokens using a refresh token or re-authenticate to obtain a new access token.
+    - This helps mitigate risks associated with stolen tokens.
+
+17. Can you invalidate a JWT token?
+    - JWTs are stateless and cannot be invalidated server-side.
+    - To handle token revocation, you can implement a blacklist or use short-lived tokens with refresh tokens.
+    - Alternatively, you can change the signing key or add a version claim to force clients to re-authenticate.
+
+18. How does refresh token mechanism work?
+    - Refresh tokens are long-lived tokens used to obtain new access tokens without requiring user credentials.
+    - When an access token expires, the client can send the refresh token to the server to request a new access token.
+    - The server verifies the refresh token and issues a new access token if valid.
+    - This allows for seamless user experience without frequent re-authentication.
+
+19. How to implement infinite login application?
+    - Use a combination of access tokens and refresh tokens.
+    - Access tokens have a short expiration time (e.g., 15 minutes).
+    - Refresh tokens have a longer expiration time (e.g., 30 days).
+    - When the access token expires, the client uses the refresh token to obtain a new access token.
+    - This allows users to stay logged in without frequent re-authentication while maintaining security.
+
+20. Is Java 100% object-oriented?
+    Java is not purely object-oriented because it supports primitive data types like int, char, etc., which are not
+    objects. Also, features like static methods and variables allow us to use code without creating objects. Moreover,
+    control structures like if-else are language constructs, not objects. These design choices were made for performance
+    and simplicity, but they mean Java doesn’t follow the ‘everything is an object’ rule.
+
+21. Why didn’t Java make everything an object?
+    - Making everything an object increases memory and processing overhead
+    - That’s why primitive types and static members exist — for better speed and simplicity.
+    - Performance: Objects have overhead (memory, CPU) that can slow down performance.
+    - Control Structures: Java needs control structures (if, for, etc.) for flow control, which don’t fit the object model.
+
+22. <? extends T> and <? super T> are concepts in Java generics known as Wildcards and Bounds.
+    - <? extends T>: Refers to Upper Bounded Wildcards
+    - <? super T>: Refers to Lower Bounded Wildcards
+
+23. Write Thread-Safe Classes in Java
+    - Use synchronized methods or blocks
+    - Make Fields Immutable
+    - Use volatile keyword for shared variables
+    - Use ReentrantLock for more flexibility and control over locking.
+    - Use Atomic classes (e.g., AtomicInteger, AtomicReference) for simple thread-safe operations on single variables.
+    - Use Concurrent Collections (e.g., ConcurrentHashMap, CopyOnWriteArrayList) for collections that need to be accessed by multiple threads.
+    - Use Thread-Local Variables for Per-Thread Isolation
+    - Use Executors and Shared State Wisely
+    - Synchronize Only Critical Sections (Not Whole Methods)
+    - Use ReadWriteLock for High Read-Low Write Scenarios
+    - Avoid using static variables in multi-threaded environments unless they are properly synchronized.
+
+24. First, What Is Clean Code Anyway?
+    - Readable 🧐 — Even your intern should get it.
+    - Reusable ♻️ — Write once, use everywhere.
+    - Maintainable 🔧 — So future-you doesn’t file a bug on past-you.
+
+    Approach
+    - Minimal comments, naming convention should tell the story.
+    - Minimal if else
+    - Avoid nested, use flatten
+    - Avoid duplicates
+
+25. Why HashMap’s load factor is 0.75?
+    - Collision vs. Memory Trade-off
+      • A lower load factor (e.g. 0.5) reduces collisions but wastes more memory.
+      • A higher load factor (e.g. 0.9) uses memory more tightly but increases collisions and lookup time.
+    - Amortized Resizing Cost
+      • At 0.75, you minimize the number of expensive resize-and-rehash operations while keeping average bucket chain/tree lengths short.
+    - Empirical Sweet Spot
+      • In practice, 0.75 gives you good overall performance (O(1) average lookup) without excessive memory overhead.
+
+26. How Java is even faster in 2025?
+    - Virtual Threads
+      • Lightweight threads that allow millions of concurrent tasks without heavy context switching.
+      • Great for I/O-bound applications, reducing latency and improving throughput.
+    - Record Patterns & Pattern Matching — Cleaner, Smarter Code
+      • Simplifies data handling, reduces boilerplate code.
+      • Makes code more readable and maintainable.
+    - Sequenced Collections — Predictable Iteration
+    - Unnamed Classes & Instance Main Methods — Faster Prototyping
+    - Scoped Values — Better Than ThreadLocal
+    - Structured Concurrency — Safer, Simpler Thread Management
+
+27. Hibernate Caching
+    - First-Level Cache (Session Cache)
+      • Enabled by default, stores entities within a session.
+      • Automatically clears when the session is closed.
+    - Second-Level Cache
+      • Optional, shared across sessions.
+      • Can use providers like Ehcache, Hazelcast, or Infinispan.
+      • Configurable per entity or collection.
+    - Query Cache
+      • Caches query results to avoid re-executing the same query.
+      • Requires second-level cache to be enabled.
+
+28. Tomcat - Apache Tomcat is a widely used Java-based servlet container that implements the Java Servlet and JSP specifications.
+
+    ✅ Tomcat Characteristics:
+        Blocking (synchronous) I/O
+        Thread-per-request model
+        Based on the Servlet API
+        Easy to use for monolithic, CRUD-style apps
+
+    ⚠️ Limitations of Tomcat
+        Thread-per-request Model
+        Blocking I/O
+        High Resource Usage
+        Difficult to Handle Long-Lived Connections
+
+    Netty - Netty is a non-blocking, asynchronous network application framework built on top of Java NIO.
+
+    ✅ Netty Characteristics:
+        Event-loop based (not thread-per-request)
+        Uses selectors to multiplex thousands of connections
+        Lightweight and highly customizable
+        Ideal for high-throughput, low-latency network applications
+
+    ✅ Why Netty is Better
+        Asynchronous & Non-blocking I/O
+        Event-driven architecture
+        High concurrency with low resource usage
+        Highly Scalable
+            100k — 1M concurrent connections
+            10k — 100k requests per second
+        Supports long-lived connections (WebSockets, SSE)
+        Flexible pipeline for request/response processing
+
+29. Make Spring fast
+    - Uses indexes on database
+    - Inplace of findAll(), use pagination
+    - Use caching for data pull
+    - Use lazy loading where possible
+    - Move heavy tasks to background jobs after startup
+    - Use threadpool
+        spring:
+          task:
+            execution:
+              pool:
+                core-size: 8
+                max-size: 16
+
+        spring:
+          task:
+            execution:
+              pool:
+                core-size: 32
+                max-size: 200
+                queue-capacity: 500
+
+    - Garbage Collection = Use G1 Garbage Collector, not default GC
+        -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/path/to/gc.log
+    - Use @Async for non-blocking operations
+    - Use @Transactional wisely
+        - Use @Transactional(readOnly = true) for read operations
+        - Use @Transactional(propagation = Propagation.REQUIRES_NEW) for independent transactions
+        - We should not use @Transactional on
+            - methods that are called from within the same class, as it will not create a proxy and thus will not apply the transaction management.
+            - a private method does not work because Spring uses proxies — and private methods are not intercepted. (private methods are not visible to proxy objects)
+
+    - Monitoring - Actuator, Prometheus, Grafana
+    - Database Connection Pooling
+        - Use HikariCP or Apache DBCP for efficient connection pooling
+        - Configure connection pool properties like max pool size, idle timeout, etc.
+    - Used DTO projections instead of loading full entities
+
+30. Actual Thread - Managed by the JVM, with its own stack and memory space.
+    Virtual Thread - Managed by operating system, lightweight, shares memory space with other threads.
+    - https://www.youtube.com/watch?v=0NtIcbSsjBc
+
+31. Record Pattern Matching
+    - Simplifies data handling by allowing you to match and extract data from records without boilerplate code.
+
+      record Point(int x, int y) {}
+
+      void process(Point p) {
+          if (p instanceof Point(int x, int y)) {
+              System.out.println("Point coordinates: " + x + ", " + y);
+          }
+      }
+
+32. 127.0.0.1
+    - Loopback IP Address - When a network request is sent to 127.0.0.1, it never leaves your computer. It loops back internally
+    - It always points back to the computer you’re working on.
+
+    localhost — The Hostname Alias
+    - localhost is a hostname that usually resolves to 127.0.0.1.
+    - It is mapped in the hosts file of your OS.
+
+31. Sealed Classes help us restrict which classes can extend or implement a superclass or interface. Sealed Classes are
+beneficial in cases when we need to control the classes which can implement or extend them
+
+    public abstract sealed class Shape permits Circle, Rectangle, Square {
+        public abstract int getNumberOfSides();
+    }
+    public final class Circle extends Shape {
+        public int getNumberOfSides() { return 0; }
+    }
+    public non-sealed class Rectangle extends Shape {
+        public int getNumberOfSides() { return 4; }
+    }
+    public final class Square extends Rectangle {
+        public int getNumberOfSides() { return 4; }
+    }
+
+32. The keyword final only applies to the reference, not to the actual contents of the object.
+
+    final List<String> shoppingCart = new ArrayList<>();
+    shoppingCart.add("Milk");
+    shoppingCart.add("Eggs");
+    shoppingCart.remove("Milk");
+
+    System.out.println(shoppingCart); // [Eggs]
+
+    So this is valid:
+    ✅ You can’t do: shoppingCart = new LinkedList<>();
+    ✅ You can do: shoppingCart.add(...), shoppingCart.remove(...), etc.
+
+33. STAR method:
+
+    Situation — set the context.
+    Task — explain your role.
+    Action — what you did.
+    Result — what happened, and what you learned.

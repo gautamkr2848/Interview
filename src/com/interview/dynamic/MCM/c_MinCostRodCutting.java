@@ -31,4 +31,18 @@ public class c_MinCostRodCutting {
 
         System.out.println("The minimum cost incurred: " + f(1, c, cuts));
     }
+
+    static int cutRod(int[] price) {
+        int n = price.length;
+        int[] dp = new int[n + 1];
+
+        // Find maximum value for all rod of length i.
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                dp[i] = Math.max(dp[i], price[j - 1] + dp[i - j]);
+            }
+        }
+
+        return dp[n];
+    }
 }

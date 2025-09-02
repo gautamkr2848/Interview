@@ -134,6 +134,11 @@ where prevDiff is max(profit[i-1][j] – price[j]) for all j in range [0, i-2]
     }
 
     //For 2 txns
+
+    // first_buy: Max profit after first buy (negative, since buying costs money).
+    // first_sell: Max profit after first sell.
+    // second_buy: Max profit after second buy (after selling first).
+    // second_sell: Max profit after second sell.
     public static int maxtwobuysell(int arr[]) {
         int n = arr.length;
         int first_buy = Integer.MIN_VALUE;
@@ -158,14 +163,40 @@ where prevDiff is max(profit[i-1][j] – price[j]) for all j in range [0, i-2]
     }
 
     // With cooldown period
+
+    // find the maximum profit that you can make by buying and selling stock with the restriction of  After you sell your
+    // stock, you cannot buy stock on the next day (i.e., cooldown one day).
     public static int maxProfit(int[] prices) {
         int sell = 0, prev_sell = 0, buy = Integer.MIN_VALUE, prev_buy = Integer.MIN_VALUE;
-        for (int price : prices) {
+        for (int i=0; i<prices.length; i++) {
             prev_buy = buy;
-            buy = Math.max(prev_sell - price, prev_buy);
+            buy = Math.max(prev_sell - prices[i], prev_buy);
             prev_sell = sell;
-            sell = Math.max(prev_buy + price, prev_sell);
+            sell = Math.max(prev_buy + prices[i], prev_sell);
         }
         return sell;
+    }
+
+    // 3 possible states : buy, sell, rest
+
+    // buy[i] = Math.max(buy[i - 1], sell[i - 2] - prices[i]);
+    // sell[i] = Math.max(sell[i - 1], buy[i - 1] + prices[i]);
+
+    // b0 = Math.max(b1, s2 - prices[i]);
+    // s0 = Math.max(s1, b1 + prices[i]);
+    public static int maxProfitWithCooldown(int[] prices) {
+        if(prices == null || prices.length <= 1) return 0;
+
+        int b0 = -prices[0], b1 = b0;
+        int s0 = 0, s1 = 0, s2 = 0;
+
+        for(int i = 1; i < prices.length; i++) {
+            b0 = Math.max(b1, s2 - prices[i]);
+            s0 = Math.max(s1, b1 + prices[i]);
+            b1 = b0;
+            s2 = s1;
+            s1 = s0;
+        }
+        return s0;
     }
 }

@@ -39,11 +39,44 @@ public class MaxHistogramArea {
 
     // O(N2)
 
-    public static void main(String[] args) {
-        maxArea_2();
+    static int getMaxArea2(int[] arr) {
+        int n = arr.length;
+        Stack<Integer> s = new Stack<>();
+        int maxArea = 0, tmp, pse, nse;
+
+        // Traverse all bars of the histogram
+        for (int i = 0; i < n; i++) {
+            // While the current bar is smaller than the bar at stack top
+            while (!s.isEmpty() && arr[s.peek()] >= arr[i]) {
+                tmp = s.pop();
+                nse = i; // Nearest Smaller to Right index
+                pse = s.isEmpty() ? -1 : s.peek(); // Nearest Smaller to Left index
+                maxArea = Math.max(maxArea, (nse - pse - 1) * arr[tmp]);
+            }
+            s.push(i);
+        }
+
+        // Process remaining bars in stack
+        while (!s.isEmpty()) {
+            tmp = s.pop();
+            nse = n; // No smaller to right, so use n
+            pse = s.isEmpty() ? -1 : s.peek();
+            maxArea = Math.max(maxArea, (nse - pse - 1) * arr[tmp]);
+        }
+
+        return maxArea;
     }
 
-    public int largestRectangleArea(int[] heights) {
+    // O(N)
+
+    public static void main(String[] args) {
+        maxArea_2();
+        int[] a = { 6, 2, 5, 4, 5, 1, 6 };
+        System.out.println(getMaxArea2(a));
+        System.out.println(largestRectangleArea(a));
+    }
+
+    public static int largestRectangleArea(int[] heights) {
         int n = heights.length;
         int[] nsr = new int[n];
         int[] nsl = new int[n];

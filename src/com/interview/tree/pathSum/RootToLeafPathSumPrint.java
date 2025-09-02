@@ -15,6 +15,28 @@ public class RootToLeafPathSumPrint {
         return ans;
     }
 
+    private static void findPaths(Node root, List<Integer> curr, List<List<Integer>> ans) {
+        if (root == null)
+            return;
+
+        curr.add(root.key);
+
+        if (root.left == null && root.right == null) {
+            ans.add(new ArrayList<Integer>(curr));
+            return;
+        }
+
+        if(root.left!= null) {
+            findPaths(root.left, curr, ans);
+            curr.remove(curr.size() - 1);
+        }
+
+        if(root.right != null) {
+            findPaths(root.right, curr, ans);
+            curr.remove(curr.size() - 1);
+        }
+    }
+
     public static void dfs(Node root, int Sum, List<List<Integer>> ans, List<Integer> curr){
         if(root==null)
             return ;
@@ -51,27 +73,5 @@ public class RootToLeafPathSumPrint {
         node.right.right.right = new Node(1);
 
         System.out.println(pathSum(node, 22).toString());
-    }
-
-    public static void findPaths(Node root, List<Integer> curr, List<List<Integer>> ans) {
-        if (root == null)
-            return;
-
-        curr.add(root.key);
-
-        if (root.left == null && root.right == null) {
-            ans.add(new ArrayList<Integer>(curr));
-            return;
-        }
-
-        if(root.left!= null) {
-            findPaths(root.left, curr, ans);
-            curr.remove(curr.size() - 1);
-        }
-
-        if(root.right != null) {
-            findPaths(root.right, curr, ans);
-            curr.remove(curr.size() - 1);
-        }
     }
 }
