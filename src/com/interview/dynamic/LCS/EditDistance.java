@@ -1,10 +1,11 @@
 package com.interview.dynamic.LCS;
 
-// Convert A to B
-
-// Operation 1 (INSERT): Insert any character before or after any index of str1
-// Operation 2 (REMOVE): Remove a character of str1
-// Operation 3 (Replace): Replace a character at any index of str1 with some other character.
+// Given two strings s1 and s2 and below operations that can be performed on s1. The task is to find the minimum number
+// of edits (operations) to convert 's1' into 's2'.
+//
+// Insert: Insert any character before or after any index of s1
+// Remove: Remove a character of s1
+// Replace: Replace a character at any index of s1 with some other character.
 
 public class EditDistance {
 
@@ -14,12 +15,6 @@ public class EditDistance {
         String str2 = "GEEKSFORGEEKS";
 
         System.out.println(editDist(str1, str2, str1.length(), str2.length()));
-    }
-
-    static int min(int x, int y, int z) {
-        if (x <= y && x <= z) return x;
-        if (y <= x && y <= z) return y;
-        else return z;
     }
 
     static int editDist(String str1, String str2, int m, int n) {
@@ -76,5 +71,11 @@ public class EditDistance {
         }
 
         return dp[m][n];
+    }
+
+    static int min(int x, int y, int z) {
+        if (x <= y && x <= z) return x;
+        if (y <= x && y <= z) return y;
+        else return z;
     }
 }

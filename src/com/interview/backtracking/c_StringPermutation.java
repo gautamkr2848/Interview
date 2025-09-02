@@ -3,9 +3,7 @@ package com.interview.backtracking;
 //Input: S = “ABC”
 //Output: “ABC”, “ACB”, “BAC”, “BCA”, “CBA”, “CAB”
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class c_StringPermutation {
 
@@ -64,12 +62,14 @@ public class c_StringPermutation {
     public static void main(String[] args) {
         permutation("abc");
         permutation_dup("abb");
-        permutation("abb", 0, 2);
+        permutation("abc", 0, 2);
     }
 
+    static Set<String> set = new HashSet<>();
     public static void permutation(String str, int l, int r){
-        if (l == r) {
+        if (l == r && !set.contains(str)) {
             System.out.print(str + " ");
+            set.add(str);
             return;
         }
 

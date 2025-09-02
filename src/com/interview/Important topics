@@ -79,13 +79,13 @@
 
 8. nginx - https://medium.com/devopscurry/what-is-nginx-understanding-the-basics-of-nginx-in-2021-f8ee0f3d3d54
 
-8. Consistent Hashing
+9. Consistent Hashing
     https://medium.com/@sandeep4.verma/consistent-hashing-8eea3fb4a598
 
     Hashing is a technique of mapping one piece of data of some arbitrary size into another piece of data of fixed size,
     typically an integer, known as hash or hash code.
 
-9. Scaling
+10. Scaling
     Vertical => Buying a bigger system
     Horizontal => Increasing number of instances
 
@@ -188,10 +188,7 @@
 
     public interface Serializable {}
 
-26. Concurrency Model
-    1. Parallel Workers
-    2. Assembly Line
-    3. Functional Parallelism   =>  Fork/Join Pool
+26. For Database, Every time prefer soft delete over hard delete
 
 27. Bean Scope => The scope of a bean defines the life cycle and visibility of that bean
     1. Singleton - single instance per Spring IoC container

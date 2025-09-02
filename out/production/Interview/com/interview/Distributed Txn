@@ -1,15 +1,13 @@
 Handling Transactions in Distributed Systems
 
-    In a distributed system, transactions may involve multiple databases, complicating the management of ACID properties.
-    For example, when purchasing an item from an e-commerce platform, both the order database and the inventory database
-    are affected. Here, a transaction is local to a single database, making it challenging to maintain consistency across
-    multiple databases.
+    - may involve multiple databases
+    - comlpicated to manage ACID properties for all.
 
     Challenges of Distributed Transactions
 
-        Failure of the transaction coordinator: The coordinator is responsible for managing the transaction across different databases.
-        Participant failure: If one of the databases fails during the transaction, it can lead to inconsistencies.
-        Message loss: Messages between the coordinator and participants may be lost, leading to uncertainty about the transaction's state.
+        - Failure of the transaction coordinator
+        - Participant failure
+        - Message loss
 
 
 To address these challenges, several protocols have been developed:

@@ -50,7 +50,7 @@ public class DuplicateElements {
         //a.stream().collect(Collectors.groupingBy(x->x, Collectors.counting())).entrySet().stream().map(x-> x.getKey()).forEach(System.out::print);
 
         Set<Integer> s = new HashSet<>();
-        a.stream().filter(x -> s.add(x)).collect(Collectors.toList()).forEach(System.out::print);
+        a.stream().forEach(x -> s.add(x));
         System.out.println(s.toString());
     }
 }

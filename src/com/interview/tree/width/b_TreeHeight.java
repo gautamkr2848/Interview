@@ -7,12 +7,10 @@ import java.util.Queue;
 
 public class b_TreeHeight {
 
-    public int treeHeight(Node node){
-        if(node == null)
+    public int height(Node node){
+        if (node == null)
             return 0;
-        int leftHeight = treeHeight(node.left);
-        int rightHeight = treeHeight(node.right);
-        return (leftHeight > rightHeight) ? leftHeight + 1 : rightHeight + 1;
+        return (1 + Math.max(height(node.left), height(node.right)));
     }
 
     public void treeHeight_2(Node node){

@@ -13,33 +13,24 @@ Output: 6
 
 public class WaterTapping {
 
-    // Traverse every array element and find the highest bars on the left and right sides. Take the smaller of two
-    // heights. The difference between the smaller height and the height of the current element is the amount of water
-    // that can be stored in this array element.
-
-    //Complexity Analysis:
-
-    //Time Complexity: O(N2). There are two nested loops traversing the array.
-    //Space Complexity: O(1). No extra space is required.
-
-    public static int maxWater(int[] arr, int n) {
-
+    static int maxWater(int[] arr) {
         int res = 0;
-        for (int i = 1; i < n - 1; i++) {
+
+        for (int i = 1; i < arr.length - 1; i++) {
 
             int left = arr[i];
-            int right = arr[i];
-
-            for (int j = 0; j < i; j++) {   // Find maximum element on its left
+            for (int j = 0; j < i; j++)
                 left = Math.max(left, arr[j]);
-            }
 
-            for (int j = i + 1; j < n; j++) {   // Find maximum element on its right
+            // Find the maximum element on its right
+            int right = arr[i];
+            for (int j = i + 1; j < arr.length; j++)
                 right = Math.max(right, arr[j]);
-            }
 
-            res = res + Math.min(left, right) - arr[i];
+            // Update the maximum water
+            res += Math.min(left, right) - arr[i];
         }
+
         return res;
     }
 
@@ -92,22 +83,22 @@ public class WaterTapping {
     //Similar things happen for j also.
 
     public static int trap() {
-        int[] heights = {3, 0, 2, 0, 1};
+        int[] arr = {3, 0, 2, 0, 1};
 
-        int i = 0, j = heights.length - 1, water = 0;
+        int i = 0, j = arr.length - 1, water = 0;
 
-        int left = heights[i];
-        int right = heights[j];
+        int left = arr[i];
+        int right = arr[j];
 
         while (i < j) {
-            if (heights[i] <= heights[j]) {
+            if (arr[i] <= arr[j]) {
                 i++;
-                left = Integer.max(left, heights[i]);
-                water = water + left - heights[i];
+                left = Integer.max(left, arr[i]);
+                water = water + left - arr[i];
             } else {
                 j--;
-                right = Integer.max(right, heights[j]);
-                water = water + right - heights[j];
+                right = Integer.max(right, arr[j]);
+                water = water + right - arr[j];
             }
         }
         return water;

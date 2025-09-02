@@ -50,10 +50,10 @@ public class b_MinCostPath {
     }
 
     public static void main(String[] args) {
-        int cost[][]= {{9, 4, 9, 9},
-                {6, 7, 6, 4},
-                {8, 3, 3, 7},
-                {7, 4, 9, 10}};
+        int cost[][]=  {{9, 4, 9, 9},
+                        {6, 7, 6, 4},
+                        {8, 3, 3, 7},
+                        {7, 4, 9, 10}};
         int m=4, n=4;
         System.out.println(minCost_dp(cost, m, n));
     }

@@ -27,7 +27,7 @@ public class b_PreOrder {
         Stack<Node> stk = new Stack<>();
         stk.push(root);
 
-        while (stk.empty() == false) {
+        while (!stk.empty()) {
             Node node = stk.pop();
             System.out.print(node.key + " ");
 

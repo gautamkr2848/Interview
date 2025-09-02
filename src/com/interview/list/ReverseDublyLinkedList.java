@@ -32,7 +32,7 @@ public class ReverseDublyLinkedList {
         }
     }
 
-    public static DoublyNode Reverse(DoublyNode node) {
+    public static DoublyNode reverse(DoublyNode node) {
         if (node == null)
             return null;
 
@@ -47,6 +47,6 @@ public class ReverseDublyLinkedList {
             return node;
 
         // Otherwise, keep going
-        return Reverse(node.prev);
+        return reverse(node.prev);
     }
 }

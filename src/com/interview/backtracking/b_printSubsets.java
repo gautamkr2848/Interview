@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
+
 public class b_printSubsets {
 
     public static void printSubsets(int[] arr){
@@ -25,6 +27,8 @@ public class b_printSubsets {
 
     public static void main(String[] args) {
         printSubsets(new int[]{1, 2,3});
+        StringCombination();
+        printSubsets_dup(new int[]{1,2,2});
     }
 
     // print all the subsets of a string

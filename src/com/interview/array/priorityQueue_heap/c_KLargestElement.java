@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 
 public class c_KLargestElement {
 
-    public void kLargestElement(){
+    public static void kLargestElement(){
         int[] arr = { 12, 35, 1, 10, 34, 1 };
         int k = 2;
 
@@ -26,6 +26,10 @@ public class c_KLargestElement {
 
         while (!q.isEmpty())
             System.out.print(q.poll() + " ");
+    }
+
+    public static void main(String[] args) {
+        kLargestElement();
     }
 }
 
