@@ -29,11 +29,10 @@ public class SerializeAndDeserializeBinaryTree {
         return String.join(",", l);
     }
 
-    static int t;
+    static int t = 0;
     public Node deserialize(String data) {
         if (data == null)
             return null;
-        t = 0;
         String[] arr = data.split(",");
         return helper(arr);
     }

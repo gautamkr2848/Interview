@@ -91,6 +91,7 @@ public class Stream {
         return hm.entrySet()
                 .stream()
                 .sorted((i1, i2) -> i1.getValue().compareTo(i2.getValue()))
+                //.sorted(Map.Entry.comparingByValue())
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
@@ -108,12 +109,15 @@ public class Stream {
         //Map<String, Double> collect = list.stream()
         //    .collect(Collectors.groupingBy(Student::getDepartmantName, Collectors.averagingInt(Student::getRank)));
 
-
         //        First duplicate
         //        Set<Integer> items = new HashSet<>();
         //        List<Integer> list = Arrays.asList(4, 3, 5, 7, 3, 4, 1);
         //        Integer a = list.stream().filter(x -> !items.add(x)).findFirst().get();
         //        System.out.println(a);
+
+        // Optional<Integer> firstDuplicate = Arrays.stream(arr)
+        //            .filter(e -> Collections.frequency(Arrays.asList(arr), e) > 1)
+        //            .findFirst();
 
         // First Unique Character in a String
         // int a = s.chars().mapToObj(x -> x)
@@ -123,7 +127,6 @@ public class Stream {
         // Array product except self
         // int[] a = {2, 6, 1, 9};
         // Arrays.stream(a).map(x -> Arrays.stream(a).filter(y -> x != y).reduce(1, (y, z) -> y * z)).forEach(System.out::println);
-
 
         // Intersection of two lists
 
@@ -155,14 +158,17 @@ public class Stream {
 
         // Distinct records
         List<String> list = Arrays.asList("a", "b", "a");
-        List<String> newList = list.stream().filter(i -> Collections.frequency(list, i) > 1).distinct().collect(Collectors.toList());
+        List<String> newList = list.stream().filter(i -> Collections.frequency(list, i) >= 1).distinct().collect(Collectors.toList());
         System.out.println(newList.toString());
 
         String s = "amjkkbmc";
         s.chars().distinct().forEach(x -> System.out.print((char)x));
+        System.out.println();
 
         String[] array = {"a", "b", "a"};
         Arrays.stream(array).distinct().forEach(System.out::print);
+
+        System.out.println();
 
         List<List<String>> namesNested = Arrays.asList(
                 Arrays.asList("Jeff", "Bezos"),

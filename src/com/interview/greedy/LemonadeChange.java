@@ -32,7 +32,7 @@ public class LemonadeChange {
                     five--;
                 } else if((ten ==0 && five >= 3)){
                     five = five - 3;
-                }else
+                } else
                     return false;
             }
         }

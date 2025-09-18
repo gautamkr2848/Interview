@@ -3,7 +3,6 @@ package com.interview.string;
 public class BackspaceStringCompare {
 
     public static void main(String[] args) {
-        BackspaceStringCompare bsc = new BackspaceStringCompare();
         System.out.println(getActual("ab#c").equals(getActual("ad#c"))); // true
         System.out.println(getActual("ab##").equals(getActual("c#d#"))); // true
         System.out.println(getActual("a#c").equals(getActual("b"))); // false

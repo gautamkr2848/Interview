@@ -34,8 +34,8 @@ public class BaisedCoin {
         double[][] dp = new double[n + 1][n + 1];
         dp[0][0] = 1.0;
 
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j <= i; j++) {
+        for (int i = 1; i <= n; i++) {      // number of coins
+            for (int j = 0; j <= i; j++) {      // number of heads
                 if (j == 0) {
                     dp[i][j] = dp[i - 1][j] * (1.0 - p[i - 1]);
                 } else {

@@ -36,20 +36,19 @@ public class StockBuySell {
         System.out.println("Maximum profit : " + profit);
     }
 
+    //        Let profit[i][j] represent maximum profit using at most i transactions up to day j (including day j). Then the
+    //        relation is:
+    //            i = no. of transactions
+    //            j = days
+    //            profit[i][j] = max(profit[i][j-1], max(price[j] – price[m] + profit[i-1][m])) for all m in range [0, j-1]
+    //
+    //        profit[i][j] will be maximum of –
+    //            1. profit[i][j-1] which represents not doing any transaction on the jth day.
+    //            2. price[j] - price[m] + profit[i-1][m]
+    //                Selling on jth day, i.e buying on some day before j i.e mth day + profit upto mth day
+
     public int maxProfit(int[] price, int n, int k) {
-
         int[][] profit = new int[k + 1][n + 1];
-
-        //        Let profit[i][j] represent maximum profit using at most i transactions up to day j (including day j). Then the
-        //        relation is:
-        //            i = no. of transactions
-        //            j = days
-        //            profit[i][j] = max(profit[i][j-1], max(price[j] – price[m] + profit[i-1][m])) for all m in range [0, j-1]
-        //
-        //        profit[i][j] will be maximum of –
-        //            1. profit[i][j-1] which represents not doing any transaction on the jth day.
-        //            2. price[j] - price[m] + profit[i-1][m]
-        //                Selling on jth day, i.e buying on some day before j i.e mth day + profit upto mth day
 
         for (int i = 1; i <= k; i++) {
             for (int j = 1; j < n; j++) {
@@ -118,6 +117,8 @@ where prevDiff is max(profit[i-1][j] – price[j]) for all j in range [0, i-2]
         }
         return t[k][n - 1];
     }
+
+    // Time complexity - O(k * n)
 
     // For 1 txn
     public void maxProfitWithOneTxn(int arr[]) {
@@ -199,4 +200,87 @@ where prevDiff is max(profit[i-1][j] – price[j]) for all j in range [0, i-2]
         }
         return s0;
     }
+
+    // We can’t buy a stock on the very next day of selling it. This is the cooldown clause.
+    public static int stockProfit(int[] arr) {
+        int n = arr.length;
+        int dp[][] = new int[n + 2][2];
+
+        // Iterate through the array backwards
+        for (int i = n - 1; i >= 0; i--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                int profit = 0;
+
+                if (buy == 0) { // We can buy the stock
+                    profit = Math.max(0 + dp[i + 1][0], -arr[i] + dp[i + 1][1]);
+                }
+
+                if (buy == 1) { // We can sell the stock
+                    profit = Math.max(0 + dp[i + 1][1], arr[i] + dp[i + 2][0]);
+                }
+
+                dp[i][buy] = profit;
+            }
+        }
+
+        // The maximum profit is stored in dp[0][0]
+        return dp[0][0];
+    }
+
+    //Time Complexity: O(N*2)
+    //Space Complexity: O(N*2)
+
+    // After every transaction, there is a transaction fee (‘fee’) associated with it.
+    public static int maximumProfit(int n, int fee, int[] arr) {
+        // Handle the base case when n is 0
+        if (n == 0)
+            return 0;
+
+        int dp[][] = new int[n + 1][2];
+
+        // Iterate through the array backwards
+        for (int i = n - 1; i >= 0; i--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                int profit = 0;
+
+                if (buy == 0) { // We can buy the stock
+                    profit = Math.max(0 + dp[i + 1][0], -arr[i] + dp[i + 1][1]);
+                }
+
+                if (buy == 1) { // We can sell the stock
+                    profit = Math.max(0 + dp[i + 1][1], arr[i] - fee + dp[i + 1][0]);
+                }
+
+                dp[i][buy] = profit;
+            }
+        }
+        return dp[0][0];
+    }
+
+    // Time Complexity: O(N*2)
+    // Space Complexity: O(N*2)
+
+    public static int getMaximumProfit(int[] arr, int n) {
+        int[][] dp = new int[n + 1][2];
+
+        dp[n][0] = dp[n][1] = 0;        // Base condition: If we have no stocks to buy or sell, profit is 0
+        int profit = 0;
+
+        // Iterate through the array in reverse to calculate the maximum profit
+        for (int i = n - 1; i >= 0; i--) {
+            for (int buy = 0; buy <= 1; buy++) {
+                if (buy == 0)  // We can buy the stock
+                    profit = Math.max(0 + dp[i + 1][0], -arr[i] + dp[i + 1][1]);
+
+                if (buy == 1)  // We can sell the stock
+                    profit = Math.max(0 + dp[i + 1][1], arr[i] + dp[i + 1][0]);
+
+                dp[i][buy] = profit;
+            }
+        }
+        return dp[0][0];
+    }
+
+    // Time Complexity: O(N*2)
+    // Space Complexity: O(N*2)
 }

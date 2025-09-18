@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class LongestConsecutiveSubsequence {
 
-    public int findLongestConseqSubseq_2(int arr[], int n) {
+    public int findLongestConseqSubseq(int arr[], int n) {
         Set<Integer> s = new HashSet<>();
         int maxLength = 0, currLength = 0;
 

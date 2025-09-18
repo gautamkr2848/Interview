@@ -7,8 +7,8 @@ import java.util.Arrays;
 public class ActivitySelection {
 
     public static void activitySelection(){
-        int s[] =  {1, 3, 0, 5, 8, 5};
-        int f[] =  {3, 4, 6, 7, 9, 9};
+        int s[] =  {10, 12, 20};
+        int f[] =  {20, 25, 30};
 
         Arrays.sort(f);
 

@@ -10,15 +10,13 @@ package com.interview.string;
 public class LongestPrefixSuffix {
 
     public static void main(String[] args) {
-        String s = "aabcdaabc";
-        int i=1, n = s.length();
+        String s = "abcab";
+        int i=0, n = s.length();
         String res = "";
 
         while (i <= n/2) {
             if(s.substring(0,i).equalsIgnoreCase(s.substring(n-i, n))){
                 res = s.substring(0,i);
-            } else {
-                continue;
             }
             i++;
         }
