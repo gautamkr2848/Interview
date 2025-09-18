@@ -14,37 +14,21 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String s = "geeksforgeeks";
+        int[] a = {2, 0, 1, 9};
+        Arrays.stream(a).map(x -> Arrays.stream(a).filter(y -> x != y).reduce(1, (y, z) -> y * z)).forEach(System.out::println);
 
-        int left = 0;
-        int right = s.length()-1;
-
-        int volLeft = -1;
-        int volRight = -1;
-
-        Set<Character> vowels = new HashSet<>(Arrays.asList('a','e','i','o','u'));
-
-        while(left <= right) {
-            if(volLeft == -1 && vowels.contains(s.charAt(left)))
-                volLeft = left;
-
-            if(volRight == -1 && vowels.contains(s.charAt(right)))
-                volRight = right;
-
-            if(volLeft != -1 && volRight != -1) {
-                char c = s.charAt(volLeft);
-                StringBuilder sb = new StringBuilder(s);
-                sb.setCharAt(volLeft, s.charAt(volRight));
-                sb.setCharAt(volRight, c);
-                s = sb.toString();
-                volLeft = -1;
-                volRight = -1;
-            }
-
-            left++;
-            right--;
-        }
-
-        System.out.println(s);
+        System.out.println("-----");
+        long product = Arrays.stream(a)
+                .asLongStream()
+                .reduce(1, (x, y) -> x * y);
+        long zeroCount = Arrays.stream(a).filter(n -> n == 0).count();
+        Arrays.stream(a)
+                .map(n -> {
+                    if (zeroCount > 1) return 0;               // More than 1 zero → all results are 0
+                    if (zeroCount == 1) return (n == 0) ?
+                            (int) Arrays.stream(a).filter(x -> x != 0).asLongStream().reduce(1, (x, y) -> x * y)
+                            : 0;
+                    return (int) (product / n);               // Normal case
+                }).forEach(System.out::println);
     }
 }

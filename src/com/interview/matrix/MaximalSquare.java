@@ -12,7 +12,19 @@ package com.interview.matrix;
 
 public class MaximalSquare {
 
-    public int maximalSquare(int[][] m) {
+    public static void main(String[] args) {
+        int[][] mat = {
+                {0, 1, 1, 0, 1},
+                {1, 1, 0, 1, 0},
+                {0, 1, 1, 1, 0},
+                {1, 1, 1, 1, 0},
+                {1, 1, 1, 1, 1},
+                {0, 0, 0, 0, 0}
+        };
+        System.out.println(maximalSquare(mat));
+    }
+
+    private static int maximalSquare(int[][] m) {
         int row = m.length;
         int col = m[0].length;
 
@@ -35,35 +47,4 @@ public class MaximalSquare {
     }
 
     // Time Complexity: O(n * m)
-
-    // Maximum Rectangle Matrix with All 1s
-
-    public int maximalRectangle(int[][] m) {
-        if (m == null || m.length == 0) return 0;
-        int maxArea = 0;
-        int[] heights = new int[m[0].length];
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m[0].length; j++) {
-                heights[j] = m[i][j] == 0 ? 0 : heights[j] + 1;
-            }
-            maxArea = Math.max(maxArea, largestRectangleArea(heights));
-        }
-        return maxArea;
-    }
-
-    // Helper function to calculate largest rectangle in histogram
-    private int largestRectangleArea(int[] heights) {
-        int max = 0;
-        java.util.Stack<Integer> stack = new java.util.Stack<>();
-        int[] h = java.util.Arrays.copyOf(heights, heights.length + 1);
-        for (int i = 0; i < h.length; i++) {
-            while (!stack.isEmpty() && h[i] < h[stack.peek()]) {
-                int height = h[stack.pop()];
-                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
-                max = Math.max(max, height * width);
-            }
-            stack.push(i);
-        }
-        return max;
-    }
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 public class k_LongestSubStringWithNonRepeatedChar {
 
     public int k_LongestSubStringWithNonRepeatedChar(){
-        String str = "geeksforgeeks";
+        String str = "abcbde";
         String test = "";
         int maxLength = -1;
 
@@ -32,27 +32,10 @@ public class k_LongestSubStringWithNonRepeatedChar {
         return maxLength;
     }
 
-    public int k_LongestSubStringWithNonRepeatedChar_2(){
-        String str = "geeksforgeeks";
-        int maxLength = -1;
-        Set<Character> charSet = new HashSet<>();
-
-        for(Character c : str.toCharArray()) {
-            if (charSet.contains(c)) {
-                charSet.clear();
-            }
-            charSet.add(c);
-            maxLength = Math.max(charSet.size(), maxLength);
-        }
-
-        return maxLength;
-    }
-
     // O(n) time complexity and O(256) i.e O(1) space complexity
 
     public static void main(String[] args) {
         k_LongestSubStringWithNonRepeatedChar obj = new k_LongestSubStringWithNonRepeatedChar();
         System.out.println("Longest Substring with Non-Repeated Characters: " + obj.k_LongestSubStringWithNonRepeatedChar());
-        System.out.println("Longest Substring with Non-Repeated Characters (Method 2): " + obj.k_LongestSubStringWithNonRepeatedChar_2());
     }
 }

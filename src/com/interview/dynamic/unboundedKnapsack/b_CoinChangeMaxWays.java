@@ -48,7 +48,6 @@ public class b_CoinChangeMaxWays {
 
     public static void main(String[] args) {
         int[] price = { 1, 2, 3 };
-        int profit = 4;
 
         System.out.println(count(price, price.length-1, 4));
     }

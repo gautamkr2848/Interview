@@ -26,12 +26,9 @@ public class h_LongestRepeatingSubstring {
         String str = "aabaabaaba";
         int n = str.length();
         int T[][] = new int[n + 1][n + 1];
-
-        String res = "";
         int length = 0, end = n;
 
-        int i, index = 0;
-        for (i = 1; i <= n; i++) {
+        for (int i = 1; i <= n; i++) {
             for (int j = i; j <= n; j++) {
                 if (str.charAt(i - 1) == str.charAt(j - 1) && T[i - 1][j - 1] < (j - i)) {
                     T[i][j] = 1 + T[i - 1][j - 1];

@@ -92,5 +92,5 @@ public class WordLadder {
 // After changing, if word equals to target then return length
 // Else check the word exist in dictionary
     // if it's not in dictionary, continue
-// Push newly generated word into dictionary
+// Remove newly generated word from dictionary & Push it into the queue
 // Restore the original character  at the current position

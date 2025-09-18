@@ -4,35 +4,18 @@ public class IntToRoman {
 
     public static void main(String[] args){
 
-        String[] units = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
-        String[] tens = {"X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
-        String[] hundreds = {"C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
-        String[] thousands = {"M", "MM", "MMM"};
+        int num = 1994;
 
-        int n = 4;
-        int power = String.valueOf(n).length()-1;
-        StringBuilder sb = new StringBuilder();
-        while (n > 0) {
-            int div = (int) (n / (Math.pow(10, power)));
-            int rem = (int) (n % ((Math.pow(10, power))));
+        String[] THOUSANDS = {"", "M", "MM", "MMM"};
+        String[] HUNDREDS  = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+        String[] TENS      = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+        String[] ONES      = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
 
-            switch (power) {
-                case 3 :
-                    sb.append(thousands[div-1]);
-                    break;
-                case 2 :
-                    sb.append(hundreds[div-1]);
-                    break;
-                case 1 :
-                    sb.append(tens[div-1]);
-                    break;
-                default : sb.append(units[div-1]);
-            }
+        String s = THOUSANDS[(num % 10000) / 1000] +
+                HUNDREDS[(num % 1000) / 100] +
+                TENS[(num % 100) / 10] +
+                ONES[num % 10 / 1];
 
-            n = rem;
-            power--;
-        }
-
-        System.out.println(sb.toString());
+        System.out.println(s);
     }
 }

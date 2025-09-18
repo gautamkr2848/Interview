@@ -12,7 +12,7 @@ public class Calculator {
         Stack<Integer> operand = new Stack<>();
         Stack<Character> operator = new Stack<>();
 
-        int ans = 0, i = 0;
+        int i = 0;
 
         while (i < s.length()) {
             if(isOperator(s.charAt(i))) {
