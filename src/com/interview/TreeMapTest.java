@@ -15,7 +15,7 @@ public class TreeMapTest {
 
         System.out.println(map2.toString());
 
-        Map<Test1, Integer> map = new HashMap<>();
+        Map<Test1, Integer> map = new TreeMap<>();
         map.put(new Test1(1, "Gautam"), 1);
         map.put(new Test1(1, "Gautam"), 2);
 

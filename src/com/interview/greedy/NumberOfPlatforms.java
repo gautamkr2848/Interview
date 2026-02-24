@@ -24,8 +24,7 @@ public class NumberOfPlatforms {
                 j++;
             }
 
-            if (plat_needed > count)
-                count = plat_needed;
+            count = Math.max(count, plat_needed);
         }
         System.out.println(count);
     }

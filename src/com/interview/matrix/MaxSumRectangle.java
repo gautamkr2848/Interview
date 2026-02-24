@@ -39,8 +39,7 @@ public class MaxSumRectangle {
                     temp[i] = temp[i] + mat[i][right];
 
                 int sum = kadane(temp);
-                if (sum > maxSum)
-                    maxSum = sum;
+                maxSum = Math.max(maxSum, sum);
             }
         }
         System.out.println(maxSum);

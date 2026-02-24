@@ -1,5 +1,11 @@
 package com.interview.array;
 
+// a xor b
+// 0 0 0
+// 0 1 1
+// 1 0 1
+// 1 1 0
+
 public class MissingNumber {
 
     // It XORs all numbers from 1 to n.

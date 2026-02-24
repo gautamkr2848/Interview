@@ -8,7 +8,7 @@ import java.util.Set;
 public class e_SmallestStringContainingAllCharacters {
 
     public static void findSubString() {
-        String s = "AABBBCBBAC";
+        String s = "AABBBCBBAAC";
 
         Set<Character> set = new HashSet<>();
         for(int i=0; i<s.length(); i++)

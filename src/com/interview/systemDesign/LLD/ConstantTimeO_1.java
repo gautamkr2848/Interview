@@ -45,6 +45,6 @@ public class ConstantTimeO_1 {
     }
 
     Integer search(int x) {
-        return map.get(x);
+        return list.get(map.get(x));
     }
 }

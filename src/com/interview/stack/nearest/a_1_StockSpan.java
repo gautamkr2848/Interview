@@ -23,7 +23,7 @@ public class a_1_StockSpan {
         }
     }
 
-    //nearest greater to left
+    // nearest greater to left
     public void stockSpan(){
 
         int price[] = { 10, 4, 5, 90, 120, 80 };

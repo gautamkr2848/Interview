@@ -17,10 +17,10 @@ public class StackUsingQueue {
         }
     }
 
-    void pop() {
+    Integer pop() {
         if (q1.isEmpty())
-            return;
-        q1.remove();
+            return null;
+        return q1.poll();
     }
 
     int top() {

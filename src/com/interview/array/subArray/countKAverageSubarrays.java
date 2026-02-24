@@ -8,30 +8,8 @@ public class countKAverageSubarrays {
         int K = 6;
         int arr[] = { 12, 5, 3, 10, 4, 8, 10, 12, -6, -1 };
         int N = arr.length;
-        countSubArray(arr, N, K);
 
         System.out.println(countKAverageSubarrays(arr, N, K));
-    }
-
-    static void countSubArray(int[] arr, int N, int K){
-        int avg = 0, count = 0;
-
-        for(int i=0; i<N; i++) {
-            int sum = 0;
-            for(int j=i; j<N; j++) {
-                sum = sum + arr[j];
-                int len = (j - i + 1);
-
-                if(sum % len == 0) {
-                    avg = sum / len;
-
-                    if (avg == K)
-                        count++;
-                }
-            }
-        }
-
-        System.out.println(count);
     }
 
     static int countKAverageSubarrays(int[] arr, int n, int k) {

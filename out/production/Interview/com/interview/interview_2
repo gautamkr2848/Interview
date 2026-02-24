@@ -97,7 +97,10 @@ Synechron - 7
 18. Project Discussion
 19. HR Discussion
 20. API Gateway
-21. CQRS pattern
+21. CQRS pattern - Command Query Responsibility Segregation
+    - CQRS is an architectural pattern that separates read and write operations into different models to improve scalability, maintainability, and performance.
+    - Command → modifies data (write operations)
+    - Query → reads data (read operations)
 22. Offered
 
 Super.money - 3
@@ -140,13 +143,11 @@ IBS Software - 4
 2. Dependency Injection
 3. Inner join
 4. Stream API
-5. Atomic Variable
+5. Atomic Variable - They provide lock-free, thread-safe operations on single variables using CAS (Compare-And-Swap).
 6. How to make http request to https in Springboot
 7. Jenkins Job vs pipeline - Jenkins Job and Jenkins Pipeline are basically the same. In a pipeline you define the steps of your job.
 8. Second max from array
 9. @Qualifier - It is used to resolve ambiguity when multiple beans of the same type exist. It tells Spring which exact bean to inject.
-10. Singleton
-11. Immutable
 12. String Immutability
 13. Stream API
 14. @Component & @Bean
@@ -189,20 +190,163 @@ Razorpay - 2
 
 Tesco - 2
 1. Merge intervals
-2. SOLID principle
-3. Coupon management system, where store can goes offline
+2. Coupon management system, where store can goes offline
 
 Managerial
 1. Tell me about a production issue you handled.
 2. How do you handle code reviews?
+
+    Is this the right solution to the problem?
+    Does it align with our system architecture?
+    Any impact on Kafka throughput / ECS scaling / downstream systems?
+    Are we introducing tight coupling?
+
+    Edge cases handled?
+    Null safety?
+    Proper exception handling?
+    Any blocking calls?
+    Inefficient loops?
+    Unnecessary object creation?
+    Clear method names
+    Small focused methods
+    Avoid over-engineering
+
 3. What’s your approach to writing clean code?
+    1️⃣ I Start With Clarity of Intent
+        - business requirement
+        - edge cases
+        - Failure scenarios are clear.
+        - Performance expectations are known.
+    2️⃣ I Follow Core Clean Code Principles
+        - Single Responsibility
+        - Meaningful Naming
+        - Small classes/Methods
+    3️⃣ I Write Code for the Next Developer
+    4️⃣ I Think About Production From Day One
+        - Proper error handling
+        - Logging with context
+    5️⃣ I Avoid Over-Engineering
+    6️⃣ I Rely on Testing & Automation
+    7. Unit tests, Local IT & AWS IT
+    8. AT CI level using sonarqube & sonatype lifecycle
+
 4. How do you handle pressure and deadlines?
+    break the situation :
+    1️⃣ Clarify What’s Truly Urgent
+    2️⃣ Prioritize items
+    3️⃣ Communicate Early & Clearly
+    4️⃣ Stay Calm During Production Issues
+    5️⃣ Protect Quality Even Under Deadlines
+
 5. Have you worked with global teams?
+
+    Yes, I’ve worked with cross-functional teams across different time zones.
+    I also scheduled important discussions during overlapping hours to avoid delays. Working with global teams improved
+    my communication skills and helped me become more structured in my approach.
+
 6. How do you prioritize tasks?
+
+    At a senior level, I categorize tasks into four main buckets:
+    - Production issues
+    - Business-critical features
+    - Technical debt
+    - Long-term improvements
+
 7. How do you handle conflicts in a team?
-8. How do you ensure code quality?
+
+    I handle conflicts by focusing on the problem, not the person. In technical teams, disagreements are natural — especially
+    around design or implementation approaches.
+
+    When a conflict arises, I first try to understand the other person’s perspective. Often, conflicts happen due to
+    different assumptions or incomplete information.
+
+    I prefer having a direct and respectful discussion, backed by technical reasoning, data, or trade-offs. If needed,
+    I involve a senior architect or lead to make a decision based on what’s best for the project.
+
+    My goal is always to arrive at the best solution for the system, not to “win” an argument.
+
 9. How do you keep up with new technologies?
+
+    I follow a structured approach. I don’t try to chase every new trend, but I stay updated on technologies relevant to
+    me and my applications. I follow one engineering blog by medium, which release especially around Java, cloud services
+    and event-driven architectures.
+
 10. How do you handle feedback?
+
+    A feedback can be both + & -. I see feedback as a tool for growth rather than criticism. In my experience, especially
+    working on backend systems and production services, feedback helps improve both code quality and design decisions.
+
+    When I receive feedback, I first try to understand the intent behind it — whether it's about performance,
+    maintainability, or architectural concerns. If something isn’t clear, I ask questions to learn from it.
+
+    I also actively seek feedback during code reviews and design discussions because it helps avoid larger issues later.
+    Over time, I’ve realized that being open to feedback makes both the system and the team stronger.
+
 11. Tell us about a time you fixed a production bug under pressure.
+
+    In one of our production systems, we had a microservice running on Amazon ECS with AWS Fargate that was consuming
+    events from Apache Kafka and writing processed data to our data lake on Amazon S3.
+
+    🔹 Context
+    - High-throughput event pipeline
+    - 50K–100K events per minute
+    - ECS Fargate tasks consuming Kafka partitions
+    - Processed data stored in S3 (partitioned by date/hour)
+
+    🔹 Problem
+    One day, we noticed:
+    - ECS Fargate CPU utilization > 90%
+    - Kafka consumer lag growing beyond 50 million messages
+    - Frequent ECS task restarts
+    - Metrics showing discrepancies compared to historical baselines
+
+    🔹 Impact
+    - Data pipeline delay of ~30–40 minutes
+    - Increased pressure on Kafka cluster due to backlog
+
+    1️⃣ Checked Infrastructure Metrics
+    - CPU & memory in CloudWatch
+    - Task exit reasons
+    - OOMKilled events
+    - Scaling activity logs
+    - Observation:
+        - Tasks were restarting due to memory pressure.
+        - CPU constantly above 90%.
+        - Auto-scaling was slow to react.
+
+    2️⃣ Checked Kafka Metrics
+    - Consumer lag per partition
+    - Rebalance frequency
+    - Partition assignment
+    - Observation:
+        - Frequent task restarts triggered Kafka rebalancing.
+        - During rebalance, consumers paused → lag spiked even more.
+        - A rebalance storm pattern was visible.
+
+    3️⃣ Issue found with Opensearch Data Write
+    - Opensearch was not functioning properly
+    - For one of the cluster storage was available only < 20GB
+    - Opensearch Cluster health status as Yellow
+    - Instance Type General Purpose
+        - r7g.large.search - master nodes - 3 data nodes
+        - m7g.large.search - data nodes - EBS - 3 data nodes
+
+    Instance Types
+        Dev: cache.t3.micro (2 nodes)
+        QA/Stg: cache.t3.small (2 nodes)
+        Prod: cache.t4g.small (2 nodes, ARM-based)
+
+        Ingestion / Parquet-loader = 2 vCPU/ 4G Memory
+
+        data-signal-processor - parallellism 8, Parallelism per KPU 2, 4 KPU, One KPU represents 1 vCPU, 4 GiB of memory, and 50 GiB of running
+
+        kafka -
+            kafka.m7g.large
+            kafka.m7g.2xlarge
+            kafka.m7g.xlarge
+            kafka.m5.2xlarge
+
+            Mostly 12 brokers with high traffic otherwise 6 brokers, 1800 GB space for each broker
+
 
 300 leetcode - https://algomaster.io/practice/dsa-patterns

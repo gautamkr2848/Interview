@@ -15,19 +15,19 @@ public class d_CoinChangeMinNumberCoins {
     public static int coinChangeMinNumberCoins(){
         int[] coinArray = {1, 5, 6, 9};
         int sum = 11;
-        int[] minCoins = new int[sum + 1];
-        Arrays.fill(minCoins, Integer.MAX_VALUE);
+        int[] dp = new int[sum + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
 
-        minCoins[0] = 0; // Base case: 0 coins needed to make sum 0
+        dp[0] = 0; // Base case: 0 coins needed to make sum 0
 
         for (int i = 1; i <= sum; i++) {
             for (int coin : coinArray) {
-                if (coin <= i && minCoins[i - coin] != Integer.MAX_VALUE) {
-                    minCoins[i] = Math.min(minCoins[i], 1 + minCoins[i - coin]);
+                if (coin <= i && dp[i - coin] != Integer.MAX_VALUE) {
+                    dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
                 }
             }
         }
-        return minCoins[sum] == Integer.MAX_VALUE ? -1 : minCoins[sum];
+        return dp[sum] == Integer.MAX_VALUE ? -1 : dp[sum];
     }
 
     public static void main(String[] args) {

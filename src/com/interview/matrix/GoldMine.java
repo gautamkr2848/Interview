@@ -13,8 +13,6 @@ public class GoldMine {
 
     public void maxGold(int m, int n, int gold[][]) {
         int t[][] = new int[m][n];
-        for(int[] rows : t)
-            Arrays.fill(rows, 0);
 
         for (int col = n-1; col >= 0; col--){
             for (int row = 0; row < m; row++){

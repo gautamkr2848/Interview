@@ -6,6 +6,8 @@ package com.interview.array.twoPointer;
 //
 //Return the minimum number of boats to carry every given person.
 
+import java.util.Arrays;
+
 public class BoatsToSavePeople {
 
     public void numberOfBoats(){
@@ -14,7 +16,7 @@ public class BoatsToSavePeople {
         int boats = 0;
         int i = 0, j = people.length - 1;
 
-        java.util.Arrays.sort(people);
+        Arrays.sort(people);
 
         while(i <= j){
             if(people[i] + people[j] <= limit){

@@ -2,32 +2,42 @@ package com.interview.list;
 
 public class ReverseLLInPair {
 
-    public Node reverseInPairs(Node head) {
-        if (head == null || head.next == null) {
-            return head; // No pairs to reverse
+    public static Node reverseInPairs(Node head) {
+        if (head == null || head.next == null) return head;
+
+        Node dummy = new Node(0);
+        dummy.next = head;
+        Node prev = dummy;
+
+        while (head != null && head.next != null) {
+            Node first = head;
+            Node second = head.next;
+
+            // Swap
+            prev.next = second;
+            first.next = second.next;
+            second.next = first;
+
+            // Move pointers
+            prev = first;
+            head = first.next;
         }
 
-        Node newHead = head.next; // The new head will be the second node
-        Node prev = null;
-        Node current = head;
+        return dummy.next;
+    }
 
-        while (current != null && current.next != null) {
-            Node nextPair = current.next.next; // Save the next pair's starting point
-            Node second = current.next; // The second node in the pair
+    public static void main(String[] args) {
+        Node node = new Node(1);
+        node.next = new Node(2);
+        node.next.next = new Node(3);
+        node.next.next.next = new Node(4);
+        node.next.next.next.next = new Node(5);
+        node = reverseInPairs(node);
 
-            // Reverse the current pair
-            second.next = current;
-            current.next = nextPair;
-
-            if (prev != null) {
-                prev.next = second; // Link the previous pair to the current reversed pair
-            }
-
-            prev = current; // Move prev to the end of the reversed pair
-            current = nextPair; // Move to the next pair
+        while (node != null){
+            System.out.print(node.data + " -> ");
+            node = node.next;
         }
-
-        return newHead; // Return the new head of the reversed list
     }
 
     //Base case: if 0 or 1 node is left → return as is.
@@ -35,7 +45,7 @@ public class ReverseLLInPair {
     //Swap the first two nodes.
     //Connect the reversed rest of the list after the swapped pair.
 
-    public Node reverseInPairs_2(Node head) {
+    public static Node reverseInPairs_2(Node head) {
         if (head == null || head.next == null) {
             return head;
         }

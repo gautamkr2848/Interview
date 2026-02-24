@@ -68,7 +68,7 @@ public class NodesAtDistance {
         q.add(target);
         s.add(target);
 
-        int dist =0;
+        int dist = 0;
         
         while (!q.isEmpty()) {
             if (dist == k) {

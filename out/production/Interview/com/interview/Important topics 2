@@ -26,25 +26,30 @@ LinkedList
 
 2. Symmetric Encryption vs Asymmetric Encryption
 
-Feature	                            Symmetric Encryption	                            Asymmetric Encryption
-🔑 Keys	                    Same key for encryption and decryption	                Key pair: Public key + Private key
-📦 Speed	                Faster, lightweight	                                    Slower, computationally heavy
-📬 Key Sharing	            Requires secure key exchange	                        Public key can be shared openly
-🔒 Security Risk	        Key compromise affects both encryption/decryption	    Private key must be protected
-💡 Typical Usage	        Encrypting large data files or secure channels	        Initial handshakes, certificates, email encryption
+    Feature	                            Symmetric Encryption	                            Asymmetric Encryption
+    🔑 Keys	                    Same key for encryption and decryption	                Key pair: Public key + Private key
+    📦 Speed	                Faster, lightweight	                                    Slower, computationally heavy
+    📬 Key Sharing	            Requires secure key exchange	                        Public key can be shared openly
+    🔒 Security Risk	        Key compromise affects both encryption/decryption	    Private key must be protected
+    💡 Typical Usage	        Encrypting large data files or secure channels	        Initial handshakes, certificates, email encryption
 
 3. RestTemplate vs WebClient vs HttpClient
 
        Feature / API	                RestTemplate	                WebClient (Spring WebFlux)	                        HttpClient (Java 11+)
        Package	                        org.springframework.web.client	org.springframework.web.reactive.function.client	java.net.http.HttpClient
        Style	                        Synchronous (blocking)	        Asynchronous / Reactive	                            Both Sync and Async
-       Java Version	                Java 8+	                        Java 8+ (but reactive support shines in 9+)	        Java 11+
+       Java Version	                    Java 8+	                        Java 8+ (but reactive support shines in 9+)	        Java 11+
        Spring Support	                ✅ Full	                        ✅ Full (part of Spring WebFlux)	                ❌ Not Spring-specific
-       Reactive Streams	            ❌ Not supported	            ✅ Yes (Mono / Flux)	                            ❌ No native reactive streams
+       Reactive Streams	                ❌ Not supported	            ✅ Yes (Mono / Flux)	                            ❌ No native reactive streams
        Thread Efficiency	            ❌ Blocking (1 req = 1 thread)	✅ Non-blocking (event-loop)	                    ✅ Non-blocking via CompletableFuture
-       Future Proof	                ❌ Deprecated (soft)	        ✅ Recommended by Spring	                        ✅ Official in Java standard library
+       Future Proof	                    ❌ Deprecated (soft)	        ✅ Recommended by Spring	                        ✅ Official in Java standard library
 
 4. Spring @Transaction Internal Working
+
+        In Spring Boot, @Transactional annotation is used to define a scope of transaction. This annotation can be applied
+            to the class level or method level. When a method is indicated with @Transactional annotation, it indicates that
+            the particular method should be executed within the context of that transaction.
+
        When you annotate a method with @Transactional, Spring doesn’t change your method itself. Instead, it creates a
        proxy object that wraps your original bean.
 
@@ -67,6 +72,13 @@ Feature	                            Symmetric Encryption	                       
             ↓
       [Spring Proxy] ← commits or rolls back
 
+4. @Transactional class level vs method level
+   - Class Level: All public methods of the class are transactional.
+   - Method Level: Only the annotated method is transactional, overriding class-level settings if present.
+
+   - Method-level annotations override class-level annotations.
+   - If a method is annotated with @Transactional, it takes precedence over the class-level annotation.
+
 5. IPV4 vs IPV6
 
 Feature	                            IPv4	                    IPv6
@@ -87,9 +99,9 @@ Adoption	                Widely used	                        Growing, still not 
    Directory-Based	=> Uses a lookup table to find the right shard	-> Central metadata maps keys to shards
 
 7. Atomic vs Volatile vs Synchronized
-   Feature	            Atomic	            volatile	            synchronized
-   Thread-safe	        ✅ Yes	        ❌ No (visibility only)      	✅ Yes
-   Performance	    ✅ Fast (lock-free)	    ✅ Fast	                ❌ Slower (locking)
+   Feature	            Atomic	                    volatile	                    synchronized
+   Thread-safe	        ✅ Yes	                    ❌ No (visibility only)      	✅ Yes
+   Performance	        ✅ Fast (lock-free)	        ✅ Fast	                        ❌ Slower (locking)
 
 8. @Component & @Bean
     Both are used to register beans in the Spring container, but they are used in different ways and contexts.
@@ -154,7 +166,7 @@ Adoption	                Widely used	                        Growing, still not 
 
 13. Server-Sent Events (SSE) vs WebSockets vs Long Polling
 Feature	            Server-Sent Events (SSE)	                        WebSockets	                            Long Polling
-Communication	    One-way (server → client)	                    Two-way (client ⇄ server)	                Client-initiated but server can delay
+Communication	    One-way (server → client)	                Two-way (client ⇄ server)	                    Client-initiated but server can delay
 Protocol	        HTTP (uses text/event-stream)	            Separate protocol over HTTP (full duplex)	    HTTP (repeated GET requests)
 Browser Support	    Good (except IE & older Edge)	            Broad (modern browsers, mobile, etc.)	        Works everywhere
 Use Case	        Live feeds, notifications, updates	        Chat, gaming, collaborative apps	            Legacy fallback for real-time communication
@@ -411,3 +423,299 @@ beneficial in cases when we need to control the classes which can implement or e
     Task — explain your role.
     Action — what you did.
     Result — what happened, and what you learned.
+
+34. BlockingQueue
+    - A thread-safe queue
+    - Supports operations that wait for the queue to become non-empty when retrieving an element,
+    - Also wait for space to become available in the queue when storing an element.
+    - It is part of the java.util.concurrent package
+    - It is used in producer-consumer scenarios where one or more threads are producing data and one or more threads are consuming data.
+
+    Common Implementations:
+        ArrayBlockingQueue - A bounded blocking queue backed by an array.
+        LinkedBlockingQueue - An optionally bounded blocking queue backed by linked nodes.
+        PriorityBlockingQueue - An unbounded blocking queue that uses the same ordering rules as java.util.PriorityQueue.
+        SynchronousQueue - A blocking queue in which each insert operation must wait for a corresponding remove operation by another thread, and vice versa.
+
+35. Delay Queue
+    - A specialized priority queue
+    - where elements can only be taken when their delay has expired.
+    - It is part of the java.util.concurrent package.
+    - It is used in scenarios where you want to schedule tasks to be executed after a certain delay.
+
+36. Perfect Square => Math.ceil(Math.sqrt(n)) == Math.floor(Math.sqrt(n))
+    is power of 2 => (n & (n - 1)) == 0
+                    Math.ceil(Math.log(n) / Math.log(2)) == Math.floor(Math.log(n) / Math.log(2))
+    is prime => n > 1 && IntStream.rangeClosed(2, (int)Math.sqrt(n)).allMatch(i -> n % i != 0)
+
+    Math.floor(x) => Returns the largest integer less than or equal to x
+        Math.floor(4.9)   → 4
+        Math.floor(4.1)   → 4
+
+    Math.ceil(x) => Returns the smallest integer greater than or equal to x
+        Math.ceil(4.1)    → 5
+        Math.ceil(4.9)    → 5
+
+37. Comparable vs Comparator
+
+    Comparable is practical when:
+        The object has a single natural ordering that makes sense everywhere.
+        Example: Integer, String, LocalDate implement Comparable.
+
+    Comparator is more practical when:
+        You need different sorting strategies for the same object depending on business need.
+        Example: Employee class → sometimes you sort by id, sometimes by name, sometimes by salary.
+        Instead of hardcoding logic in the class, you create separate comparators.
+
+38. Garbage Collector
+    Serial GC
+        - Uses a single thread for both minor and major collections.
+        - Best for small applications
+        - Pauses all application threads during GC
+        - Uses Mark-Sweep or Mark-Compact algorithms
+
+    Parallel GC
+        - Uses multiple threads for minor collections
+        - Best for multi-threaded applications on multi-core processors
+        - Pauses all application threads during GC
+        - Uses Mark-Sweep or Mark-Compact algorithms
+
+    Concurrent Mark-Sweep (CMS) GC
+        - Works concurrently with the application threads to minimize pause times.
+        - Good for low-latency applications.
+        - Uses Mark-Sweep algorithm
+        - Drawbacks: Can lead to fragmentation.
+
+     4. G1 GC (Garbage First)
+        - Default since Java 9.
+        - Splits the heap into regions and collects them in parallel.
+        - Aims for predictable, low pause times while still being throughput-friendly.
+
+    Minor GC
+        - Cleans the Young Generation (Eden + Survivor spaces)
+        - Happens frequently, usually when Eden space is full
+        - Fast, as it deals with short-lived objects
+        - Uses algorithms like Copying or Scavenge
+
+    Major GC
+        - Cleans the Old Generation (Tenured space)
+        - Happens less frequently, usually when Old Gen is full
+        - Slower than Minor GC, as it deals with long-lived objects
+        - Uses algorithms like Mark-Sweep or Mark-Compact
+
+39. CopyOnWriteArrayList internal Working
+    - It is part of the java.util.concurrent package.
+    - CopyOnWriteArrayList is a thread-safe variant of ArrayList where all mutative operations (add, set, remove, etc.)
+    are implemented by making a fresh copy of the underlying array.
+    - It is ideal for scenarios where reads are more frequent than writes, as reads can happen concurrently without locking.
+
+40. A Bloom Filter is a probabilistic data structure used to test whether an element is a member of a set.
+    - It can say definitely not in the set.
+    - False positives - The system says "Yes, it exists" but in reality, it does not.
+    - Very space-efficient and fast (constant time insert + lookup).
+
+    🔹 How it Works
+    - A bit array of length m (all bits start as 0).
+    - k hash functions that map an element to k positions in the bit array.
+    - Insert(element):
+        a. Hash the element using each of the k functions.
+        b. Set the corresponding bits to 1.
+    - Query(element):
+        a. Hash the element with the same k functions.
+        b. If all corresponding bits are 1, → "maybe present".
+        c. If any bit is 0, → "definitely not present".
+
+41. Memory Leaks in Java
+    - Static Collections - Objects added to static collections are never removed.
+    - Unclosed Resources (Files, DB connections, Streams).
+    - ThreadLocal Variables Not Cleaned Up.
+    - Use WeakHashMap for caches.
+
+42. One Liner
+    - String reversed = new StringBuilder("hello").reverse().toString();
+    - int max = list.stream().max(Integer::compare).get();
+    - int min = list.stream().min(Integer::compare).orElseThrow();
+    - int random = new Random().nextInt(100) + 1;
+    - boolean isPalindrome = str.equals(new StringBuilder(str).reverse().toString());
+    - List<String> upper = list.stream().map(String::toUpperCase).toList();
+    - Map<String, Long> freq = Arrays.stream(str.split(" ")).collect(Collectors.groupingBy(s -> s, Collectors.counting()));
+    - char result = str.chars().mapToObj(c -> (char)c).collect(Collectors.groupingBy(c -> c, LinkedHashMap::new, Collectors.counting()))
+                        .entrySet().stream().filter(e -> e.getValue() == 1).findFirst().get().getKey();
+    - list.sort(Comparator.reverseOrder());
+    - String joined = String.join(", ", list);
+
+43. Functional Programming
+    Functional Programming (FP) emphasizes writing pure functions, immutability, and stateless code. It’s widely used
+    in Java 8 (Streams, Lambdas, Optional). Below are some of it’s benefits:
+    - Immutability → Safer Code
+    - Pure Functions → Predictable & Testable
+    - Easier to read and maintain. Reduces boilerplate code
+    - Easier Parallelism & Concurrency
+    - Declarative Programming → Focus on What, Not How
+
+44. Tim sort - Insertion sort + Merge sort
+    How it Works:
+    1. Divide the array into small segments called "runs" (typically 32 or 64 elements).
+    2. Sort each run using insertion sort (efficient for small datasets).
+    3. Merge the sorted runs using a merge process similar to merge sort.
+
+    Note - Insertion Sort is very efficient for small arrays (better than quicksort/merge sort in practice when n is upto 64).
+    For an array of size 20, Insertion Sort is the most efficient choice.
+
+45. HashMap
+    - Two threads reading a HashMap simultaneously (with no writes) → ✅ safe.
+    - Two threads reading while others write → ❌ unsafe → possible data races, stale reads, even corruption.
+    - Collections.synchronizedMap(new HashMap<>()) → synchronizes all ops.
+    - Or better → ConcurrentHashMap → lock-free reads, fine-grained locks for writes.
+
+45. ConcurrentHashMap
+    🔹 How Reads Work Without Locks
+        1. Immutable Node structure
+        - Each entry in the map is a Node (key, value, next).
+        - Once a Node is created, its key and hash never change.
+        - Only the value is mutable, but it’s stored in a volatile field.
+            * Readers always see the latest value without locking.
+
+        2. Volatile variables ensure visibility
+        - The table (array of buckets) is stored in a volatile field.
+        - So when one thread updates the table (like during resize), other threads immediately see the new reference.
+        - This prevents stale or inconsistent reads.
+
+        3. Safe traversal
+        - Reads (get(key)) only traverse pointers:
+        - Compute the hash.
+        - Go to the correct bucket.
+        - Walk the linked list (or tree) inside the bucket.
+
+        4. No locks for get()
+        - get() does not acquire any lock.
+        - It relies purely on volatile reads and immutable structure to guarantee a consistent snapshot of the bucket at that moment.
+        - Even if another thread is writing, the reader either:
+            - Sees the old node chain (before insertion/removal), or
+            - Sees the new node chain (after the update).
+        - But it never sees a broken chain.
+        - Since next references in the linked list are final (set once and never changed), the traversal is safe even during concurrent writes.
+
+    🔹 How Writes Work (without blocking all readers)
+    - Instead of a global lock, ConcurrentHashMap locks only the affected bucket (bin).
+    - Uses synchronized blocks at bucket level (since Java 8, synchronized was chosen instead of ReentrantLock for performance).
+    - This means multiple threads can update different buckets in parallel, while readers still proceed lock-free
+
+46. Please Do Not Throw Sausage Pizza Away.
+    Physical Layer - Transmits raw bits over physical media like cables
+    Data Link Layer - Responsible for node-to-node data transfer as frames
+    Network Layer - Determines the best path for data routing across networks
+    Transport Layer - Provides end-to-end communication and error recovery (e.g., TCP/UDP)
+    Session Layer - Manages and maintains communication sessions between applications
+    Presentation Layer - Translates, encrypts, or compresses data for the application layer
+    Application Layer - It’s the topmost layer that interacts directly with the user (HTTP, HTTPS, FTP, DNS)
+
+47. RPC & gRPC
+    Remote Procedure Call - It's is a communication mechanism that lets a program execute a procedure (function or method)
+    on another machine as if it were local.
+    Google Remote Procedure Call - An open-source RPC framework developed by Google. It uses HTTP/2 for transport, Protocol
+
+    Key Differences
+        - Protocol: RPC can use various protocols (HTTP/1, TCP), while gRPC specifically uses HTTP/2.
+        - Serialization: RPC can use different serialization formats (JSON, XML), while gRPC uses Protocol Buffers by default.
+        - Performance: gRPC > RPC
+        - Language Support: gRPC has built-in support for multiple languages, while traditional RPC implementations may be language-specific.
+
+48. Rest vs GraphQL
+    REST
+        - Fixed Endpoints: Each resource has a specific URL.
+        - Over-fetching/Under-fetching: Clients may receive too much or too little data.
+        - Multiple Requests: Complex queries may require multiple API calls.
+        - Caching: Easier to cache responses at the HTTP level.
+
+    GraphQL
+        - Single Endpoint: All requests go to one endpoint.
+        - Precise Data Fetching: Clients specify exactly what data they need.
+        - Single Request: Complex queries can be handled in one request.
+        - Caching: More complex due to dynamic queries, but can be managed with tools like Apollo.
+
+49. Private IP Range
+    class A - 10.0.0.0 to 10.255.255.255
+    class B - 172.16.0.0 to 172.31.255.255
+    class C - 192.168.0.0 to 192.168.255.255
+
+50. System.currentTimeMillis() vs System.nanoTime()
+    - System.currentTimeMillis()
+        - Returns the wall clock
+        - Depends on system clock
+
+    - System.nanoTime()
+        - Returns a monotonic time source
+        - Not related to wall-clock time
+        - Only meaningful for time differences
+
+51. Compare-And-Swap (CAS) is a low-level atomic operation used to update shared data without using locks.
+    - It works by comparing the current value of a variable to an expected value.
+    - If they match, it updates the variable to a new value.
+    - If they don’t match, it does nothing.
+    - This operation is atomic, meaning it is completed in a single step without interruption.
+
+52. Kafka Lag
+    - Producers Are Faster Than Consumers
+    - Not Enough Partitions
+    - Processing Is CPU/IO Bound
+    - Poll Loop Too Slow => Offload processing to thread pool & Commit asynchronously
+    - max.poll.records Too Small
+    - Commit Strategy Issues => Commit more frequently & Use async commit if safe
+    - Rebalancing Frequently
+
+53. - Kafka producer is not idempotent by default
+    - enable.idempotence=true
+        * Assigns a Producer ID (PID)
+        * Tracks sequence numbers per partition
+        * Forces:
+            acks=all
+            retries=Integer.MAX_VALUE
+            max.in.flight.requests.per.connection ≤ 5
+    - Kafka producer has a retry mechanism by default for retriable exceptions
+        * retries
+        * retry.backoff.ms
+        * delivery.timeout.ms
+    - Kafka Record - Header, Key, Value, Timestamp
+    - Kafka, log files are organized per partition, but they are physically stored on brokers.
+    - message.max.bytes = 1MB
+    - max.poll.interval.ms, reduce poll interval for faster fetch cycle
+    - batch.size=131072   # 128 KB
+    - max.poll.records=1000 // Controls number of records returned in one poll()
+    - fetch.max.bytes=52428800   # 50MB
+    - max.partition.fetch.bytes=10485760   # 10MB
+    - linger.ms=5 # This waits up to 5ms before sending a batch.
+
+54. Kafka Exceptions
+
+    Producer Side :
+    - SerializationException
+    - TimeoutException
+    - RecordTooLargeException
+    - RetriableException
+    - NotEnoughReplicasException
+
+    Consumer Side :
+    - SerializationException
+    - CommitFailedException
+    - RebalanceInProgressException
+    - WakeupException
+
+    Stream Side :
+    - TaskMigratedException
+    - ProcessorStateException
+    - InvalidStateStoreException
+    - TimeoutException
+
+55. DNS = naming system
+    A record = domain → IP
+    CNAME = domain → domain
+    ALIAS = CNAME-like record usable at root (provider-specific)
+
+56. Unmodifiable List/Map
+    - Collections.unmodifiableList(list) returns a read-only view of the original list
+    - List<String> unmodifiable = Collections.unmodifiableList(list);
+    - Implements Unmodifiable Collection
+        * Stores reference to original list
+        * Delegates read operations (get, size, etc.)
+        * Overrides modification methods (add, remove, set) & throws UnsupportedOperationException

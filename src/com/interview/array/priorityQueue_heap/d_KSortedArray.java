@@ -7,9 +7,7 @@ package com.interview.array.priorityQueue_heap;
 //            k = 3
 //Output : arr[] = {2, 3, 5, 6, 8, 9, 10}
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class d_KSortedArray {
 
@@ -37,5 +35,33 @@ public class d_KSortedArray {
 
         for(int i=0; i<result.size(); i++)
             System.out.print(result.get(i) + " ");
+    }
+
+    static String isKSortedArray(int arr[], int n, int k) {
+
+        int[] sorted = arr.clone();
+        Arrays.sort(sorted);
+
+        // Map each value in sorted array to its index (handles duplicates carefully)
+        Map<Integer, Integer> indexMap = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            // If element occurs multiple times, only put if not already present
+            indexMap.putIfAbsent(sorted[i], i);
+        }
+
+        // Check if each element is within k distance of its sorted position
+        String result = "Yes";
+        for (int i = 0; i < n; i++) {
+            int sortedIndex = indexMap.get(arr[i]);
+            if (Math.abs(sortedIndex - i) > k) {
+                result = "No";
+                break;
+            } else {
+                // Move indexMap pointer forward in case of duplicates
+                indexMap.put(arr[i], sortedIndex + 1);
+            }
+        }
+
+        return result;
     }
 }

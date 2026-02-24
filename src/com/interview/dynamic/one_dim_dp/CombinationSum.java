@@ -1,6 +1,6 @@
 package com.interview.dynamic.one_dim_dp;
 
-// You are given an array of distinct integers nums and a target integer target. Your task is to find the number of
+// You are given an array of distinct integers nums and a target integer. Your task is to find the number of
 // possible combinations from the array that add up to the target.
 
 public class CombinationSum {

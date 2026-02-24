@@ -36,7 +36,7 @@ public class ReverseLinkedList {
     // 4    3   2
     // 4    3   2   1
 
-    public Node reverseListRecurrsion(Node head){
+    public static Node reverseListRecurrsion(Node head){
 
         if(head == null || head.next == null)
             return head;
@@ -47,5 +47,13 @@ public class ReverseLinkedList {
         head.next = null;
 
         return newHead;
+    }
+
+    public static void main(String[] args) {
+        Node node = new Node(1);
+        node.next = new Node(2);
+        node.next.next = new Node(3);
+        node.next.next.next = new Node(4);
+        reverseListRecurrsion(node);
     }
 }

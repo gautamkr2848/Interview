@@ -31,19 +31,26 @@ public class MaximalRectangle {
     }
 
     // Helper function to calculate largest rectangle in histogram
-    public static int largestRectangleArea(int[] heights) {
+    private static int largestRectangleArea(int[] heights) {
         Stack<Integer> stack = new Stack<>();
         int maxArea = 0;
         int n = heights.length;
 
-        for (int i = 0; i <= n; i++) {
-            int h = (i == n) ? 0 : heights[i];
-            while (!stack.isEmpty() && h < heights[stack.peek()]) {
-                int height = heights[stack.pop()];
-                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
-                maxArea = Math.max(maxArea, height * width);
+        for (int i=0; i<n; i++) {
+            while (!stack.isEmpty() && heights[i] < heights[stack.peek()]) {
+                int element = heights[stack.pop()];
+                int nse = i;
+                int pse = stack.isEmpty() ? -1 : stack.peek();
+                maxArea = Math.max(maxArea, element * (nse - pse - 1));
             }
             stack.push(i);
+        }
+
+        while (!stack.isEmpty()) {
+            int element = heights[stack.pop()];
+            int nse = n;
+            int pse = stack.isEmpty() ? -1 : stack.peek();
+            maxArea = Math.max(maxArea, element * (nse - pse - 1));
         }
         return maxArea;
     }

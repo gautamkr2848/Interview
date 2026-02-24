@@ -26,9 +26,9 @@ public class c_LongestValidParenthesis {
 
     public static void main(String[] args) {
         c_LongestValidParenthesis lvp = new c_LongestValidParenthesis();
-        String test = "())(())";
-        System.out.println("Longest valid parentheses length: " + lvp.longestValidParentheses(test)); // Output: 6
-        System.out.println("Longest valid parentheses length: " + lvp.longestValidParentheses2(test)); // Output: 6
+        String test = "()())(())";
+        System.out.println("Longest valid parentheses length: " + lvp.longestValidParentheses(test));
+        System.out.println("Longest valid parentheses length: " + lvp.longestValidParentheses2(test));
     }
 
     public int longestValidParentheses2(String s) {

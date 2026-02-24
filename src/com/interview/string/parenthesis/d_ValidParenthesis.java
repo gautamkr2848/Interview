@@ -4,59 +4,6 @@ import java.util.Stack;
 
 public class d_ValidParenthesis {
 
-    public boolean checkValidString_2(String s) {
-        Stack<Integer> open = new Stack<>();
-        Stack<Integer> star = new Stack<>();
-        char[] arr = s.toCharArray();
-
-        for(int i = 0; i < arr.length; i++) {
-            if(arr[i] == '(') {
-                open.push(i);
-            } else if (arr[i] == '*') {
-                star.push(i);
-            } else {
-                if(!open.isEmpty()) {
-                    open.pop();
-                } else if(!star.isEmpty()) {
-                    star.pop();
-                } else {
-                    return false;
-                }
-            }
-        }
-
-        while(!open.isEmpty() && !star.isEmpty()) {
-            if(open.peek() > star.peek()) {
-                return false;
-            }
-            open.pop();
-            star.pop();
-        }
-
-        return open.isEmpty();
-    }
-
-    public static void main(String[] args) {
-        String s = "(*";
-        System.out.println(checkValidString (s));
-    }
-
-    private static boolean test(String s, int index, int count) {
-        if(count < 0)
-            return false;
-        if(index == s.length())
-            return count == 0;
-
-        if(s.charAt(index) == '(')
-            return test(s, index+1, count+1);
-        else if(s.charAt(index) == ')')
-            return test(s, index+1, count-1);
-        else if(s.charAt(index) == '*')
-            return test(s, index+1, count+1) || test(s, index+1, count-1) || test(s, index+1, count);
-
-        return false;
-    }
-
 /*
 1. Initialize leftMin and leftMax to 0.
 2. Iterate through each character in the string s.
@@ -67,6 +14,11 @@ public class d_ValidParenthesis {
 7. If leftMin becomes negative, reset it to 0 since we can't have negative open parentheses count.
 8. After iterating through the string, check if leftMin is 0. If it is, return True; otherwise, return False.
 */
+
+    public static void main(String[] args) {
+        String s = "(*";
+        System.out.println(checkValidString (s));
+    }
 
     public static boolean checkValidString(String s) {
         int leftMin = 0, leftMax = 0;

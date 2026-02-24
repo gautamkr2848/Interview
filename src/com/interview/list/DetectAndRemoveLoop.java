@@ -5,9 +5,9 @@ import java.util.Set;
 
 //Floyd’s Cycle-Finding Algorithm:
 
-public class
-DetectAndRemoveLoop {
+public class DetectAndRemoveLoop {
 
+    //Floyd's Tortoise and Hare algorithm
     public Node detectLoop(Node head){
         Node slow = head;
         Node fast = head;

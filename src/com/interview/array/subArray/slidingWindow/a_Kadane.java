@@ -1,5 +1,7 @@
 package com.interview.array.subArray.slidingWindow;
 
+// Find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+
 public class a_Kadane {
 
     public int Kadane(int[] a){

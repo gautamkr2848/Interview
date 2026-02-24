@@ -28,7 +28,7 @@ public class LongestSubArrayof_1_AfterDeleting_1_Element {
         }
 
         // Loop to find the maximum length by combining the left and right counts of 1s
-        for (int i = 0; i < length; ++i) {
+        for (int i = 0; i < length; i++) {
             // Compute the length of subarray by removing the current element, hence adding left and right counts of 1s.
             // Since one element is always removed, the combined length of consecutive 1s from left and right
             // should not be equal to the total length of the array (which implies no 0 was in the array to begin with).
