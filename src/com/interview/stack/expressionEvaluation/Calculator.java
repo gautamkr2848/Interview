@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-public class Calculator {
+public class
+Calculator {
 
     public static void main(String[] args){
         String s = "2*3+5";

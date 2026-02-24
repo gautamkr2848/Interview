@@ -12,13 +12,13 @@ public class ActivitySelection {
 
         Arrays.sort(f);
 
-        int i=0;
-        System.out.print(i+" ");
+        int j=0;
+        System.out.print(j+" ");
 
-        for (int j = 1; j < s.length; j++){
-            if (s[j] >= f[i]){
-                System.out.print(j+" ");
-                i = j;
+        for (int i = 1; i < s.length; i++){
+            if (f[j] <= s[i]){
+                System.out.print(i+" ");
+                j = i;
             }
         }
     }

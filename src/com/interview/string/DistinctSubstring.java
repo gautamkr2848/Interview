@@ -36,6 +36,7 @@ public class DistinctSubstring {
     }
 
     public static void main(String[] args) {
+        distinctSubString();
         distinctSubString2();
     }
 }

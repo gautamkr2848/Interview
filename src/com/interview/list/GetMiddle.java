@@ -11,7 +11,7 @@ public class GetMiddle {
         head.next.next.next.next.next = new Node(9);
         int count  = count(head);
 
-        return getElement(head, (count/2 ));
+        return getElement(head, (count/2));
     }
 
     Node getElement(Node node, int pos){

@@ -7,36 +7,29 @@ import java.util.*;
 
 public class c_StringPermutation {
 
-    public static void permutation_dup(String str){
-        List<List<String>> res = new ArrayList<>();
+    public static void solve(char[] arr, int idx, Set<String> result) {
+        if (idx == arr.length - 1) {
+            result.add(String.valueOf(arr) + " ");
+        }
 
-        char[] arr = str.toCharArray();
-        Arrays.sort(arr);
-
-        backtrack_dup(String.valueOf(arr), res, new ArrayList<>(), new boolean[str.length()]);
-        System.out.println(res.toString());
+        for (int i = idx; i < arr.length; i++) {
+            swap(arr, idx, i);
+            solve(arr, idx + 1, result);
+            swap(arr, idx, i);
+        }
     }
 
-    public static void backtrack_dup(String s, List<List<String>> res, List<String> curr, boolean[] used) {
-
-        if(s.length() == curr.size() && !res.contains(curr)) {
-            res.add(new ArrayList<>(curr));
-            return;
-        }
-
-        for(int i=0; i<s.length(); i++) {
-
-            if(used[i]) continue;
-
-            used[i] = true;
-            curr.add(String.valueOf(s.charAt(i)));
-            backtrack_dup(s, res, curr, used);
-            curr.remove(curr.size()-1);
-            used[i] = false;
-        }
+    public static void swap(char[] arr, int idx, int idx2) {
+        char temp = arr[idx];
+        arr[idx] = arr[idx2];
+        arr[idx2] = temp;
     }
 
     public static void main(String[] args) {
-        permutation_dup("abc");
+        String str = "ABC";
+        char[] arr = str.toCharArray();
+        Set<String> result = new HashSet<>();
+        solve(arr, 0, result);
+        System.out.println(result);
     }
 }

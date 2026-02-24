@@ -29,7 +29,7 @@ import java.lang.reflect.Constructor;
 
 //Eager Instantiation
 class Singleton {
-    public final static Singleton singleton = new Singleton();
+    public final static Singleton singleton = new Singleton();      // final makes it thread safe
     private Singleton() {
         if (singleton != null) {        // throw error within constructor for preventing breaking of singleton
             throw new RuntimeException("Use getInstance() method to get the single instance of this class.");

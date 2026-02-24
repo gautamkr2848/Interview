@@ -1,67 +1,82 @@
-Creational Design Patterns
+Design Patterns in Java
+A design patterns are well-proved solution for solving the specific type problem/task.
 
-Creational design patterns are design patterns that focus on creating objects effectively. But there are some scenarios
-where the nature of the object changes according to the nature of the problem at hand.
+1.Creational Design Pattern
 
-    Factory Method
-        Suppose we go to a cake shop and order a chocolate cake. When we place an order, the shopkeeper sends the order
-        to the kitchen and we get it in a few minutes when the cake is ready. We are not concerned with what happens
-        inside the kitchen and what ingredients are used to make the cake. The internal call by the shopkeeper to create
-        a vanilla, chocolate, or strawberry cake is hidden from the user.
+    Factory Pattern
+        A Factory Pattern says that just define an interface or abstract class for creating an object
+        but let the subclasses decide which class to instantiate.
 
-        The factory design pattern says that define an interface ( A java interface or an abstract class) for creating object
-        and let the subclasses decide which class to instantiate.
+        Advantage of Factory Design Pattern
+            1. Factory Method Pattern allows the sub-classes to choose the type of objects to create.
+            2. It promotes the loose-coupling
 
-    Abstract Factory Method
-
-        Let’s take an example of a multi-cuisine restaurant that serves Chinese, Indian, and Continental food and you
-        opt for Chinese. There might be different specialized chefs for the different items and for different cuisines
-        but you don’t need to get into the details. In fact, you would not even know which kitchen or chef is involved
-        in preparing your food.
-
-        Abstract Factory pattern is almost similar to Factory Pattern and is considered as another layer of abstraction
-        over factory pattern. Abstract Factory patterns creates other factories.
+    Abstract Factory Pattern
+        Abstract Factory Pattern says that just define an interface or abstract class for creating families
+        of related (or dependent) objects but without specifying their concrete sub-classes.
 
     Singleton Pattern
-    Builder Pattern
+        Singleton Pattern says that just define a class that has only one instance and provides a global
+        point of access to it.
+            a. Early Instantiation
+            b. Lazy Instantiation
+
     Prototype Pattern
+        Prototype Pattern says that cloning of an existing object instead of creating new one and can
+        also be customized as per the requirement.
+            a. When the cost of creating an object is expensive
+            b. When the classes are instantiated at runtime
+            c. When you want to keep the number of classes in an application minimum
 
+    Builder Pattern
+        The builder pattern is a design pattern designed to provide a flexible solution to various
+        object creation based on parameters.
 
-Structural Design Pattern
-
-Structural design pattern is a blueprint of how different objects and classes are combined together to form a bigger structure for achieving multiple goals altogether.
+2. Structural Design Pattern
+    Structural design patterns are concerned with how classes and objects can be composed, to form larger structures.
 
     Adapter Pattern
+        Converting an interface into another based on requirement.
+
+        Advantage of Adapter Pattern
+            1. It allows two or more previously incompatible objects to interact.
+            2. It allows reusability of existing functionality.
+
     Bridge Pattern
-    Composite Pattern
+        The Bridge design pattern allows you to separate the abstraction from the implementation
+
+    Composite Pattern -> Treat individual objects and groups of objects uniformly (tree-like structures).
     Decorator Pattern
+        A Decorator Pattern says that just attach a flexible additional responsibilities to an object dynamically.
 
-        In Decorator Pattern, we can add or remove object functionality without changing the function or external
-        appearance of the object. Therefore with help of a decorator pattern, we can add additional responsibilities to
-        an object without changing the functionalities of the object.
+    Facade Pattern -> Provide a simplified interface to a complex subsystem.
+    Flyweight Pattern
+        A Flyweight Pattern says that just to reuse already existing similar kind of objects by storing
+        them and create new object when no matching object is found.
 
-        When to use Decorator Pattern
+    Proxy Pattern -> Simply, proxy means an object representing another object.
 
-        It enhances the extensibility of an object, as changes are made by coding new classes.
-        Rather than coding all behaviour into a single object Each specific part of the functionality is simplified by
-        coding a series of classes.
+3. Behavioral Design Pattern
+    Behavioral design patterns identifies common communication patterns among objects.
 
-    Proxy Pattern
+    Strategy → Encapsulates algorithms; client can switch algorithms at runtime.
+    Observer → One-to-many dependency; when one object changes, others are notified (e.g., Event Listeners).
+    Command → Encapsulates a request as an object (useful for undo/redo).
+    Chain of Responsibility → Pass request along a chain of handlers until one handles it.
+    Iterator → Sequentially access elements of a collection without exposing its internals.
+    State → Change object behavior when internal state changes.
+    Template Method → Define the algorithm’s structure, but let subclasses define specific steps.
+    Mediator → Defines a central mediator object to reduce direct communication between classes.
+    Memento → Save and restore the state of an object without exposing its internals.
+    Visitor Pattern -> It is used when we have to perform an operation on a group of similar kind of Objects.
 
+         The visitor pattern consists of two parts:
+             1. visitor class provides Visit() method and is called for every element in the data structure
+             2. visitable classes providing Accept() methods that accept a visitor
 
-Behavioral Design Patterns
+         eg -
 
-In these design patterns, the interaction between the objects should be in such a way that they can easily talk to each other and still should be loosely coupled.
-    Chain of Responsibility Pattern
-    Command Pattern
-    Interpreter Pattern
-    Iterator Pattern
-    Mediator Pattern
-    Memento Pattern
-    Observer Pattern
-    State Pattern
-    Strategy Pattern
-    Template Pattern
-    Visitor Pattern
-    Null Object
+         Fruits - mango, apple, guava
+         Electronics - mobile, tv, laptop
 
+         In place of giving discount on each item, give discount as 10% on electronics and 5% on fruits

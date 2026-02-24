@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class NMeetings {
 
-    static void maxMeetings(int start[], int end[], int n) {
+    static void maxMeetings(int start[], int end[]) {
         List<Meeting> meet = new ArrayList<>();
 
         for(int i = 0; i < start.length; i++)
@@ -32,10 +32,9 @@ public class NMeetings {
     }
 
     public static void main(String[] args) {
-        int n = 6;
         int start[] = {1,3,0,5,8,5};
         int end[] =   {2,4,5,7,9,9};
-        maxMeetings(start,end,n);
+        maxMeetings(start,end);
     }
 }
 

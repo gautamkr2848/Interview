@@ -17,6 +17,6 @@ public class ConsecutiveOneNotAllowed {
     }
 
     public static void main(String[] args) {
-        countStrings(5);
+        countStrings(3);
     }
 }

@@ -6,18 +6,22 @@ package com.interview.array.subArray.slidingWindow;
 
 public class b_MaxSumSubArray {
 
-    public void maxSumSubArray(){
-        int[] arr = {1, 4, 2, 10, 23, 3, 1, 0, 20};
+    public static void maxSumSubArray(){
+        int[] arr = {1000, 4, 2, 10, 23, 3, 1, 0, 20};
         int size = 3;
-        int max = 0;
         int sum = 0;
         for(int i=0; i<size; i++)
             sum = sum + arr[i];
+        int max = Math.max(sum, Integer.MIN_VALUE);
 
         for(int i=1, j=size; j<arr.length; i++, j++){
             sum = sum + arr[j] - arr[i-1];
             max = Math.max(sum, max);
         }
         System.out.println(max);
+    }
+
+    public static void main(String[] args) {
+        maxSumSubArray();
     }
 }

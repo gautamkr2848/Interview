@@ -10,13 +10,14 @@ package com.interview.array;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MajorityElement {
 
     public static int majorityElement_2(int[] a){
         Map<Integer, Long> map = Arrays.stream(a)
                 .boxed()
-                .collect(java.util.stream.Collectors.groupingBy(e -> e, java.util.stream.Collectors.counting()));
+                .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
 
         for(Map.Entry<Integer, Long> entry : map.entrySet()){
             if(entry.getValue() > a.length / 2)

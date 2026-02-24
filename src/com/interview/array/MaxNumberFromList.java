@@ -2,9 +2,9 @@ package com.interview.array;
 
 import java.util.*;
 
-public class LargestNumberFromArray {
+public class MaxNumberFromList {
 
-    public void largestNumber() {
+    public void MaxNumberFromList() {
         List<String> arr = new ArrayList<>();
         arr.add("2");
         arr.add("0");

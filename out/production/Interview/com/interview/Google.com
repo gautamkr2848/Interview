@@ -82,5 +82,3 @@ The browser displays the HTML content in phases. First, it will render the bare 
 the HTML tags and send out GET requests for additional elements on the web page, such as images, CSS stylesheets,
 JavaScript files, etc. These static files are cached by the browser, so it doesn’t have to fetch them again the next
 time you visit the page. In the end, you’ll see www.google.com appearing on your browser.
-
-

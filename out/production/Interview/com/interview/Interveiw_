@@ -28,6 +28,13 @@ Cleartrip - 3
 TCS - 1
 1. @Controller vs @RestController
 2. use of @SpringBootApplication
+    @Configuration - Marks the class as a source of bean definitions
+    @EnableAutoConfiguration - Automatically configure beans based on what is present in the classpath
+        * If spring-boot-starter-web is present → configure Tomcat
+        * If spring-boot-starter-data-jpa is present → configure JPA
+        * If mysql driver is present → configure datasource
+    @ComponentScan - Scans the package of the main class and all sub-packages for :
+        @Component, @Service, @Repository, @Controller, @RestController
 3. List vs Set
 4. concurrentHashMap vs synchronizedHashMap
 5. ServiceDiscovery - Eureka
@@ -42,7 +49,8 @@ TCS - 1
 6. @ControllerAdvice - It's a specialization of the @Component annotation which allows to handle exceptions across the
     whole application in one global handling component.
 
-    @ExceptionHandler
+    @RestControllerAdvice - Same as @ControllerAdvice, but automatically adds @ResponseBody
+    @ExceptionHandler - Handles specific exceptions thrown from controller methods
 
 7. Functional Interface and Lambda Expression
 9. Mysql vs Nosql
@@ -81,11 +89,30 @@ TCS - 1
 18. Map internal implementation - https://www.geeksforgeeks.org/internal-working-of-hashmap-java/
 
 19. String immutability
-        1. Security: Immutable objects are inherently thread-safe, as their state cannot be changed after creation. If it were mutable, these parameters could be easily changed.
-        2. Caching and Reuse: Because strings are immutable, they can be cached for reuse. The Java String Pool takes advantage of this by storing literals and reusing them, reducing memory usage and improving performance.
-        3. Hash Code Caching: Since the hash code of an immutable object doesn't change, it can be cached the first time it is computed. This is particularly useful for strings, which are often used as keys in hash-based collections like HashMap
+        1. Security First - Strings are used everywhere — class loaders, database connections, file paths, network sockets.
+            If Strings were mutable, imagine the chaos:
+                - You set a password string. Another thread changes it midway.
+                - A classloader receives "java.lang.System" and suddenly it becomes "java.lang.Hacker".
+        2. HashMap Safety - Strings are popular keys in maps. If they were mutable, their hashcode could change after insertion.
+                   - By being immutable, hashcodes stay constant, so Strings make perfect map keys.
+                   - Hash Code Caching: Since the hash code of an immutable object doesn't change, it can be cached the first time it is computed. This is particularly useful for strings, which are often used as keys in hash-based collections like HashMap
+        3. Multiple threads can share the same String object without fear of race conditions.
         4. Consistent Behavior: Immutable objects always represent the same value once created, ensuring consistent behavior throughout their lifecycle.
-        5. String Pooling: The Java String Pool works because strings are immutable. This pool allows for efficient memory usage and faster string creation by reusing instances of strings that have already been created.
+        5. String pool - Java maintains a pool of String literals. If two strings have the same value, they point to the same object in the pool.
+
+                    String a = "Java";
+                    String b = "Java";
+                    System.out.println(a == b); // true
+
+                    String a = "Java";
+                    String b = new String("Java");
+                    System.out.println(a == b); // false
+
+                    "Java" goes into the string pool, but new String("Java") forces a new object on the heap.
+                    Even though their contents are equal, they don’t point to the same reference.
+
+                    String b = new String("Java").intern();
+                    System.out.println(a == b); // true
 
 Bandhoo - 2
 1. String reverse using recurssion
@@ -99,7 +126,7 @@ UpGrad - 2
 
 UpLoan - 3
 1. Mifos & Finrect
-2. Count vowels in string
+2. Count vowels in string => s.chars().filter(ch -> "aeiou".indexOf(ch) != -1).count()
 3. Abstraction & Encapsulation
 4. Polymorphism
 7. Normalization
@@ -111,7 +138,7 @@ UpLoan - 3
 
 Enfusion - 1
 1. Predicate
-2. Default methods in Interface
+2. Default methods in Interface => Default methods allow you to provide a method implementation inside an interface
 
 Zeta - 1
 1. Minimun number of antena
@@ -137,7 +164,7 @@ Infra.Market - 1
 1. Create Social Media
 
 Piramal- 1
-1. Maximum subsequence sum such that no three are consecutive
+1. Thief and house max profit
 
 Recko - 5
 1. ACID
@@ -224,7 +251,7 @@ Informatica - 4
 3. Longest SubString without repeating characters
 4. Right view of Tree
 6. Aspect Oriented Programming
-9. Comparable
+9. Comparable => Comparable is an interface in Java used to define the natural ordering of objects
 11. Multithreading
 14. Not Accepted
 

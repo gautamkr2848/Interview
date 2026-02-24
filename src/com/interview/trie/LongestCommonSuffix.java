@@ -34,4 +34,26 @@ public class LongestCommonSuffix {
         System.out.println("Longest Common Suffix of test2: " + longestCommonSuffix(test2)); // Output: ""
         System.out.println("Longest Common Suffix of test3: " + longestCommonSuffix(test3)); // Output: "view"
     }
+
+    public static String longestCommonSuffix_2(String[] strs) {
+
+        if (strs == null || strs.length == 0)
+            return "";
+
+        String suffix = strs[0];
+
+        for (int i = 1; i < strs.length; i++) {
+
+            String current = strs[i];
+
+            while (!current.endsWith(suffix)) {
+                suffix = suffix.substring(1);
+
+                if (suffix.isEmpty())
+                    return "";
+            }
+        }
+
+        return suffix;
+    }
 }

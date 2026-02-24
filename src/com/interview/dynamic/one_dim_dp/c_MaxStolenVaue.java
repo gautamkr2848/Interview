@@ -70,13 +70,11 @@ public class c_MaxStolenVaue {
             return (x < z) ? z : x;
     }
 
-    public int maxLoot_circularArray() {
+    public void maxLoot_circularArray() {
         // use same logic
         // include 1st element and exclude last element
         // include last element and exclude 1st element
 
         // return max of both the o/p
-
-        return 0;
     }
 }

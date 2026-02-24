@@ -5,7 +5,7 @@ public class BackspaceStringCompare {
     public static void main(String[] args) {
         System.out.println(getActual("ab#c").equals(getActual("ad#c"))); // true
         System.out.println(getActual("ab##").equals(getActual("c#d#"))); // true
-        System.out.println(getActual("a#c").equals(getActual("b"))); // false
+        System.out.println(getActual("ca#b").equals(getActual("cb"))); // false
         System.out.println(getActual("a##c").equals(getActual("#a#c"))); // true
     }
 
@@ -14,6 +14,7 @@ public class BackspaceStringCompare {
         Boolean hashFound = false;
         for(int i = s.length() - 1; i>=0 ; i--) {
             if(hashFound) {
+                hashFound = false;
                 continue;
             }
 

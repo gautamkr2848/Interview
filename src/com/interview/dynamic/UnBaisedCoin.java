@@ -26,7 +26,7 @@ getting j heads with first i coins. To get j heads at the ith position, there ar
 Hence, it can be broken into its subproblems as follows:
     dp[i][j] = dp[i – 1][j] * (1 – p[i]) + dp[i – 1][j – 1] * p[i]
 */
-public class BaisedCoin {
+public class UnBaisedCoin {
 
     public static void Probability() {
         double[] p = {0.3, 0.4, 0.7};

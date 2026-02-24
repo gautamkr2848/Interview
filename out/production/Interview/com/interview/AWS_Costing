@@ -1,0 +1,43 @@
+1️⃣ Amazon S3
+Component	Approx Cost
+Standard Storage	~$0.023 per GB / month
+Standard Storage IA	~$0.00125 per GB / month
+PUT Requests	~$0.005 per 1,000
+GET Requests	~$0.0004 per 1,000
+Data Transfer Out	~$0.09 per GB
+
+Example:
+1 TB storage ≈ $23/month
+
+2️⃣ Amazon ECS (with AWS Fargate)
+Resource	Approx Cost
+vCPU	~$0.040 per vCPU/hour
+Memory	~$0.0045 per GB/hour
+
+Example:
+1 vCPU + 2GB RAM running 24/7 ≈
+≈ $40–45/month per task
+
+3️⃣ AWS Lambda
+Component	Approx Cost
+Requests	$0.20 per 1M requests
+Compute	~$0.0000167 per GB-second
+Free Tier	1M requests + 400,000 GB-seconds/month
+
+Example:
+1M requests, 512MB, 1 sec execution ≈ ~$8–9
+
+4️⃣ Amazon Managed Service for Apache Flink
+Component	Approx Cost
+KPU (1 vCPU + 4GB RAM)	~$0.11 per KPU/hour
+
+Example:
+4 KPUs running 24/7 ≈
+4 × 0.11 × 730 ≈ $320/month
+
+5️⃣ Amazon CloudWatch
+Component	Approx Cost
+Logs Ingestion	~$0.50 per GB
+Logs Storage	~$0.03 per GB/month
+Custom Metrics	~$0.30 per metric/month
+Dashboards	$3 per dashboard/month

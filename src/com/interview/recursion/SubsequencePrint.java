@@ -8,7 +8,8 @@ public class SubsequencePrint {
     public static void main(String[] args) {
         int[] arr = {1, 2, 3};
         List<Integer> res = new ArrayList<>();
-        printAnyOneSubsequencesWithSumK(arr, 0, res, 0, 7);
+        printSubsequences(arr, 0, res);
+        //printAnyOneSubsequencesWithSumK(arr, 0, res, 0, 7);
     }
 
     private static void printSubsequences(int[] arr, int index, List<Integer> res) {

@@ -23,7 +23,7 @@ public class b_2_MinLengthSubArray {
             sum += A[j];
 
             if (sum == K) {
-                minLength = Math.min(minLength, j-i+1);
+                minLength = Math.min(minLength, j+1);
             } else {
                 while (sum > K) {
                     sum -= A[i];

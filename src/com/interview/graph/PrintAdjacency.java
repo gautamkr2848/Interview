@@ -52,4 +52,8 @@ public class PrintAdjacency {
             System.out.println(i++ + " -> " +list.toString());
         }
     }
+
+    public static void main(String[] args) {
+        printGraph();
+    }
 }

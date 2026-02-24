@@ -3,7 +3,7 @@ package com.interview.string.excel;
 public class ColumnNumberToName {
 
     public static void columnNumberToName(){
-        int n = 53;
+        int n = 52;
         StringBuilder columnName = new StringBuilder();
 
         while (n > 0) {

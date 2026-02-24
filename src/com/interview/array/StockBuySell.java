@@ -41,6 +41,7 @@ public class StockBuySell {
     //            i = no. of transactions
     //            j = days
     //            profit[i][j] = max(profit[i][j-1], max(price[j] – price[m] + profit[i-1][m])) for all m in range [0, j-1]
+    //            profit[i][j] = max(profit[i][j−1], 0≤m<jmax​(prices[j] - prices[m] + dp[i−1][m]))
     //
     //        profit[i][j] will be maximum of –
     //            1. profit[i][j-1] which represents not doing any transaction on the jth day.
@@ -56,6 +57,7 @@ public class StockBuySell {
 
                 for (int m = 0; m < j; m++)
                     max_profit_so_far = Math.max(max_profit_so_far, price[j] - price[m] + profit[i - 1][m]);
+                    // max_profit_so_far = Math.max(max_profit_so_far, price[j] - price[m] - fee + profit[i - 1][m]);    // if there is any fee
 
                 profit[i][j] = Math.max(profit[i][j - 1], max_profit_so_far);
             }
@@ -66,6 +68,24 @@ public class StockBuySell {
 
     //Space Complexity: O(n*k)
     //Time Complexity: O(k.n2)
+
+    // with cooldown period
+    public int maxProfitWithCooldown(int[] prices, int k) {
+        int n = prices.length;
+        int[][] profit = new int[k + 1][n + 2]; // +2 for cooldown handling
+
+        for (int i = 1; i <= k; i++) {
+            for (int j = 1; j < n; j++) {
+                int max_profit_so_far = 0;
+                for (int m = 0; m < j; m++) {
+                    // After selling on day j, cooldown on day j+1, so next buy can be on day j+2
+                    max_profit_so_far = Math.max(max_profit_so_far, prices[j] - prices[m] + profit[i - 1][m - 1 >= 0 ? m - 1 : 0]);
+                }
+                profit[i][j] = Math.max(profit[i][j - 1], max_profit_so_far);
+            }
+        }
+        return profit[k][n - 1];
+    }
 
     /*
     Optimized Solution
@@ -229,36 +249,6 @@ where prevDiff is max(profit[i-1][j] – price[j]) for all j in range [0, i-2]
 
     //Time Complexity: O(N*2)
     //Space Complexity: O(N*2)
-
-    // After every transaction, there is a transaction fee (‘fee’) associated with it.
-    public static int maximumProfit(int n, int fee, int[] arr) {
-        // Handle the base case when n is 0
-        if (n == 0)
-            return 0;
-
-        int dp[][] = new int[n + 1][2];
-
-        // Iterate through the array backwards
-        for (int i = n - 1; i >= 0; i--) {
-            for (int buy = 0; buy <= 1; buy++) {
-                int profit = 0;
-
-                if (buy == 0) { // We can buy the stock
-                    profit = Math.max(0 + dp[i + 1][0], -arr[i] + dp[i + 1][1]);
-                }
-
-                if (buy == 1) { // We can sell the stock
-                    profit = Math.max(0 + dp[i + 1][1], arr[i] - fee + dp[i + 1][0]);
-                }
-
-                dp[i][buy] = profit;
-            }
-        }
-        return dp[0][0];
-    }
-
-    // Time Complexity: O(N*2)
-    // Space Complexity: O(N*2)
 
     public static int getMaximumProfit(int[] arr, int n) {
         int[][] dp = new int[n + 1][2];

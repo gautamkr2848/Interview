@@ -9,6 +9,8 @@ Convert Object into Stream
 
     Arrays.stream(arr)
 
+    map.entrySet().stream()
+
 Java Stream Operations
 
     Terminal Operations
@@ -81,7 +83,24 @@ import java.util.stream.Collectors;
 
 public class Stream {
 
-    public Map<String, Integer> sortByValue(Map<String, Integer> hm) {
+    // Data Size         Sequential Stream      Parallel Stream
+    // Small (<1000)     Faster                 Slower
+    // Medium(1K-1M)     Comparable              Faster
+    // Large(>1M)        Slower                 Much Faster
+
+    public Map<String, Integer> sortByKeyAndValue(Map<String, Integer> hm) {
+
+        // sort by key
+        Map<String, Integer> sortedMap =
+                hm.entrySet()
+                        .stream()
+                        .sorted(Map.Entry.comparingByKey())
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                (e1, e2) -> e1,
+                                LinkedHashMap::new
+                        ));
 
         // first option
         List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(hm.entrySet());
@@ -163,7 +182,6 @@ public class Stream {
 
         String s = "amjkkbmc";
         s.chars().distinct().forEach(x -> System.out.print((char)x));
-        System.out.println();
 
         String[] array = {"a", "b", "a"};
         Arrays.stream(array).distinct().forEach(System.out::print);
@@ -197,3 +215,9 @@ public class Stream {
     }
 
 }
+
+// Collectors.summarizingDouble(x -> x)
+// Collectors.partitioningBy(i -> i % 2 == 0)
+// Collectors.groupingBy(x -> x, Collectors.counting())
+// filter(i -> Collections.frequency(list, i) >= 1)
+// Collectors.joining(", ")

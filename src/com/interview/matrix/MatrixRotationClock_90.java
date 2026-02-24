@@ -8,7 +8,7 @@ package com.interview.matrix;
 
 public class MatrixRotationClock_90 {
 
-    public void matrixRotation_2(int matrix[][]){
+    public static void matrixRotation_2(int matrix[][]){
         //reverse elements of all the rows
         //find the transpose of the matrix
 
@@ -24,9 +24,17 @@ public class MatrixRotationClock_90 {
                 matrix[j][i] = temp;
             }
         }
+
+        // print matrix
+        for(int i=0; i<n; i++) {
+            for (int j = 0; j<matrix[0].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
-    private void arrayReverse(int[] a){
+    private static void arrayReverse(int[] a){
         int start = 0;
         int end = a.length-1;
         while(start < end){
@@ -36,5 +44,16 @@ public class MatrixRotationClock_90 {
             start++;
             end--;
         }
+    }
+
+    public static void main(String[] args) {
+        int matrix[][] = {
+                {1,2,3},
+                {4,5,6},
+                {7,8,9}
+        };
+
+        matrixRotation_2(matrix);
+
     }
 }

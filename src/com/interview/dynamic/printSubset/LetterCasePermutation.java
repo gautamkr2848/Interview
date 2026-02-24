@@ -43,7 +43,7 @@ public class LetterCasePermutation {
 
             for (int j = 0; j < n; j++) {
                 if ((i & (int)Math.pow(2, j)) > 0)
-                    combination[j] = (char)(combination[j] - 32);
+                    combination[j] = Character.toUpperCase(combination[j]);
             }
 
             System.out.print(String.valueOf(combination) + " ");
