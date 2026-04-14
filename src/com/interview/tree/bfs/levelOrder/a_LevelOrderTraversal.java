@@ -51,4 +51,6 @@ public class a_LevelOrderTraversal {
 
         return 1 + Math.max(treeHeight(node.left), treeHeight(node.right));
     }
+
+    // Time complexity - O(n2)
 }

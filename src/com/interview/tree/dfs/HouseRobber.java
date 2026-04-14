@@ -19,15 +19,15 @@ public class HouseRobber {
         }
 
         // Recursively calculate optimal values for left and right subtrees
-        int[] leftSubtree = dfs(root.left);
-        int[] rightSubtree = dfs(root.right);
+        int[] left = dfs(root.left);
+        int[] right = dfs(root.right);
 
         // robCurrent: If we rob current node, we cannot rob its children
-        int robCurrent = root.key + leftSubtree[1] + rightSubtree[1];
+        int robCurrent = root.key + left[1] + right[1];
 
         // skipCurrent: If we skip current node, we can choose the max from each child
-        int skipCurrent = Math.max(leftSubtree[0], leftSubtree[1]) +
-                Math.max(rightSubtree[0], rightSubtree[1]);
+        int skipCurrent = Math.max(left[0], left[1]) +
+                Math.max(right[0], right[1]);
 
         return new int[] {robCurrent, skipCurrent};
     }

@@ -125,7 +125,7 @@ public class Stream {
         //    .collect(Collectors.groupingBy(Student::getGender, Collectors.averagingInt(Student::getAge)));
 
         // Dept wise rank average
-        //Map<String, Double> collect = list.stream()
+        // Map<String, Double> collect = list.stream()
         //    .collect(Collectors.groupingBy(Student::getDepartmantName, Collectors.averagingInt(Student::getRank)));
 
         //        First duplicate

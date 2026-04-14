@@ -109,4 +109,7 @@ public class MaxHistogramArea {
         }
         System.out.println(maxArea);
     }
+
+    // Time Complexity = O(n + n + n) = O(n)
+    // Space Complexity: ✅ O(n) (stack)
 }

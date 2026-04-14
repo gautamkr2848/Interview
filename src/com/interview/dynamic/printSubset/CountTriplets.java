@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CountTriplets {
+// For n ≤ 20 → normal subset
+// For n ≤ 40 → Meet in the Middle
+// For n ≥ 100 → DP / approximation
 
-    public static void main(String[] args) {
-        countTriplets();
-    }
+public class CountTriplets {
 
     public static void countTriplets(){
         int[] A = {0, 1, -1, 2, -2, 3};

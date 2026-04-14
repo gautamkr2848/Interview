@@ -1,6 +1,9 @@
 package com.interview.tree.dfs;
 
 /*
+
+The diameter of a tree is defined as the number of edges in the longest path between any two nodes.
+
               1
              / \
             2   3
@@ -12,7 +15,7 @@ package com.interview.tree.dfs;
 
 import com.interview.tree.Node;
 
-public class TreeDiameter {
+public class a_TreeDiameter {
 
     private static int diameter = 0;
 
@@ -32,6 +35,8 @@ public class TreeDiameter {
         return 1 + Math.max(left, right);       // Return height
     }
 
+    // Time Complexity - O(n)
+
     public static void main(String[] args) {
         Node root = new Node(1);
         root.left = new Node(2);
@@ -41,6 +46,33 @@ public class TreeDiameter {
         root.left.left.left = new Node(6);
 
         System.out.println("Diameter: " + diameterOfBinaryTree(root)); // Output: 4
+        System.out.println("Diameter: " + diameter(root)); // Output: 4
     }
+
+    // Function to get diameter of a binary tree
+    static int diameter(Node root) {
+        if (root == null)
+            return 0;
+
+        // Get the height of left and right sub-trees
+        int lheight = height(root.left);
+        int rheight = height(root.right);
+
+        // Get the diameter of left and right sub-trees
+        int ldiameter = diameter(root.left);
+        int rdiameter = diameter(root.right);
+
+        return Math.max(lheight + rheight, Math.max(ldiameter, rdiameter));
+    }
+
+    static int height(Node root) {
+
+        if (root == null)
+            return 0;
+
+        return 1 + Math.max(height(root.left), height(root.right));
+    }
+
+    // Time Complexity - O(n2)
 
 }
