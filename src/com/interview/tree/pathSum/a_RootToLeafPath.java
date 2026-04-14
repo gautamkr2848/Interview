@@ -4,7 +4,7 @@ import com.interview.tree.Node;
 
 import java.util.*;
 
-public class RootToLeafPath {
+public class a_RootToLeafPath {
 
     public static List<List<Integer>> Paths(Node root){
 
@@ -66,7 +66,7 @@ public class RootToLeafPath {
         node.right.left = new Node(6);
 
         List<List<Integer>> ans = new ArrayList<>();
-        findPaths_2(node, new ArrayList<>(), ans);
+        findPaths(node, new ArrayList<>(), ans);
 
         for(List<Integer> l : ans){
             System.out.println(l.toString());
@@ -77,6 +77,7 @@ public class RootToLeafPath {
     // If the node is a leaf node, we return a list containing the path from the node to the root.
     // Otherwise, we recursively call the helper function on the left and right children of the node, and concatenate the results.
 
+    // with add + remove (backtracking)
     public static void findPaths(Node root, List<Integer> curr, List<List<Integer>> ans) {
         if (root == null)
             return;
@@ -92,20 +93,5 @@ public class RootToLeafPath {
         curr.remove(curr.size() - 1);
     }
 
-    public static void findPaths_2(Node root, List<Integer> curr, List<List<Integer>> ans) {
-        if (root == null)
-            return;
-
-        curr.add(root.key);
-
-        if (root.left == null && root.right == null) {
-            ans.add(new ArrayList<>(curr));
-            return;
-        } else {
-            findPaths(root.left, new ArrayList<>(curr), ans);
-            findPaths(root.right, new ArrayList<>(curr), ans);
-        }
-    }
-
-
+    // Time complexity - O(n)
 }

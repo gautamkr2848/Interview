@@ -1,15 +1,71 @@
 package com.interview;
 
-import com.interview.greedy.NumberOfPlatforms;
-import com.interview.tree.Node;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
 
+    // [-2,1,-3,4,-1,2,1,-5,4]
+
+    // largest sum in sub-array
+
     public static void main(String[] args) {
 
+        String str = "a";
+
+        Set<String> set = new HashSet<>(Arrays.asList(str.split(",")));
+
+        System.out.println(set);
+    }
+}
+
+class TestB {
+    private Integer id;
+    private String name;
+
+    public TestB(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TestB testA = (TestB) o;
+        return Objects.equals(id, testA.id) && Objects.equals(name, testA.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "TestA{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
 

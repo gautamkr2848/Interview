@@ -14,6 +14,8 @@ package com.interview.array.pairCount;
 //Input: nums = [1,2,3]
 //Output: 0
 
+// Identical Pair means same element
+
 import java.util.HashMap;
 import java.util.Map;
 

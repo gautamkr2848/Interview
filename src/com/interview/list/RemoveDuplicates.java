@@ -1,5 +1,9 @@
 package com.interview.list;
 
+// 1 -> 2 -> 2-> 2-> 3-> 3 -> 5
+
+// 1 -> 2 -> 3 -> 5 ->
+
 public class RemoveDuplicates {
 
     //Remove duplicates from a sorted linked list
@@ -7,7 +11,7 @@ public class RemoveDuplicates {
         Node curr = head;
 
         while (curr != null) {
-            Node temp = curr;
+            Node temp = curr.next;
             while(temp != null && temp.data == curr.data)
                 temp = temp.next;
 

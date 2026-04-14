@@ -6,12 +6,13 @@ import java.util.PriorityQueue;
 
 public class mergeKSortedList {
 
-    public Node mergeKLists(Node arr[]) {
-        Node dummy = new Node(-1);
-        for(int i=0; i<arr.length; i++){
-            dummy = mergeList_3(dummy, arr[i]);
+    public Node mergeKLists(Node[] arr) {
+        Node result = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            result = mergeList_3(result, arr[i]);
         }
-        return dummy.next;
+
+        return result;
     }
 
     private Node mergeList_3(Node a, Node b) {

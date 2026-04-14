@@ -719,3 +719,98 @@ beneficial in cases when we need to control the classes which can implement or e
         * Stores reference to original list
         * Delegates read operations (get, size, etc.)
         * Overrides modification methods (add, remove, set) & throws UnsupportedOperationException
+
+57. Global AWS Network
+       ├── Regions
+       │     └── Availability Zones
+       └── Edge Locations (separate global layer)
+
+       * AZs are physically separate data centers inside a region
+       * Edge locations are parallel to regions, not inside them.
+
+58. Token, Session, Cookie, JWT, OAuth2
+
+    🧠 First Big Picture
+    There are 3 layers involved:
+        - How user proves identity → Authentication
+        - How server remembers user → Session / Token
+        - How access is granted to APIs → OAuth2 / JWT
+
+    🍪 1️⃣ Cookie - A cookie is just a small piece of data stored in the browser. It is automatically sent with every
+    request to the same domain. Cookie is just a storage/transport mechanism.
+
+    🧾 2️⃣ Session - A session is server-side stored user data.
+        Flow:
+            User logs in.
+            Server creates session object in memory/DB.
+            Server sends session ID in a cookie.
+            Browser sends cookie on every request.
+            Server finds session using session ID.
+        So:
+            Cookie → stores session ID
+            Session → stored on server
+
+    🔑 3️⃣ Token - A token is proof that user is authenticated. The client stores token.
+        Flow:
+            User logs in
+            Server generates token
+            Client stores token (localStorage or cookie)
+            Client sends token in header
+            Server validates token each time.
+
+    🧬 4️⃣ JWT (JSON Web Token) - JWT is a type of token format. JWT contains: User ID, Expiry, Roles, Claims. Server
+    verifies signature instead of checking DB.
+
+    🔐 5️⃣ OAuth2 - It is an authorization framework.
+        It defines:
+            How to get access token
+            How third-party apps access user data
+        OAuth2 gives you:
+            Access token
+            Refresh token
+
+59. There are 100 million keys in Redis, how to find the 100,000 with a specific prefix?
+
+    - KEYS prefix* is not recommended because it scans the entire keyspace and blocks Redis, which is dangerous in production.
+    - SCAN cursor MATCH prefix* COUNT 1000
+        cursor	starting position
+        MATCH	filter keys with prefix
+        COUNT	hint for number of keys to scan
+    - SCAN does incremental iteration, not a full blocking scan.
+
+    - ScanParams params = new ScanParams().match("user:*").count(1000);
+      String cursor = "0";
+      List<String> result = new ArrayList<>();
+
+      do {
+          ScanResult<String> scanResult = jedis.scan(cursor, params);
+          result.addAll(scanResult.getResult());
+          cursor = scanResult.getCursor();
+          if(result.size() >= 100000)
+              break;
+      } while(!cursor.equals("0"));
+
+    - Even Better Design
+        * Instead of scanning keys, maintain a secondary index.
+        * When writing keys:
+            SET user:123 data
+            SADD prefix:user user:123
+        * while reading
+            SMEMBERS prefix:user
+        * Much faster than scanning 100M keys.
+
+
+60. Java I/O vs NIO
+
+Feature	                    java.io	                            java.nio
+Data Handling	            Stream	                            Buffer
+Blocking	                Blocking	                        Blocking + Non-blocking
+Performance	                Slower (large files)	            Faster (bulk operations)
+Scalability	                Poor for many connections	        High (selectors)
+API Complexity	            Simple	                            More complex
+File Handling	            Basic	                            Advanced (Files, Paths)
+1MB file read	            Similar	                            Similar
+1GB file read	            Slow	                            Very fast 🚀
+10k connections	            Crashes / slow	                    Stable
+CPU usage	                High	                            Efficient
+Memory usage	            High (threads)	                    Low

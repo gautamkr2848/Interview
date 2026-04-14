@@ -23,8 +23,12 @@ public class BSTMaxPathSum {
         int leftGain = Math.max(0, calculateMaxGain(node.left));    // Use Math.max with 0 to ignore negative paths
         int rightGain = Math.max(0, calculateMaxGain(node.right));  // Use Math.max with 0 to ignore negative paths
 
-        int currentMaxPath = node.key + leftGain + rightGain;
-        maxSum = Math.max(maxSum, currentMaxPath);
+        maxSum = Math.max(maxSum, node.key + leftGain + rightGain);
+
+        // If path sum is needed for leaf to leaf
+//        if (node.left != null && node.right != null) {
+//            maxSum = Math.max(maxSum, node.key + leftGain + rightGain);
+//        }
 
         // Return the maximum gain from this node to its parent
         // Parent can only use one branch (either left or right) plus the current node's value

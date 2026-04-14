@@ -1,5 +1,5 @@
 1. Content Delivery Network
-    A (CDN) refers to a distributed group of servers which work together to provide fast delivery of Internet content.
+    A (CDN) refers to a distributed group of servers which work together to provide fast delivery of Internet content. (Edge locations)
     Benefits of CDN :
         a. Improving website load times / minimize latency
         b. Reducing bandwidth costs
@@ -502,11 +502,6 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     3. HashTable was there since JDK 1.1. HashMap is introduced in JDK 1.2.
     4. HashTable is the legacy class.
 
-62. Why should we prefer + operator for String Concatnation
-    1. Simplicity and Readability
-    2. Compiler Optimization: - the Java compiler optimizes the use of the + operator by converting it to use a StringBuilder under the hood.
-    3. using + is more convenient and results in cleaner code compared to explicitly using a StringBuilder or StringBuffer.
-
 63. Null Handling
     1. Instead of returning null, consider using Optional<T>
     2. Prefer returning empty collections instead of null
@@ -618,14 +613,6 @@ By modifying pom.xml, we can change web container from tomcat to jetty
 
 79. Idempotency API means that the data/system state will be the same no matter how many times the API is successfully called with the same request body/parameter.
 
-80. Sealed Class
-    a. Sealed classes allow developers to restrict the inheritance hierarchy of a class or interface.
-    b. Take a Shape class, which can be extended by Circle, Square, or Triangle classes. With Sealed Classes, we can specify that only these three classes can inherit from Shape, and no other class can extend it.
-        1. Defining a sealed class
-        2. Defining a sealed interface
-        3. If non permitted class try to extend or implement, it will get compile time error.
-    c. public sealed interface Vehicle permits Car, Truck {}
-
 81. Virtual Thread
     a. Lightweight Nature
     b. Reduced Context Switching
@@ -664,7 +651,7 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     Hidden Dependencies: When using @Autowired on fields, dependencies are injected behind the scenes, which can lead to hidden dependencies. This practice makes it difficult to know what a class needs to function correctly, complicating testing and debugging.
     Immutability Issues: Field injection allows dependencies to be mutable, making it easier for a class to change them later. This reduces the immutability of your components, which can lead to bugs that are hard to track down.
     Testing Difficulties: Testing components that rely on field injection can be tricky. Since dependencies are not passed through constructors, you need to mock or inject these fields manually in your test setup, which can add unnecessary boilerplate code.
-    Constructor-Based Injection is Cleaner: With constructor-based injection, dependencies are explicitly declared in the constructor, making it clear which components are needed for the class to work. This approach makes the class more readable, easier to test, and improves overall maintainability.
+    Constructor- Based Injection is Cleaner: With constructor-based injection, dependencies are explicitly declared in the constructor, making it clear which components are needed for the class to work. This approach makes the class more readable, easier to test, and improves overall maintainability.
 
 89. group by vs partioned by
 

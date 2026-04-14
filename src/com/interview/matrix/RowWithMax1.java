@@ -13,7 +13,7 @@ public class RowWithMax1 {
                        {0, 1, 1, 1}};
 
         int row = 0, i, j;
-        for (i = 0, j = arr.length - 1; i < arr.length; i++) {
+        for (i = 0, j = arr[0].length - 1; i < arr.length; i++) {
             while (j >= 0 && arr[i][j] == 1) {
                 row = i;
                 j--;

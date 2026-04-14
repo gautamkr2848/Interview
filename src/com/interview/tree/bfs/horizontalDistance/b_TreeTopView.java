@@ -49,5 +49,4 @@ public class b_TreeTopView {
         for(Integer i : map.values())
             System.out.print(i+" ");
     }
-    
 }

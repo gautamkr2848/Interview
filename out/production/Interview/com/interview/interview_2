@@ -192,6 +192,22 @@ Tesco - 2
 1. Merge intervals
 2. Coupon management system, where store can goes offline
 
+Connectwise - 3
+1. Data Ingestion Pipeline
+2. Maximum Sum Subarray / Kadane
+3. Can we create object of Abstract class
+4. Two interface having one method with same siganture. One class implemented both interface.
+    - Will the class override both the methods
+    - Interface A method has different implementation than Interface B method
+    - How the implementation of the class will look like
+5. Circut Breaker
+6. Which internal DS recurrsion uses
+7. why array index starts from 0
+8. Basic vs Bearer Token
+9. What does JWT contains?
+10. Mysql read/write vs Postgres read/write
+11. Kafka exception handling
+
 Managerial
 1. Tell me about a production issue you handled.
 2. How do you handle code reviews?
