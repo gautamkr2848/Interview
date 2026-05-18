@@ -20,6 +20,7 @@ Step 1 – The User Shows Intent
 
 Gautam (User): “Hey, ESPN, I would like you to be able to post links directly to my Twitter stream.”
 ESPN (Consumer): “Great! Let me go ask for permission.”
+
 Step 2 – The Consumer Gets Permission
 
 ESPN: “I have a user that would like me to post to his stream. Can I have a request token?”

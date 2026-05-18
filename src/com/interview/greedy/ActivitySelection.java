@@ -7,18 +7,18 @@ import java.util.Arrays;
 public class ActivitySelection {
 
     public static void activitySelection(){
-        int s[] =  {1, 3, 0, 5, 8, 5};
-        int f[] =  {3, 4, 6, 7, 9, 9};
+        int s[] =  {10, 12, 20};
+        int f[] =  {20, 25, 30};
 
         Arrays.sort(f);
 
-        int i=0;
-        System.out.print(i+" ");
+        int j=0;
+        System.out.print(j+" ");
 
-        for (int j = 1; j < s.length; j++){
-            if (s[j] >= f[i]){
-                System.out.print(j+" ");
-                i = j;
+        for (int i = 1; i < s.length; i++){
+            if (f[j] <= s[i]){
+                System.out.print(i+" ");
+                j = i;
             }
         }
     }

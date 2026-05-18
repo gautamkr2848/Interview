@@ -1,5 +1,7 @@
 package com.interview.string;
 
+// https://leetcode.com/problems/minimum-number-of-flips-to-make-the-binary-string-alternating/description/
+
 public class MinFlipsToAlternateString {
 
     public void minFlipsToAlternateString(){

@@ -9,8 +9,8 @@ package com.interview.tree;
 
 public class Postorder_Pre_In {
 
-    int preIndex = 0;
-    public void postorder_Pre_In(int[] inorder, int[] preorder, int start, int end){
+    static int preIndex = 0;
+    public static void postorder_Pre_In(int[] inorder, int[] preorder, int start, int end){
         if (start > end)
             return;
 
@@ -21,11 +21,38 @@ public class Postorder_Pre_In {
         System.out.print(inorder[index] + " ");
     }
 
-    private int search(int[] in, int startIn, int endIn, int data) {
+    private static int search(int[] inorder, int start, int end, int data) {
         int i = 0;
-        for (i = startIn; i < endIn; i++)
-            if (in[i] == data)
+        for (i = start; i < end; i++)
+            if (inorder[i] == data)
                 return i;
         return i;
+    }
+
+    public static void main(String[] args) {
+        int[] inorder = {4, 2, 5, 1, 3, 6};
+        int[] preorder = {1, 2, 4, 5, 3, 6};
+        postorder_Pre_In(inorder, preorder, 0, inorder.length - 1);
+        preIndex = 0;
+        Node node = buildTree(inorder, preorder, 0, inorder.length - 1);
+        System.out.println();
+        System.out.println(node.key);
+    }
+
+    private static Node buildTree(int[] inorder, int[] preorder, int start, int end) {
+        if (start > end)
+            return null;
+
+        Node tNode = new Node(preorder[preIndex++]);
+
+        if (start == end)
+            return tNode;
+
+        int inIndex = search(inorder, start, end, tNode.key);
+
+        tNode.left = buildTree(inorder, preorder, start, inIndex - 1);
+        tNode.right = buildTree(inorder, preorder, inIndex + 1, end);
+
+        return tNode;
     }
 }

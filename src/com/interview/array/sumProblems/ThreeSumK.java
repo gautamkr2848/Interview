@@ -6,10 +6,10 @@ import java.util.Set;
 
 public class ThreeSumK {
 
-    public void findTriplets(int arr[], int n) {
+    public static void findTriplets(int arr[], int n) {
         Arrays.sort(arr);
 
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < n - 2; i++) {
             int l = i + 1;
             int r = n - 1;
             int x = arr[i];
@@ -28,5 +28,9 @@ public class ThreeSumK {
                     r--;
             }
         }
+    }
+
+    public static void main(String[] args) {
+        findTriplets(new int[]{-3, 2, 1, 4}, 4);
     }
 }

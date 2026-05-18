@@ -30,7 +30,7 @@ public class a_InOrder {
         Node curr = node;
 
         while (curr != null || s.size() > 0){
-            while (curr !=  null){
+            while (curr !=  null) {
                 s.push(curr);
                 curr = curr.left;
             }

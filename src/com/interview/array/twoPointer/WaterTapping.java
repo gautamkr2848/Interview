@@ -11,48 +11,18 @@ Input: arr[] = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
 Output: 6
 */
 
+//For every element we needed to calculate the highest element on the left and on the right.
+
+//So, to reduce the time complexity:
+
+//For every element we can precalculate and store the highest bar on the left and on the right (say stored in arrays left[] and right[]).
+//Then iterate the array and use the precalculated values to find the amount of water stored in this index,
+//which is the same as ( min(left[i], right[i]) – arr[i] )
+
+//Time Complexity: O(N). Only one traversal of the array is needed, So time Complexity is O(N).
+//Space Complexity: O(N). Two extra arrays are needed, each of size N.
+
 public class WaterTapping {
-
-    // Traverse every array element and find the highest bars on the left and right sides. Take the smaller of two
-    // heights. The difference between the smaller height and the height of the current element is the amount of water
-    // that can be stored in this array element.
-
-    //Complexity Analysis:
-
-    //Time Complexity: O(N2). There are two nested loops traversing the array.
-    //Space Complexity: O(1). No extra space is required.
-
-    public static int maxWater(int[] arr, int n) {
-
-        int res = 0;
-        for (int i = 1; i < n - 1; i++) {
-
-            int left = arr[i];
-            int right = arr[i];
-
-            for (int j = 0; j < i; j++) {   // Find maximum element on its left
-                left = Math.max(left, arr[j]);
-            }
-
-            for (int j = i + 1; j < n; j++) {   // Find maximum element on its right
-                right = Math.max(right, arr[j]);
-            }
-
-            res = res + Math.min(left, right) - arr[i];
-        }
-        return res;
-    }
-
-    //For every element we needed to calculate the highest element on the left and on the right.
-
-    //So, to reduce the time complexity:
-
-    //For every element we can precalculate and store the highest bar on the left and on the right (say stored in arrays left[] and right[]).
-    //Then iterate the array and use the precalculated values to find the amount of water stored in this index,
-    //which is the same as ( min(left[i], right[i]) – arr[i] )
-
-    //Time Complexity: O(N). Only one traversal of the array is needed, So time Complexity is O(N).
-    //Space Complexity: O(N). Two extra arrays are needed, each of size N.
 
     public void rainWater(int[] a) {
         int n = a.length;
@@ -92,22 +62,22 @@ public class WaterTapping {
     //Similar things happen for j also.
 
     public static int trap() {
-        int[] heights = {3, 0, 2, 0, 1};
+        int[] arr = {3, 0, 2, 0, 1};
 
-        int i = 0, j = heights.length - 1, water = 0;
+        int i = 0, j = arr.length - 1, water = 0;
 
-        int left = heights[i];
-        int right = heights[j];
+        int left = arr[i];
+        int right = arr[j];
 
         while (i < j) {
-            if (heights[i] <= heights[j]) {
+            if (arr[i] <= arr[j]) {
                 i++;
-                left = Integer.max(left, heights[i]);
-                water = water + left - heights[i];
+                left = Integer.max(left, arr[i]);
+                water = water + left - arr[i];
             } else {
                 j--;
-                right = Integer.max(right, heights[j]);
-                water = water + right - heights[j];
+                right = Integer.max(right, arr[j]);
+                water = water + right - arr[j];
             }
         }
         return water;

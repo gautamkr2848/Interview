@@ -1,6 +1,6 @@
 Functional Interface
 
-    a. Functional interfaces are interfaces which represent some functionality. Can have only one abstract method.
+    a. A functional interface in Java is an interface that has exactly one abstract method (SAM – Single Abstract Method).
 
     b. Lambda's are used to represent the instance of a functional interfaces
        Lambda expressions basically used for implementing abstract method of functional interface.

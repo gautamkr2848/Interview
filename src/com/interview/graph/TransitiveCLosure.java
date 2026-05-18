@@ -1,12 +1,19 @@
 package com.interview.graph;
 
-import java.util.ArrayList;
-
 // Only applicable for Directed Graph
+// Graph G: A → B → C
+
+//From A you can reach B directly, and C through B.
+//From B you can reach C.
+
+//Transitive Closure G*:
+//A → B
+//A → C
+//B → C
 
 public class TransitiveCLosure {
 
-    public void transitiveClosure(int V, int graph[][]) {
+    public static void transitiveClosure(int V, int graph[][]) {
         int reach[][] = new int[V][V];
         int  i, j, k;
 

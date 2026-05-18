@@ -1,6 +1,9 @@
 package com.interview.dynamic.one_dim_dp;
 
-//Geek is going for n day training program. He can perform any one of these three activities Running, Fighting, and Learning Practice. Each activity has some point on each day. As Geek wants to improve all his skills, he can't do the same activity on two consecutive days. Help Geek to maximize his merit points as you are given a 2D array of points points, corresponding to each day and activity.
+// Geek is going for n day training program. He can perform any one of these three activities Running, Fighting, and
+// Learning Practice. Each activity has some point on each day. As Geek wants to improve all his skills, he can't do
+// the same activity on two consecutive days. Help Geek to maximize his merit points as you are given a 2D array of
+// points points, corresponding to each day and activity.
 
 //Input: n = 3
 //points = [[1,2,5],[3,1,1],[3,3,3]]

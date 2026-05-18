@@ -24,7 +24,6 @@ public class h_MideanOfRunningInt {
     static PriorityQueue<Integer> minHeap;
 
     public static void main(String[] args) {
-        h_MideanOfRunningInt h = new h_MideanOfRunningInt();
         int[] a = {5, 15, 1, 3};
         for(int i=0; i<a.length; i++) {
             insert(a[i]);
@@ -33,8 +32,8 @@ public class h_MideanOfRunningInt {
     }
 
     public h_MideanOfRunningInt(){
-        maxHeap = new PriorityQueue<>(Collections.reverseOrder());      //left side
-        minHeap = new PriorityQueue<>();        //right side
+        maxHeap = new PriorityQueue<>(Collections.reverseOrder());      //left side     // first polls larger element
+        minHeap = new PriorityQueue<>();        //right side        // first polls smaller element
     }
 
     public static void insert(Integer n) {
@@ -54,27 +53,5 @@ public class h_MideanOfRunningInt {
             return (maxHeap.peek() + minHeap.peek()) / 2.0;
         else
             return maxHeap.peek();
-    }
-
-    public void streamMed() {
-        int A[] = { 5, 15, 1, 3, 2, 8, 7, 9, 10, 6, 11, 4 };
-        int N = A.length;
-
-        PriorityQueue<Double> greater = new PriorityQueue<>();
-        PriorityQueue<Double> smaller = new PriorityQueue<>();
-
-        for (int i = 0; i < N; i++) {
-
-            smaller.add(-1.0 * A[i]);
-            greater.add(-1.0 * smaller.poll());
-
-            if (greater.size() > smaller.size())
-                smaller.add(-1.0 * greater.poll());
-
-            if (greater.size() != smaller.size())
-                System.out.print((-1.0 * smaller.peek()) + "     ");
-            else
-                System.out.print(((greater.peek() - smaller.peek()) / 2) + "     ");
-        }
     }
 }

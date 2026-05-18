@@ -13,7 +13,7 @@ public class RowWithMax1 {
                        {0, 1, 1, 1}};
 
         int row = 0, i, j;
-        for (i = 0, j = arr.length - 1; i < arr.length; i++) {
+        for (i = 0, j = arr[0].length - 1; i < arr.length; i++) {
             while (j >= 0 && arr[i][j] == 1) {
                 row = i;
                 j--;
@@ -21,6 +21,6 @@ public class RowWithMax1 {
         }
         if(row==0 && arr[0][arr[0].length-1]==0)
             System.out.println(-1);
-        System.out.print("Row number = " + (row + 1) + ", MaxCount = " + (arr.length - 1 - j));
+        System.out.print("Row number = " + (row + 1) + ", MaxCount = " + (arr[0].length - 1 - j));
     }
 }

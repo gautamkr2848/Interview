@@ -15,7 +15,7 @@ public class TwoSumK {
     }
 
     public static void getPairsCount(int arr[], int n, int k) {
-        HashMap<Integer, Integer> m = new HashMap<>();
+        Map<Integer, Integer> m = new HashMap<>();
         int count = 0;
 
         for (int i = 0; i < n; i++) {
@@ -27,7 +27,22 @@ public class TwoSumK {
         System.out.println(count);
     }
 
-    public static void printPairs(int[] arr, int n, int sum) {
+    public static void twoSumPairs(int[] arr, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int num : arr) {
+            int target = k - num;
+
+            if (map.getOrDefault(target, 0) > 0) {
+                System.out.println(num + " " + target);
+                map.put(target, map.get(target) - 1);
+            } else {
+                map.put(num, map.getOrDefault(num, 0) + 1);
+            }
+        }
+    }
+
+    public static void printUniquePairs(int[] arr, int n, int sum) {
         Map<Integer, Integer> m = new HashMap<>();
 
         for (int i = 0; i < n; i++) {
@@ -46,6 +61,8 @@ public class TwoSumK {
 
     public static void main(String[] args) {
         int[] a = {1, 3, 7, -1, 3, 3, 3};
-        getPairsCount(a, a.length, 6);
+        // getPairsCount(a, a.length, 6);
+        // printUniquePairs(a, 7, 6);
+        // twoSumPairs(a, 6);
     }
 }

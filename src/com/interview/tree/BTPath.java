@@ -52,4 +52,25 @@ public class BTPath {
         return new ArrayList<>();
     }
 
+    public List<List<Integer>> allRootToLeafPaths(Node node) {
+        List<List<Integer>> paths = new ArrayList<>();
+        depthFirstSearch(node, new ArrayList<>(), paths);
+        return paths;
+    }
+
+    private void depthFirstSearch(Node node, List<Integer> currentPath, List<List<Integer>> paths) {
+        if (node == null)
+            return;
+
+        currentPath.add(node.key);
+
+        if (node.left == null && node.right == null) {
+            paths.add(new ArrayList<>(currentPath));
+        } else {
+            depthFirstSearch(node.left, currentPath, paths);
+            depthFirstSearch(node.right, currentPath, paths);
+        }
+
+        currentPath.remove(currentPath.size() - 1);
+    }
 }

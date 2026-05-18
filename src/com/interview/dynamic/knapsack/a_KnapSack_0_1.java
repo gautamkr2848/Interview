@@ -50,6 +50,19 @@ public class a_KnapSack_0_1 {
     Auxiliary Space: O(N * W) + O(N)
 */
 
+// wt  = {1, 3, 4, 5}
+// val = {1, 4, 5, 7}
+// w = 7
+// n = 4
+
+/*| i/j | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+  | --- | - | - | - | - | - | - | - | - |
+  |  0  | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+  |  1  | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+  |  2  | 0 | 1 | 1 | 4 | 5 | 5 | 5 | 5 |
+  |  3  | 0 | 1 | 1 | 4 | 5 | 6 | 6 | 9 |
+  |  4  | 0 | 1 | 1 | 4 | 5 | 7 | 8 | 9 |*/
+
     public static int knapSack_3(int[] wt, int[] val, int w, int n){
         int[][] t = new int[n+1][w+1];
 
@@ -72,7 +85,6 @@ public class a_KnapSack_0_1 {
     public static void main(String[] args) {
         int profit[] = new int[] { 60, 100, 120 };
         int weight[] = new int[] { 10, 20, 30 };
-        int W = 50;
 
         System.out.println(knapSack_3(weight, profit, 50, 3));
     }

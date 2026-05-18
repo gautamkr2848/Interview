@@ -1,5 +1,10 @@
 package com.interview.array;
 
+// A sequence {X1, X2, .. Xn} is an alternating sequence if its elements satisfy one of the following relations :
+
+// X1 < X2 > X3 < X4 > X5 < …. xn or
+// X1 > X2 < X3 > X4 < X5 > …. xn
+
 //Input: arr[] = {10, 22, 9, 33, 49, 50, 31, 60}
 //Output: 6
 //Explanation: The subsequences {10, 22, 9, 33, 31, 60} or

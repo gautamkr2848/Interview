@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class ShortestJobFirst {
 
-    public static int solve(int bt[] ) {
+    public static int solve(int bt[]) {
         Arrays.sort(bt);
         int wt=0, tt=0;
 

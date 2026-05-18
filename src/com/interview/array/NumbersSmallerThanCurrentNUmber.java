@@ -16,13 +16,13 @@ public class NumbersSmallerThanCurrentNUmber {
     public static void main(String[] args){
         int[] a = {8,1,2,2,3};
         int n = a.length;
-
-        int[] tmp = new int[100];
+        int max = Arrays.stream(a).max().getAsInt();
+        int[] tmp = new int[max+1];
         for(int i=0; i<n; i++){
             tmp[a[i]]++;
         }
 
-        for(int i=1; i<100; i++) {
+        for(int i=1; i<=max; i++) {
             tmp[i] = tmp[i] + tmp[i-1];
         }
 

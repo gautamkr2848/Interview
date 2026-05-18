@@ -68,6 +68,6 @@ public class TreePathSumK {
         node.right.left = new Node(7);
         node.right.right = new Node(9);
 
-        pathCount(node, 7);
+        pathCount(node, 15);
     }
 }

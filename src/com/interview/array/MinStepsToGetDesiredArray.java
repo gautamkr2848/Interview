@@ -56,4 +56,6 @@ public class MinStepsToGetDesiredArray {
             }
         }
     }
+
+    // O(n log m) solution
 }

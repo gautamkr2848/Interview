@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-public class Calculator {
+public class
+Calculator {
 
     public static void main(String[] args){
         String s = "2*3+5";
@@ -12,7 +13,7 @@ public class Calculator {
         Stack<Integer> operand = new Stack<>();
         Stack<Character> operator = new Stack<>();
 
-        int ans = 0, i = 0;
+        int i = 0;
 
         while (i < s.length()) {
             if(isOperator(s.charAt(i))) {

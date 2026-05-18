@@ -4,26 +4,32 @@ import java.util.Arrays;
 
 public class TripletSumClosestToTarget {
 
-    public int solution(int[] arr, int x) {
+    public static int threeSumClosest(int[] arr, int target) {
+        int n = arr.length;
         Arrays.sort(arr);
-        int closestSum = Integer.MAX_VALUE;
+        int sum = 0;
+        int minDiff = Integer.MAX_VALUE;
 
-        for (int i = 0; i < arr.length - 2; i++) {
-            int left = i + 1, right = arr.length - 1;
+        for (int i = 0; i < n - 2; i++) {
+            int start = i + 1, end = n - 1;
+            while (start < end) {
+                int currSum = arr[i] + arr[start] + arr[end];
 
-            while (left < right) {
-                int sum = arr[i] + arr[left] + arr[right];
+                if (Math.abs(currSum - target) < minDiff) {
+                    minDiff = Math.abs(currSum - target);
+                    sum = currSum;
+                } else if(Math.abs(currSum - target) == minDiff) {
+                    sum = Math.max(sum, currSum);
+                }
 
-                if (Math.abs(x - sum) < Math.abs(x - closestSum))
-                    closestSum = sum;
-
-                if (sum <= x)
-                    left++;
+                if (currSum > target)
+                    end--;
                 else
-                    right--;
+                    start++;
             }
         }
-        return closestSum;
+
+        return sum;
     }
 }
 

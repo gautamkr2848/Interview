@@ -22,6 +22,17 @@ public class MatrixSearch {
         System.out.print("n Element not found");
     }
 
+    //For a matrix with n columns:
+    //
+    //row = index / n
+    //col = index % n
+
+    //📌 Why this works
+    //Division (/ n)
+    //Every n elements → move to next row
+    //Modulo (% n)
+    //Tells position inside the row
+
     public void matrixSearch2() {
         int mat[][] = {{ 10, 20, 30},
                 { 15, 25, 35 },

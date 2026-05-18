@@ -1,5 +1,5 @@
 1. Content Delivery Network
-    A (CDN) refers to a distributed group of servers which work together to provide fast delivery of Internet content.
+    A (CDN) refers to a distributed group of servers which work together to provide fast delivery of Internet content. (Edge locations)
     Benefits of CDN :
         a. Improving website load times / minimize latency
         b. Reducing bandwidth costs
@@ -54,13 +54,22 @@
     component acts as a registry in which the addresses of all instances are tracked.
 
 6. Database Sharding
-    Example of horizontal Sharding
+    * Database sharding is a technique where a large database is split into smaller, independent databases (shards) and
+    each shard stores a subset of the data.
+    * A shard key is used to decide where data goes.
+    * Horizontal Sharding
         User table - Storing all the users
         After Sharding -
             Stores  A-I in user1 table
                     J-S in user2 table
                     T-Z in user3 table
-
+    * Vertical Sharding - Tables are split by feature/domain:
+        User DB → user info
+        Order DB → order info
+        Payment DB → payment info
+    * Hash-Based Sharding - shard = hash(user_id) % N
+    * Range-Based Sharding
+    * Geo Sharding
 
 7. Load Balancing   =>  Ribbon
     Load balancing refers to the process of distributing a set of tasks over a set of resources,
@@ -78,14 +87,28 @@
         d. Flexibility
 
 8. nginx - https://medium.com/devopscurry/what-is-nginx-understanding-the-basics-of-nginx-in-2021-f8ee0f3d3d54
+    * NGINX is a web server (serves static content) but commonly used as a reverse proxy. It can be scaled efficiently as a web server as well as
+    a reverse proxy. It creates a process pool that can be easily shared among multiple connections within the network.
+    Whenever a request is made, a resource will be allocated to the process resulting in better resource utilization
+    that can easily handle extensive connections.
+    * NGINX also helps in setting up a secured connection between your data-centers and the outside network.
+    * It provides a single entry point
+    * Caching
+    * Provide multiple backend apps
+    * Zero downtime
+    * Mitigate DoS attacks- NGINX is well-known for handling tons of incoming requests or HTTP traffic, ensuring
+    application safety during high traffic, common cache response, and deliver request smoothly. NGINX works as a shock
+    absorber for your application.
+    * Scalability and fault tolerance- the load balancing, health checks features of NGINX allow you to scale your
+    back-end infrastructure so that adding or removing any microservice will not impact the user’s experience.
 
-8. Consistent Hashing
+9. Consistent Hashing
     https://medium.com/@sandeep4.verma/consistent-hashing-8eea3fb4a598
 
     Hashing is a technique of mapping one piece of data of some arbitrary size into another piece of data of fixed size,
     typically an integer, known as hash or hash code.
 
-9. Scaling
+10. Scaling
     Vertical => Buying a bigger system
     Horizontal => Increasing number of instances
 
@@ -111,6 +134,10 @@
         Load Balancing and Fault Tolerance:
         SSL Certification
         Cache & storing Static Content
+
+        👉 NGINX handles traffic entry
+        👉 API Gateway handles API logic
+        👉 Real world = Client -> nginx -> API Gateway -> Server
 
 14. Executor Service
      Java provides its own multi-threading framework called the Java Executor Framework.
@@ -143,9 +170,7 @@
 
 20. CAP Theorem - https://designsystemsweekly.substack.com/p/a-plain-english-introduction-to-cap
 
-    A partition is a communications break within a distributed system — a lost or temporarily delayed connection between
-    two nodes. Partition tolerance means that the cluster must continue to work despite any number of communication
-    breakdowns between nodes in the system.
+    Partition tolerance = system continues working even when network communication fails between nodes.
 
 21. Indexing - https://chartio.com/learn/databases/how-does-indexing-work/
     In reality the database table does not reorder itself every time the query conditions change in order to optimize
@@ -162,7 +187,7 @@
         client requests parameters with a specific limit (the number of results) and
         offset (the number of records that need to be skipped)
 
-23. CI/CD Pipeline - https://dzone.com/articles/learn-how-to-setup-a-cicd-pipeline-from-scratch
+23. CI/CD Pipeline - ```https://dzone.com/articles/learn-how-to-setup-a-cicd-pipeline-from-scratch```
 
 24. What happens if hashCode & equals is not overriden?
 
@@ -176,10 +201,11 @@
     to retrieve it. If you don't implement hashcode() and equals() in a consistent manner, then
     they will not function properly.
 
-    https://www.techiedelight.com/why-override-equals-and-hashcode-methods-java/
-
     If o1.equals(o2), then o1.hashCode() == o2.hashCode() should always be true.
     If o1.hashCode() == o2.hashCode is true, it doesn’t mean that o1.equals(o2) will be true
+
+    👉 Without overriding equals() and hashCode(), Java collections treat every object as unique even if their data is
+    identical, because comparison is based on memory reference, not content.
 
 
 25. Marker Interface
@@ -188,10 +214,7 @@
 
     public interface Serializable {}
 
-26. Concurrency Model
-    1. Parallel Workers
-    2. Assembly Line
-    3. Functional Parallelism   =>  Fork/Join Pool
+26. For Database, Every time prefer soft delete over hard delete
 
 27. Bean Scope => The scope of a bean defines the life cycle and visibility of that bean
     1. Singleton - single instance per Spring IoC container
@@ -210,13 +233,15 @@
     Many Spring Boot developers like their apps to use auto-configuration, component scan and be able to define extra
     configuration on their "application class". A single @SpringBootApplication annotation can be used to enable those
     three features, that is:
-
         @EnableAutoConfiguration: enable Spring Boot’s auto-configuration mechanism
-        @ComponentScan: enable component scan on the package where the application is located
+            * If spring-boot-starter-web is present → configure Tomcat
+            * If spring-boot-starter-data-jpa is present → configure JPA
+            * If mysql driver is present → configure datasource
+        @ComponentScan: Enables scanning of @Component, @Service, @Repository, @Controller etc. in the package and subpackages.
         @Configuration: allow to register extra beans in the context or import additional configuration classes
 
 30. Spring IoC (Inversion of Control)
-    0. Inversion of Control is a principle in software engineering which transfers the control of objects to a container
+    0. Inversion of Control = Giving the control of objects to a container
     1. Spring IoC Container is the core of Spring Framework. It creates the objects, configures and assembles their
        dependencies, manages their entire life cycle.
     2. Spring IoC is achieved through Dependency Injection.
@@ -243,8 +268,9 @@
 33. Design Pattern used by SpringBoot
     a. Singleton pattern - logging - an application can have more than one Spring container. Therefore, multiple objects of the same class can exist in a single application if we have multiple containers.
     b. Factory pattern - Spring treats a bean container as a factory that produces beans
-    c. Proxy pattern
+    c. Proxy pattern - @Transactional, @Aspect, @Async, @Security, @Cachable, @Retryable
     d. Template pattern - Connecting to DB
+    e. Decorator pattern - Unmodifiable Collection
 
 35. Forward Proxy
     A forward proxy is an application that sits in front of client's device and placed b/w device & internet. Blocking
@@ -341,7 +367,7 @@
                             2. Application server needs to run enterprize application.
 
 
-48. Postgres reads were generally slower than MySQL, but it was capable of writing large amounts of data more efficiently,
+46. Postgres reads were generally slower than MySQL, but it was capable of writing large amounts of data more efficiently,
     and it handled concurrency better.
 
     Postgres is an object-relational database, while MySQL is a purely relational database. This means that Postgres
@@ -354,7 +380,7 @@
     Reliable
     OLTP & OLAP
 
- 47. HashMap
+47. HashMap
 
     Initial array size is 16 buckets, load factor is 0.75. Meaning when it gets 12, it resizes to 32 buckets
 
@@ -466,7 +492,7 @@ By modifying pom.xml, we can change web container from tomcat to jetty
 
 54. Multithreading Principles and Patterns
     1. Immutable Objects
-    2. CQRS pattern
+    2. CQRS pattern - CQRS is an architectural pattern that separates read and write operations into different models to improve scalability, maintainability, and performance.
     3. Producer-Consumer Pattern
     4. Double Checked Locking
     5. Leaders/Followers Pattern
@@ -480,15 +506,18 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     6. Scalability
 
 58. Redis Master vs Sentinals
-    Operation: The Redis Master is the primary node handling data operations, while Redis Sentinel is a monitoring and management system ensuring high availability.
-    Role in Failover: Sentinel is responsible for detecting Master failures and promoting a Replica to Master, whereas the Master simply serves data and replicates it to Replicas.
-    Data Handling: The Master deals directly with data reads and writes; Sentinel does not handle data but manages the state of the Redis nodes.
+    Operation: The Redis Master is the primary node handling data operations, while Redis Sentinel is a monitoring and
+    management system ensuring high availability.
+    Role in Failover: Sentinel is responsible for detecting Master failures and promoting a Replica to Master, whereas
+    the Master simply serves data and replicates it to Replicas.
+    Data Handling: The Master deals directly with data reads and writes; Sentinel does not handle data but manages the
+    state of the Redis nodes.
 
 59. Java Time vs Joda Time
 
     1. Both the times are immutable in nature.
     2. LocalDateTime is part of java.time package. DateTime is part of the Joda-Time library.
-    3. LocalDateTime does not store time zone information.DateTime stores time zone information and provides methods to manipulate it.
+    3. LocalDateTime does not store time zone information. DateTime stores time zone information and provides methods to manipulate it.
     4. LocalDateTime supports nanosecond precision. DateTime supports millisecond precision.
 
 60. Handle Large data set from API
@@ -502,11 +531,6 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     2. Hashtable are fail-safe in nature. Synchronized HashMap are fail-fast in nature.
     3. HashTable was there since JDK 1.1. HashMap is introduced in JDK 1.2.
     4. HashTable is the legacy class.
-
-62. Why should we prefer + operator for String Concatnation
-    1. Simplicity and Readability
-    2. Compiler Optimization: - the Java compiler optimizes the use of the + operator by converting it to use a StringBuilder under the hood.
-    3. using + is more convenient and results in cleaner code compared to explicitly using a StringBuilder or StringBuffer.
 
 63. Null Handling
     1. Instead of returning null, consider using Optional<T>
@@ -565,14 +589,6 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     In contrast, functions are used to perform calculations and return a single value. Use procedures for complex business logic
     and functions for reusable computations or transformations within SQL queries.
 
-71. @Transactional Annotation
-    In Spring Boot, @Transactional annotation is used to define a scope of transaction. This annotation can be applied
-    to the class level or method level. It provides data reliability and consistency. When a method is indicated with
-    @Transactional annotation, it indicates that the particular method should be executed within the context of that
-    transaction. If the transaction becomes successful then the changes made to the database are committed, if any
-    transaction fails, all the changes made to that particular transaction can be rollback and it will ensure that the
-    database remains in a consistent state.
-
 72. static Keyword in Java
     The static keyword in Java is mainly used for memory management. The static keyword in Java is used to share the same
     variable or method of a given class.
@@ -594,6 +610,8 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     corresponding primitive type.
 
 75. Aspect Oriented Programming
+    a. Aspect Oriented Programming (AOP) is a programming paradigm that helps you separate cross-cutting concerns (logic that is used
+    across many places) from your core business logic. Instead of duplicating the same code everywhere, you define it once as an "aspect".
     a. @Aspect - The class which implements the cross-cutting concerns(transaction, logger etc) is known as the aspect. It can be normal class configured through XML configuration or through regular classes annotated with @Aspect.
     b. Weaving - The process of linking Aspects with an Advised Object. It can be done at load time, compile time or at runtime time. Spring AOP does weaving at runtime.
     c. Advice - The job which is meant to be done by an Aspect
@@ -623,15 +641,7 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     d. Flux provides methods for handling multiple elements, such as map, filter, flatMap, concat, merge, etc. Mono provides methods focused on single-element operations, such as map, flatMap, then, block, etc.
     e. Both Flux and Mono provide error-handling mechanisms like onErrorReturn, onErrorResume, and onErrorMap.
 
-79. Idempotency API means that the data/ system state will be the same no matter how many times the API is successfully called with the same request body/parameter.
-
-80. Sealed Class
-    a. Sealed classes allow developers to restrict the inheritance hierarchy of a class or interface.
-    b. Take a Shape class, which can be extended by Circle, Square, or Triangle classes. With Sealed Classes, we can specify that only these three classes can inherit from Shape, and no other class can extend it.
-        1. Defining a sealed class
-        2. Defining a sealed interface
-        3. If non permitted class try to extend or implement, it will get compile time error.
-    c. public sealed interface Vehicle permits Car, Truck {}
+79. Idempotency API means that the data/system state will be the same no matter how many times the API is successfully called with the same request body/parameter.
 
 81. Virtual Thread
     a. Lightweight Nature
@@ -671,7 +681,7 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     Hidden Dependencies: When using @Autowired on fields, dependencies are injected behind the scenes, which can lead to hidden dependencies. This practice makes it difficult to know what a class needs to function correctly, complicating testing and debugging.
     Immutability Issues: Field injection allows dependencies to be mutable, making it easier for a class to change them later. This reduces the immutability of your components, which can lead to bugs that are hard to track down.
     Testing Difficulties: Testing components that rely on field injection can be tricky. Since dependencies are not passed through constructors, you need to mock or inject these fields manually in your test setup, which can add unnecessary boilerplate code.
-    Constructor-Based Injection is Cleaner: With constructor-based injection, dependencies are explicitly declared in the constructor, making it clear which components are needed for the class to work. This approach makes the class more readable, easier to test, and improves overall maintainability.
+    Constructor- Based Injection is Cleaner: With constructor-based injection, dependencies are explicitly declared in the constructor, making it clear which components are needed for the class to work. This approach makes the class more readable, easier to test, and improves overall maintainability.
 
 89. group by vs partioned by
 
@@ -709,27 +719,11 @@ By modifying pom.xml, we can change web container from tomcat to jetty
     Avoids cluttering the heap with redundant objects.
     Pro Tip: If thread safety is a concern, use StringBuffer. But 99% of the time, StringBuilder is your hero.
 
-91. Loops: The Silent Performance Killer (For Certain Collections)
-    Not all loops are created equal! While list.size() is a constant-time operation (O(1)) for an ArrayList, it's an O(n) operation for LinkedList, as it requires traversing the list each time it's called.
-
-    🚨 The Problem (For LinkedList & Certain Collections):
-
-    for (int i = 0; i < list.size(); i++) {  // Potential performance hit for LinkedList
-        // Processing elements
-    }
-    Since LinkedList.size() isn’t cached, it gets recalculated in every iteration, leading to performance degradation in large lists.
-
-    ✅ The Fix (Better for LinkedList & General Best Practice):
-
-    int size = list.size();
-    for (int i = 0; i < size; i++) {
-        // Process elements efficiently
-    }
-    Or even better:
-
-    for (String item : list) {
-        // Cleaner and optimized iteration
-    }
+91. ACID property
+    Atomicity → A transaction executes completely or not at all.
+    Consistency → A transaction keeps the database in a valid state (rules & constraints intact).
+    Isolation → Concurrent transactions don’t affect each other’s execution.
+    Durability → Once a transaction is committed, changes persist even after failures.
 
 92. Memory Leaks: The Silent App Murderer
     Java’s garbage collector isn’t psychic. Unclosed resources, static collections, and rogue listeners can turn your app into a zombie.
@@ -777,7 +771,8 @@ By modifying pom.xml, we can change web container from tomcat to jetty
 96. Synchronization: The Art of Minimalism
     Synchronized blocks are necessary evils. Overuse them, and your app crawls.
 
-    Developers often use synchronized to prevent race conditions. However, using synchronized excessively blocks all threads and reduces parallel performance.
+    Developers often use synchronized to prevent race conditions. However, using synchronized excessively blocks all
+    threads and reduces parallel performance.
 
     Pro Tips:
 
@@ -822,45 +817,60 @@ By modifying pom.xml, we can change web container from tomcat to jetty
      Indexes: If your WHERE clause is slow, you’re missing an index.
 
 98. What is ShedLock in Spring Boot?
-    ShedLock is a distributed lock mechanism designed to ensure that scheduled tasks in a Spring Boot application run only once across multiple instances of the application. It is particularly useful in a clustered or distributed environment where multiple instances of the same application are running simultaneously.
+    ShedLock is a distributed lock mechanism designed to ensure that scheduled tasks in a Spring Boot application run
+    only once across multiple instances of the application. It is particularly useful in a clustered or distributed
+    environment where multiple instances of the same application are running simultaneously.
 
-    In a distributed environment, if you have multiple instances of a Spring Boot application running the same scheduled task, you might encounter issues where the task is executed multiple times (once by each instance). This can lead to data inconsistencies, redundant processing, or other unintended side effects.
+    In a distributed environment, if you have multiple instances of a Spring Boot application running the same scheduled
+    task, you might encounter issues where the task is executed multiple times (once by each instance). This can lead to
+    data inconsistencies, redundant processing, or other unintended side effects.
 
-    ShedLock ensures that only one instance of the application executes the scheduled task at a time, while the other instances skip the execution. It achieves this by using a shared database or another persistent storage mechanism to coordinate the lock.
+    ShedLock ensures that only one instance of the application executes the scheduled task at a time, while the other instances
+    skip the execution. It achieves this by using a shared database or another persistent storage mechanism to coordinate the lock.
 
-    ShedLock provides a distributed locking mechanism that ensures only one instance of the application executes a scheduled task at a time. Here’s how it works in depth:
+    ShedLock provides a distributed locking mechanism that ensures only one instance of the application executes a
+    scheduled task at a time. Here’s how it works in depth:
 
     3.1. Shared Database as the Coordination Mechanism
-    ShedLock uses a shared database (or another persistent storage like Redis) to coordinate task execution. It creates a table (e.g., shedlock) in the database to store lock information. The table typically has the following structure:
+    ShedLock uses a shared database (or another persistent storage like Redis) to coordinate task execution. It creates
+    a table (e.g., shedlock) in the database to store lock information. The table typically has the following structure:
 
     name: Represents the unique name of the scheduled task, such as dailyReportTask.
     locked_at: Holds the timestamp indicating when the lock was acquired by the instance.
-    locked_by: Stores the identifier of the instance (like the hostname) that acquired the lock, ensuring that only one instance executes the task at a time in distributed environments.
+    locked_by: Stores the identifier of the instance (like the hostname) that acquired the lock, ensuring that only one
+    instance executes the task at a time in distributed environments.
 
     3.2. Lock Acquisition Process
     When a scheduled task is triggered, ShedLock performs the following steps:
 
-    Check for an Existing Lock:
+    1. Check for an Existing Lock:
+
     The task checks the shedlock table to see if there is an active lock for the task (i.e., lock_until is in the future).
     If a lock exists, the task skips execution because another instance is already running it.
+
     2. Acquire the Lock:
 
-    If no lock exists or the lock has expired (lock_until is in the past), the task attempts to acquire the lock by inserting or updating a record in the shedlock table.
+    If no lock exists or the lock has expired (lock_until is in the past), the task attempts to acquire the lock by
+    inserting or updating a record in the shedlock table.
     The lock_until field is set to a future timestamp (e.g., current time + lockAtMostFor duration).
+
     3. Execute the Task:
 
     If the lock is successfully acquired, the task proceeds with its execution.
     If the lock acquisition fails (e.g., due to a race condition), the task skips execution.
+
     4. Release the Lock:
 
     After the task completes, the lock is released by updating the lock_until field to the current time or deleting the record.
 
     3.3. Atomicity and Race Condition Prevention
-    ShedLock ensures atomicity by using database transactions or atomic operations (e.g., INSERT ... ON CONFLICT in PostgreSQL or MERGE in SQL Server). This prevents race conditions where multiple instances might try to acquire the lock simultaneously.
+    ShedLock ensures atomicity by using database transactions or atomic operations (e.g., INSERT ... ON CONFLICT in
+    PostgreSQL or MERGE in SQL Server). This prevents race conditions where multiple instances might try to acquire the lock simultaneously.
 
     For example:
 
-    If two instances try to acquire the lock at the same time, only one will succeed in inserting/updating the record in the shedlock table.
+    If two instances try to acquire the lock at the same time, only one will succeed in inserting/updating the record
+    in the shedlock table.
     The other instance will fail to acquire the lock and skip the task execution.
 
     3.4. Fault Tolerance

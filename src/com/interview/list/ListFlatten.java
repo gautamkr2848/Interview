@@ -23,7 +23,7 @@ public class ListFlatten {
         }
     }
 
-    Node flatten(Node root) {
+    static Node flatten(Node root) {
         if (root == null || root.next == null)
             return root;
 
@@ -31,7 +31,7 @@ public class ListFlatten {
     }
 
     // An utility function to merge two sorted linked lists
-    private Node merge(Node a, Node b) {
+    private static Node merge(Node a, Node b) {
         if (a == null)      return b;
         if (b == null)      return a;
 
@@ -46,5 +46,33 @@ public class ListFlatten {
 
         result.next = null;
         return result;
+    }
+
+    public static void main(String[] args) {
+        ListFlatten list = new ListFlatten();
+
+        Node head = list.new Node(5);
+        head.down = list.new Node(7);
+        head.down.down = list.new Node(8);
+        head.down.down.down = list.new Node(30);
+
+        head.next = list.new Node(10);
+        head.next.down = list.new Node(20);
+
+        head.next.next = list.new Node(19);
+        head.next.next.down = list.new Node(22);
+        head.next.next.down.down = list.new Node(50);
+
+        head.next.next.next = list.new Node(28);
+        head.next.next.next.down = list.new Node(35);
+        head.next.next.next.down.down = list.new Node(40);
+        head.next.next.next.down.down.down = list.new Node(45);
+
+        head = flatten(head);
+
+        while(head != null) {
+            System.out.println(head.data);
+            head = head.down;
+        }
     }
 }

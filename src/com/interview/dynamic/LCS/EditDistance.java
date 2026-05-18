@@ -1,25 +1,21 @@
 package com.interview.dynamic.LCS;
 
-// Convert A to B
-
-// Operation 1 (INSERT): Insert any character before or after any index of str1
-// Operation 2 (REMOVE): Remove a character of str1
-// Operation 3 (Replace): Replace a character at any index of str1 with some other character.
+// Given two strings s1 and s2 and below operations that can be performed on s1. The task is to find the minimum number
+// of edits (operations) to convert 's1' into 's2'.
+//
+// Insert: Insert any character before or after any index of s1
+// Remove: Remove a character of s1
+// Replace: Replace a character at any index of s1 with some other character.
 
 public class EditDistance {
 
     // Driver Code
     public static void main(String args[]) {
-        String str1 = "GEEXSFRGEEKKS";
-        String str2 = "GEEKSFORGEEKS";
+        String str1 = "abcd";
+        String str2 = "bcfe";
 
         System.out.println(editDist(str1, str2, str1.length(), str2.length()));
-    }
-
-    static int min(int x, int y, int z) {
-        if (x <= y && x <= z) return x;
-        if (y <= x && y <= z) return y;
-        else return z;
+        System.out.println(editDistDP(str1, str2, str1.length(), str2.length()));
     }
 
     static int editDist(String str1, String str2, int m, int n) {
@@ -31,11 +27,11 @@ public class EditDistance {
 
         // If last characters of two strings are same, nothing much to do. Get the count for remaining strings.
         if (str1.charAt(m - 1) == str2.charAt(n - 1))
-            return 1 + editDist(str1, str2, m - 1, n - 1);
+            return editDist(str1, str2, m - 1, n - 1);
         else
         // If last characters are not same, consider all three operations on last character of first
         // string, recursively compute minimum cost for all three operations and take minimum of three values.
-            return  min(editDist(str1, str2, m, n - 1), // Insert
+            return  1 + min(editDist(str1, str2, m, n - 1), // Insert
                     editDist(str1, str2, m - 1, n), // Remove
                     editDist(str1, str2, m - 1, n - 1) // Replace
         );
@@ -53,7 +49,7 @@ public class EditDistance {
         if (s1.charAt(n - 1) == s2.charAt(m - 1))
             return dp[n][m] = minDis(s1, s2, n - 1, m - 1, dp);
         else
-            return dp[n][m] = 1 + min(minDis(s1, s2, n, m - 1, dp), minDis(s1, s2, n - 1, m, dp), minDis(s1, s2, n - 1, m - 1, dp));
+            return dp[n][m] = min(minDis(s1, s2, n, m - 1, dp), minDis(s1, s2, n - 1, m, dp), minDis(s1, s2, n - 1, m - 1, dp));
     }
 
     public static int editDistDP(String str1, String str2, int m, int n) {
@@ -66,9 +62,9 @@ public class EditDistance {
                 else if (j == 0)        // If second string is empty, only option is  to remove all characters of second string
                     dp[i][j] = i; // Min. operations = i
                 else if (str1.charAt(i - 1) == str2.charAt(j - 1))      // If last characters are same, ignore last char and recur for remaining string
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                    dp[i][j] = dp[i - 1][j - 1];
                 else            // If the last character is different,  consider all possibilities and find the minimum
-                    dp[i][j] = min(
+                    dp[i][j] = 1 + min(
                             dp[i][j - 1], // Insert
                             dp[i - 1][j], // Remove
                             dp[i - 1][j - 1]); // Replace
@@ -76,5 +72,11 @@ public class EditDistance {
         }
 
         return dp[m][n];
+    }
+
+    static int min(int x, int y, int z) {
+        if (x <= y && x <= z) return x;
+        if (y <= x && y <= z) return y;
+        else return z;
     }
 }

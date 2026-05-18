@@ -13,7 +13,7 @@ public class c_NearestGreaterElementOnRight {
 
         for(int i=n-2; i>=0; i--){
             int j;
-            for(j=i+1; j<=n-1; j++){
+            for(j=i+1; j<n; j++){
                 if(a[j] > a[i]) {
                     System.out.print(a[j] + ", ");
                     break;

@@ -2,6 +2,12 @@ package com.interview.list;
 
 public class ReverseLinkedList {
 
+    // 1 2 3 4      prev = null, current = 1
+    // next = 2, current.next = null, prev = 1, current = 2
+    // next = 3, current.next = 1, prev = 2, current = 3
+    // next = 4, current.next = 2, prev = 3, current = 4
+    // next = null, current.next = 3, prev = 4, current = null
+
     public Node reverseList(Node head){
 
         Node prev = null, next;
@@ -16,6 +22,12 @@ public class ReverseLinkedList {
         return prev;
     }
 
+    // 1
+
+    // 1    2
+    // 2
+    // 2    1
+
     // 1    2   3   4
     // 2    3   4
     // 3    4
@@ -24,7 +36,7 @@ public class ReverseLinkedList {
     // 4    3   2
     // 4    3   2   1
 
-    public Node reverseListRecurrsion(Node head){
+    public static Node reverseListRecurrsion(Node head){
 
         if(head == null || head.next == null)
             return head;
@@ -35,5 +47,13 @@ public class ReverseLinkedList {
         head.next = null;
 
         return newHead;
+    }
+
+    public static void main(String[] args) {
+        Node node = new Node(1);
+        node.next = new Node(2);
+        node.next.next = new Node(3);
+        node.next.next.next = new Node(4);
+        reverseListRecurrsion(node);
     }
 }

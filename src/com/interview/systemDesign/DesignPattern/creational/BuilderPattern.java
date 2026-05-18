@@ -18,20 +18,17 @@ package com.interview.systemDesign.DesignPattern.creational;
 class User {
 	private final String name;
 	private final int age;
-	private final String email;
 
 	// Private constructor: only Builder can access it
     User(Builder builder) {
 		this.name = builder.name;
 		this.age = builder.age;
-		this.email = builder.email;
 	}
 
 	// Static nested Builder class
 	public static class Builder {
 		private String name;
 		private int age;
-		private String email;
 
 		public Builder setName(String name) {
 			this.name = name;
@@ -43,11 +40,6 @@ class User {
 			return this;
 		}
 
-		public Builder setEmail(String email) {
-			this.email = email;
-			return this;
-		}
-
 		public User build() {
 			return new User(this);
 		}
@@ -56,7 +48,7 @@ class User {
 	// Just for display
 	@Override
 	public String toString() {
-		return "User{name='" + name + "', age=" + age + ", email='" + email + "'}";
+		return "User{name='" + name + "', age=" + age + "'}";
 	}
 }
 
@@ -65,7 +57,6 @@ public class BuilderPattern {
 		User user = new User.Builder()
 				.setName("Alice")
 				.setAge(30)
-				.setEmail("alice@example.com")
 				.build();
 
 		System.out.println(user);

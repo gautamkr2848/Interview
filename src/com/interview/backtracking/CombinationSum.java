@@ -5,6 +5,8 @@ import java.util.List;
 
 public class CombinationSum {
 
+    // One element can be used multiple times
+
     public static void main(String[] args) {
         int[] a = {2, 4, 8, 6};
         int sum = 8;
@@ -29,4 +31,5 @@ public class CombinationSum {
         findCombinations(index + 1, arr, target, ans, curr);
     }
 
+    // O(k*2^n) time complexity
 }

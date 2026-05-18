@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GroupAnagram {
 
-    public void groupAnagram(){
+    public static void groupAnagram(){
         String arr[] = { "cat", "dog", "tac", "god", "act" };
         HashMap<String, List<String>> map = new HashMap<>();
 
@@ -31,5 +31,9 @@ public class GroupAnagram {
             if (values.size() > 1)
                 System.out.print(values.toString());
         }
+    }
+
+    public static void main(String[] args) {
+        groupAnagram();
     }
 }

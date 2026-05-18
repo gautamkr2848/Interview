@@ -1,5 +1,6 @@
 package com.interview.array;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,4 +21,18 @@ public class MissingSmallestPositiveNo {
             index++;
         }
     }
+
+    static int missingNumber(int[] arr) {
+        Arrays.sort(arr);
+        int missing = 1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == missing) {
+                missing++;
+            } else if (arr[i] > missing) {
+                break;
+            }
+        }
+        return missing;
+    }
+
 }

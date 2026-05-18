@@ -41,9 +41,12 @@ public class MaxHistogramArea {
 
     public static void main(String[] args) {
         maxArea_2();
+        int[] a = { 6, 2, 5, 4, 5, 1, 6 };
+        System.out.println(largestRectangleArea(a));
+        maxHistogram2(a);
     }
 
-    public int largestRectangleArea(int[] heights) {
+    public static int largestRectangleArea(int[] heights) {
         int n = heights.length;
         int[] nsr = new int[n];
         int[] nsl = new int[n];
@@ -82,4 +85,31 @@ public class MaxHistogramArea {
 
         return area;
     }
+
+    private static void maxHistogram2(int[] heights) {
+        Stack<Integer> stack = new Stack<>();
+        int maxArea = 0;
+        int n = heights.length;
+
+        for (int i=0; i<n; i++) {
+            while (!stack.isEmpty() && heights[i] < heights[stack.peek()]) {
+                int element = heights[stack.pop()];
+                int nse = i;
+                int pse = stack.isEmpty() ? -1 : stack.peek();
+                maxArea = Math.max(maxArea, element * (nse - pse - 1));
+            }
+            stack.push(i);
+        }
+
+        while (!stack.isEmpty()) {
+            int element = heights[stack.pop()];
+            int nse = n;
+            int pse = stack.isEmpty() ? -1 : stack.peek();
+            maxArea = Math.max(maxArea, element * (nse - pse - 1));
+        }
+        System.out.println(maxArea);
+    }
+
+    // Time Complexity = O(n + n + n) = O(n)
+    // Space Complexity: ✅ O(n) (stack)
 }

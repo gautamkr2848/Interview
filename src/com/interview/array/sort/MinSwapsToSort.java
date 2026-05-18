@@ -27,10 +27,10 @@ public class MinSwapsToSort {
             map.put(temp[i], i);
 
         for (int i = 0; i < N; i++){
-
-            if(i != map.get(arr[i])) {
+            int index = map.get(arr[i]);
+            if(i != index) {
                 count++;
-                swap(arr, i, map.get(arr[i]));
+                swap(arr, i, index);
                 i--;
             }
         }
