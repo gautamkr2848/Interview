@@ -29,7 +29,16 @@ Mimecast - 3
 5. Kafka Consumer Group offset updation, SQS Visibility timeout
 6. SQS - FIFO
 7. Overloading vs overriding vs method hiding
-8. Static class
+8. Static class - A static class usually means a static nested class. Static nested class does NOT hold hidden reference to outer object.
+                  Static nested class CANNOT access non-static members directly.
+    Use when:
+        * helper class logically belongs to outer class
+        * but does not need outer object data
+
+    Example - Builder Pattern
+    Can top-level class be static? - NO
+    Rule of thumb - If nested class does NOT need outer instance: make it static 👍
+
 9. Got the offer
 
 Bristlecone - 1 (Posotion on Hold)
@@ -54,7 +63,7 @@ Rakuten - 5
 1. Design Controller class
 2. Design Stock broker
 3. Stream API java 8
-4. Remove duplicates from string
+4. Remove duplicates from string => return str.chars().distinct().mapToObj(c -> String.valueOf((char) c)).collect(Collectors.joining());
 5. Array sorting
 6. Java oops
 7. Synchronized vs concurrent hashmap
@@ -77,13 +86,16 @@ Synechron - 7
 4. SOLID
 5. Cyclic dependency - Constructor / Setter Injection, Lazy Injection
 6. Spring Features
-7. Fail safe vs Fail fast
+7. Fail safe vs Fail fast - Fail-Fast and Fail-Safe describe how collections behave when modified during iteration. eg - ConcurrentModificationException
 8. Spring Actuator - Spring Boot Actuator is a sub-project of Spring Boot that provides production-ready features to help you monitor and manage your application
     🔍 Monitoring ->	Health, metrics, logging levels, memory, threads
     ⚙️ Management ->	Environment properties, beans, caches, shutdown
     🔐 Security ->	Integration with Spring Security
     📈 Metrics ->	Ready for Prometheus, Micrometer, Grafana, etc.
 9. Primary key vs unique key
+    * Primary Key and Unique Key both enforce uniqueness, but they are not the same.
+    * A primary key: uniquely identifies each row in a table.
+    * A unique key: ensures all values in a column are different
 10. save vs saveAll
 11. Docker file
 12. kafka message order
@@ -200,6 +212,10 @@ Connectwise - 3
     - Will the class override both the methods
     - Interface A method has different implementation than Interface B method
     - How the implementation of the class will look like
+
+    If two interfaces have the same method signature, the class implements it once. But if both provide default implementations,
+    the class must override and resolve the conflict explicitly using InterfaceName.super.method().
+
 5. Circut Breaker
 6. Which internal DS recurrsion uses
 7. why array index starts from 0
@@ -207,6 +223,7 @@ Connectwise - 3
 9. What does JWT contains?
 10. Mysql read/write vs Postgres read/write
 11. Kafka exception handling
+12. How do you choose a database while designing an application?
 
 Managerial
 1. Tell me about a production issue you handled.

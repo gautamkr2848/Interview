@@ -70,6 +70,7 @@ public class c_MaxStolenVaue {
             return (x < z) ? z : x;
     }
 
+    // only work for 2 consecutive houses
     public void maxLoot_circularArray() {
         // use same logic
         // include 1st element and exclude last element

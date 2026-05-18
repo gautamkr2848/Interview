@@ -24,7 +24,6 @@ public class h_MideanOfRunningInt {
     static PriorityQueue<Integer> minHeap;
 
     public static void main(String[] args) {
-        h_MideanOfRunningInt h = new h_MideanOfRunningInt();
         int[] a = {5, 15, 1, 3};
         for(int i=0; i<a.length; i++) {
             insert(a[i]);

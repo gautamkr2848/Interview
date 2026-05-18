@@ -1,9 +1,23 @@
 package com.interview.matrix;
 
+// rotating a matrix by 90° anticlockwise
+// Reverse every row
+// Transpose the matrix
+
 /*
 1 2 3       3 2 1       3 6 9
 4 5 6   =>  6 5 4   =>  2 5 8
 7 8 9       9 8 7       1 4 7
+*/
+
+// rotating a matrix by 90° anticlockwise
+// Transpose the matrix
+// Reverse every row
+
+/*
+1 2 3       1 4 7       7 4 1
+4 5 6   =>  2 5 8   =>  8 5 2
+7 8 9       3 6 9       9 6 3
 */
 
 public class MatrixRotationClock_90 {

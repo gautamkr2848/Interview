@@ -199,7 +199,7 @@ Rupeek - 2
 
 MoneyView - 2
 1. Kadane Algo
-2. Max Number from given digits
+2. MaxNumberFromList
 3. Delete, Truncate, Drop
     Delete - DML, can restore
     Truncate - DDL, cant restore

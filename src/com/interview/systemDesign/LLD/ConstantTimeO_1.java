@@ -33,7 +33,7 @@ public class ConstantTimeO_1 {
         // list[] can be done in O(1) time
         int size = list.size();
         Integer last = list.get(size-1);
-        Collections.swap(list, index,  size-1);
+        Collections.swap(list, index, size-1);
         list.remove(size-1);     // Remove last element
         map.put(last, index);     // Update hash table for new index of last element
     }

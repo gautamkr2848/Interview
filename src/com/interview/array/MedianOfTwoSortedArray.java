@@ -1,7 +1,5 @@
 package com.interview.array;
 
-import java.util.Arrays;
-
 public class MedianOfTwoSortedArray {
 
     public double findMedian(int[] nums1, int[] nums2) {

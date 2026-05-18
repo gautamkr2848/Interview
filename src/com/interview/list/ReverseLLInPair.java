@@ -3,27 +3,36 @@ package com.interview.list;
 public class ReverseLLInPair {
 
     public static Node reverseInPairs(Node head) {
-        if (head == null || head.next == null) return head;
 
-        Node dummy = new Node(0);
-        dummy.next = head;
-        Node prev = dummy;
+        if (head == null || head.next == null)
+            return head;
 
-        while (head != null && head.next != null) {
-            Node first = head;
-            Node second = head.next;
+        Node prev = null;
+        Node curr = head;
 
-            // Swap
-            prev.next = second;
-            first.next = second.next;
-            second.next = first;
+        // New head will be second node
+        head = head.next;
 
-            // Move pointers
-            prev = first;
-            head = first.next;
+        while (curr != null && curr.next != null) {
+
+            Node next = curr.next;
+            Node nextPair = next.next;
+
+            // Reverse current pair
+            next.next = curr;
+            curr.next = nextPair;
+
+            // Connect previous pair
+            if (prev != null) {
+                prev.next = next;
+            }
+
+            // Move prev and curr forward
+            prev = curr;
+            curr = nextPair;
         }
 
-        return dummy.next;
+        return head;
     }
 
     public static void main(String[] args) {
@@ -38,20 +47,5 @@ public class ReverseLLInPair {
             System.out.print(node.data + " -> ");
             node = node.next;
         }
-    }
-
-    //Base case: if 0 or 1 node is left → return as is.
-    //Recursively reverse the rest of the list after the first two nodes.
-    //Swap the first two nodes.
-    //Connect the reversed rest of the list after the swapped pair.
-
-    public static Node reverseInPairs_2(Node head) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-        Node second = head.next;
-        head.next = reverseInPairs(second.next);
-        second.next = head;
-        return second;
     }
 }

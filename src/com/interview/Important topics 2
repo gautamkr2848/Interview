@@ -814,3 +814,43 @@ File Handling	            Basic	                            Advanced (Files, Pat
 10k connections	            Crashes / slow	                    Stable
 CPU usage	                High	                            Efficient
 Memory usage	            High (threads)	                    Low
+
+61. Database Selection
+
+Choosing a database isn’t about “SQL vs NoSQL” — it’s about matching your workload to the database’s strengths. If you
+skip this thinking, you’ll pay for it later in scaling, cost, or complexity.
+
+    🧠 1. Data Model & Structure
+        a. Is your data structured or unstructured?
+        b. Do relationships matter?
+
+    ⚡ 2. Read vs Write Pattern
+        a. Read-heavy or write-heavy?
+        b. Real-time or batch?
+
+    📈 3. Scalability Requirements - Will traffic grow to millions?
+    🔒 4. Consistency vs Availability (CAP Theorem)
+    ⚙️ 5. Transactions & ACID
+    🚀 6. Performance & Latency - Do you need millisecond response?
+    📊 7. Query Patterns
+    🧩 8. Schema Flexibility
+    💰 9. Cost & Operational Overhead
+    🔐 10. Reliability & Fault Tolerance - Replication? Backup? Disaster recovery?
+    🛠️ 11. Ecosystem & Tooling - Monitoring support? Community? Language compatibility (Java in my case)
+    🎯 12. Real Use-Case Mapping
+    | Use Case           | Best Choice      |
+    | ------------------ | ---------------- |
+    | Banking system     | PostgreSQL       |
+    | E-commerce catalog | MongoDB          |
+    | Real-time cache    | Redis            |
+    | Analytics / logs   | Apache Cassandra |
+
+62. Basic vs Bearer Token
+
+    Aspect	                Basic	                Bearer
+    Credential Type	        Username + Password	    Token
+    Security	            Lower	                Higher
+    Revocation	            Hard	                Easier
+    Expiry Support	        No	                    Yes
+    OAuth Compatible	    No	                    Yes
+    Common Today	        Less	                Very common
