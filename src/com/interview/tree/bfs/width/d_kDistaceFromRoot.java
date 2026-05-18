@@ -7,23 +7,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class d_kDistaceFromRoot {
-    ArrayList<Integer> list = new ArrayList<>();
-
-    public ArrayList<Integer> Kdistance(Node root, int k){
-        m1(root, k);
-        return list;
-    }
-
-    private void m1(Node root, int k){
-        if (root == null|| k < 0 )
-            return;
-        if (k == 0){
-            list.add(root.key);
-            return;
-        }
-        m1(root.left, k - 1);
-        m1(root.right, k - 1);
-    }
 
     public void Kdistance_2(){
 

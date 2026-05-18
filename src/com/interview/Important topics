@@ -54,13 +54,22 @@
     component acts as a registry in which the addresses of all instances are tracked.
 
 6. Database Sharding
-    Example of horizontal Sharding
+    * Database sharding is a technique where a large database is split into smaller, independent databases (shards) and
+    each shard stores a subset of the data.
+    * A shard key is used to decide where data goes.
+    * Horizontal Sharding
         User table - Storing all the users
         After Sharding -
             Stores  A-I in user1 table
                     J-S in user2 table
                     T-Z in user3 table
-
+    * Vertical Sharding - Tables are split by feature/domain:
+        User DB → user info
+        Order DB → order info
+        Payment DB → payment info
+    * Hash-Based Sharding - shard = hash(user_id) % N
+    * Range-Based Sharding
+    * Geo Sharding
 
 7. Load Balancing   =>  Ribbon
     Load balancing refers to the process of distributing a set of tasks over a set of resources,
@@ -78,6 +87,20 @@
         d. Flexibility
 
 8. nginx - https://medium.com/devopscurry/what-is-nginx-understanding-the-basics-of-nginx-in-2021-f8ee0f3d3d54
+    * NGINX is a web server (serves static content) but commonly used as a reverse proxy. It can be scaled efficiently as a web server as well as
+    a reverse proxy. It creates a process pool that can be easily shared among multiple connections within the network.
+    Whenever a request is made, a resource will be allocated to the process resulting in better resource utilization
+    that can easily handle extensive connections.
+    * NGINX also helps in setting up a secured connection between your data-centers and the outside network.
+    * It provides a single entry point
+    * Caching
+    * Provide multiple backend apps
+    * Zero downtime
+    * Mitigate DoS attacks- NGINX is well-known for handling tons of incoming requests or HTTP traffic, ensuring
+    application safety during high traffic, common cache response, and deliver request smoothly. NGINX works as a shock
+    absorber for your application.
+    * Scalability and fault tolerance- the load balancing, health checks features of NGINX allow you to scale your
+    back-end infrastructure so that adding or removing any microservice will not impact the user’s experience.
 
 9. Consistent Hashing
     https://medium.com/@sandeep4.verma/consistent-hashing-8eea3fb4a598
@@ -112,6 +135,10 @@
         SSL Certification
         Cache & storing Static Content
 
+        👉 NGINX handles traffic entry
+        👉 API Gateway handles API logic
+        👉 Real world = Client -> nginx -> API Gateway -> Server
+
 14. Executor Service
      Java provides its own multi-threading framework called the Java Executor Framework.
             1. SingleThreadExecutor =>  LinkedBlockingQueue
@@ -143,9 +170,7 @@
 
 20. CAP Theorem - https://designsystemsweekly.substack.com/p/a-plain-english-introduction-to-cap
 
-    A partition is a communications break within a distributed system — a lost or temporarily delayed connection between
-    two nodes. Partition tolerance means that the cluster must continue to work despite any number of communication
-    breakdowns between nodes in the system.
+    Partition tolerance = system continues working even when network communication fails between nodes.
 
 21. Indexing - https://chartio.com/learn/databases/how-does-indexing-work/
     In reality the database table does not reorder itself every time the query conditions change in order to optimize
@@ -179,6 +204,9 @@
     If o1.equals(o2), then o1.hashCode() == o2.hashCode() should always be true.
     If o1.hashCode() == o2.hashCode is true, it doesn’t mean that o1.equals(o2) will be true
 
+    👉 Without overriding equals() and hashCode(), Java collections treat every object as unique even if their data is
+    identical, because comparison is based on memory reference, not content.
+
 
 25. Marker Interface
     It is an empty interface (no field or methods). Examples of marker interface are Serializable,
@@ -205,13 +233,15 @@
     Many Spring Boot developers like their apps to use auto-configuration, component scan and be able to define extra
     configuration on their "application class". A single @SpringBootApplication annotation can be used to enable those
     three features, that is:
-
         @EnableAutoConfiguration: enable Spring Boot’s auto-configuration mechanism
+            * If spring-boot-starter-web is present → configure Tomcat
+            * If spring-boot-starter-data-jpa is present → configure JPA
+            * If mysql driver is present → configure datasource
         @ComponentScan: Enables scanning of @Component, @Service, @Repository, @Controller etc. in the package and subpackages.
         @Configuration: allow to register extra beans in the context or import additional configuration classes
 
 30. Spring IoC (Inversion of Control)
-    0. Inversion of Control is a principle in software engineering which transfers the control of objects to a container
+    0. Inversion of Control = Giving the control of objects to a container
     1. Spring IoC Container is the core of Spring Framework. It creates the objects, configures and assembles their
        dependencies, manages their entire life cycle.
     2. Spring IoC is achieved through Dependency Injection.

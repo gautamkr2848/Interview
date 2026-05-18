@@ -31,20 +31,21 @@ public class SerializeAndDeserializeBinaryTree {
 
     static int t = 0;
     public Node deserialize(String data) {
-        if (data == null)
+        if (data == null || data.isEmpty())
             return null;
         String[] arr = data.split(",");
         return helper(arr);
     }
 
     public Node helper(String[] arr) {
-        if (arr[t].equals("#"))
+        if (arr[t].equals("#")) {
+            t++;
             return null;
+        }
 
         Node root = new Node(Integer.parseInt(arr[t]));
         t++;
         root.left = helper(arr);
-        t++;
         root.right = helper(arr);
         return root;
     }

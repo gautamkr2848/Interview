@@ -45,6 +45,8 @@ public class MaxSumRectangle {
         System.out.println(maxSum);
     }
 
+    // Time Complexity - O(col pow 2 * row)
+
     public static void main(String[] args) {
         maxSumRectangle();
     }

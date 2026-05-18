@@ -70,6 +70,9 @@ public class ListFlatten {
 
         head = flatten(head);
 
-        System.out.println(head.data);
+        while(head != null) {
+            System.out.println(head.data);
+            head = head.down;
+        }
     }
 }
